@@ -5,6 +5,8 @@ contract MedImpact {
     
     // model MedicalStore
     struct MedicalStore {
+        uint256 latitude;
+        uint256 longitude;
         address owner;
         string name;
         string email;
@@ -40,19 +42,17 @@ contract MedImpact {
     // store the number of medical stores
     uint256 public medicalStoresCount;
 
-    mapping(uint => Image) public images;
-
     constructor() public {
-        addMedicalStore("Real Medicos", "realmedicos@gmail.com", "9976565437");
+        //addMedicalStore("Real Medicos", "realmedicos@gmail.com", "9976565437", "xyzhash");
     }
 
     // function to add new medical store
-    function addMedicalStore(string memory _medicalStoreName, string memory _email, string memory _phoneno, string memory _aadhaarCardHash) public {
+    function addMedicalStore(uint256 _latitude, uint256 _longitude, string memory _medicalStoreName, string memory _email, string memory _phoneno, string memory _aadhaarCardHash) public {
         require(medicalStores[_medicalStoreName].exists == false, "Medical store name already exists");
         
         medicalStoresCount++;
-        medicalStores[_medicalStoreName] = MedicalStore(msg.sender, _medicalStoreName, _email, _phoneno, 0, 0, _aadhaarCardHash, true);
-        myMedicalStores[msg.sender][_medicalStoreName] = MedicalStore(msg.sender, _medicalStoreName, _email, _phoneno, 0, 0, _aadhaarCardHash, true);
+        medicalStores[_medicalStoreName] = MedicalStore(_latitude, _longitude, msg.sender, _medicalStoreName, _email, _phoneno, 0, 0, _aadhaarCardHash, true);
+        myMedicalStores[msg.sender][_medicalStoreName] = MedicalStore(_latitude, _longitude, msg.sender, _medicalStoreName, _email, _phoneno, 0, 0, _aadhaarCardHash, true);
     }
 
     // function to add new stock of a specific medicine having a particular expiry date to a particular medical store
