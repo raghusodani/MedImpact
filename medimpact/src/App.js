@@ -9,9 +9,14 @@ import { getToken } from './helpers/LocalStorageValidator';
 import FirstTimeLogin from './components/FirstTimeLogin/FirstTimeLogin';
 function App() {
   let token = getToken();
-  const checkAuth = () => {
+  const checkAuth = (type) => {
     if (token) {
+      switch (type) {
+      case 'Dashboard':
       return <Dashboard/>
+      case 'FirstTimeLogin':
+      return <FirstTimeLogin/> 
+    }
     }
     else {
       return <Login/>
@@ -24,10 +29,10 @@ function App() {
         <Switch>
           <Redirect exact from="/" to="/login" />
           <Route path="/login" component={Login} />
-          <Route path ='/dashboard/:type' component={()=>checkAuth} />
+          <Route path ='/dashboard/:type' component={()=>checkAuth("Dashboard")} />
           <Route path = "/signup" component = {Signup} />
           <Route path="/verification/:token" component={VerifyEmail} />
-          <Route path="/signupDetails" component={FirstTimeLogin} />
+          <Route path="/signupdetails" component={()=>checkAuth("FirstTimeLogin")} />
         </Switch>
       </Router>
 
