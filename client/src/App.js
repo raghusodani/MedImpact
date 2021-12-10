@@ -12,12 +12,17 @@ import Dashboard from './views/Dashboard/Dashboard';
 import { getToken } from './helpers/LocalStorageValidator';
 function App() {
   let token = getToken();
-  const checkAuth = () => {
+  const checkAuth = (type) => {
     if (token) {
-      return <Dashboard/>
+      switch (type) {
+        case 'Dashboard':
+          return <Dashboard />
+        case 'FirstTimeLogin':
+          return <FirstTimeLogin />
+      }
     }
     else {
-      return <Login/>
+      return <Login />
     }
   }
 
@@ -110,9 +115,11 @@ function App() {
         <Switch>
           <Redirect exact from="/" to="/login" />
           <Route path="/login" component={Login} />
-          <Route path ='/dashboard/:type' component={()=>checkAuth} />
-          <Route path = "/signup" component = {Signup} />
+          <Route path='/dashboard/:type' component={() => checkAuth("Dashboard")} />
+          <Route path="/signup" component={Signup} />
           <Route path="/verification/:token" component={VerifyEmail} />
+          <Route path="/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
+          <Route path='/map' component={Map} />
         </Switch>
       </Router>
 
