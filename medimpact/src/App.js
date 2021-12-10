@@ -5,6 +5,7 @@ import Login from './views/Auth/Login/Login';
 import Signup from './views/Auth/Signup/Signup';
 import VerifyEmail from './views/Auth/VerifyEmail/VerifyEmail';
 import Dashboard from './views/Dashboard/Dashboard';
+import Map from './components/Map/Map';
 import { getToken } from './helpers/LocalStorageValidator';
 import FirstTimeLogin from './components/FirstTimeLogin/FirstTimeLogin';
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path = "/signup" component = {Signup} />
           <Route path="/verification/:token" component={VerifyEmail} />
           <Route path="/signupdetails" component={()=>checkAuth("FirstTimeLogin")} />
+          <Route path='/map' component={Map} />
         </Switch>
       </Router>
 
