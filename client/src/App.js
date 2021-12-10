@@ -57,6 +57,8 @@ function App() {
 
       setLoading(false);
 
+      console.log("medicalStoresCount", contract.methods.medicalStoresCount().call());
+
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
