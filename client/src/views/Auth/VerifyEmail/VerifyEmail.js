@@ -5,14 +5,14 @@ function VerifyEmail() {
      const {token} = useParams()
      const [countDown, setCountDown] = useState(5)
     useEffect(() => {
-        axios.get(`http://localhost:5000/verification/${token}`)
+        axios.get(`https://medimpact.herokuapp.com/auth/verify/${token}`)
         .then(res => {
             console.log("🚀 get verify", res.data)
             if(res.data.success){
                 setCountDown(5)
                 setTimeout(function() {
                     window.location.replace('http://localhost:3000/login');
-                  }, 5000);
+                  }, 50000);
             }
         })
         .catch(err => {
