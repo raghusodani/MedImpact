@@ -1,4 +1,3 @@
-
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import Login from './views/Auth/Login/Login';
@@ -23,7 +22,8 @@ function App() {
         <Switch>
           <Redirect exact from="/" to="/login" />
           <Route path="/login" component={Login} />
-          <Route path ='/dashboard/:type' component={()=>checkAuth} />
+          {/* <Route path ='/dashboard/:type' component={()=>checkAuth} /> */}
+          <Route path = "/dashboard" component = {Dashboard} />
           <Route path = "/signup" component = {Signup} />
           <Route path="/verification/:token" component={VerifyEmail} />
         </Switch>
