@@ -6,14 +6,23 @@ import VerifyEmail from './views/Auth/VerifyEmail/VerifyEmail';
 import Dashboard from './views/Dashboard/Dashboard';
 import { getToken } from './helpers/LocalStorageValidator';
 function App() {
-  
+  let token = getToken();
+  const checkAuth = () => {
+    if (token) {
+      return <Dashboard/>
+    }
+    else {
+      return <Login/>
+    }
+  }
+
   return (
     <div className="App">
       <Router>
         <Switch>
           <Redirect exact from="/" to="/login" />
           <Route path="/login" component={Login} />
-          <Route path ='/dashboard/:type' component={()=>{getToken() ? Dashboard : Login}} />
+          <Route path ='/dashboard/:type' component={()=>checkAuth} />
           <Route path="/verification/:token" component={VerifyEmail} />
         </Switch>
       </Router>

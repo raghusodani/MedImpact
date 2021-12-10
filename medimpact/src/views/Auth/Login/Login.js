@@ -9,7 +9,7 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(email, password)
-        axios.post('http://localhost:5000/api/auth/login', {
+        axios.post('https://medimpact.herokuapp.com/auth/login', {
                 email,
                 password
             })
