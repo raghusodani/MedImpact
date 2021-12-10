@@ -1,7 +1,9 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import { setSessionStorage } from '../../../helpers/LocalStorageValidator'
+import { useHistory } from 'react-router-dom'
 function Login() {
+    const history = useHistory
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const handleSubmit = (e) => {
@@ -12,7 +14,9 @@ function Login() {
                 password
             })
             .then(res => {
-                setSessionStorage(res.data.token)
+                console.log("🚀 login", res.data)
+                setSessionStorage(res.data.token,res.data.type)
+                history.push(`/dashboard/${res.data.type}`)
             })
             .catch(err => {
                 console.log(err)
