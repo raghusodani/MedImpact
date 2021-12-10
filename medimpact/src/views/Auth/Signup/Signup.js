@@ -20,10 +20,10 @@ function Signup() {
         console.log(email);
         console.log(password);
         console.log(userType);
-        axios.post('/user', {
+        axios.post('https://medimpact.herokuapp.com/auth/register', {
             email: email,
-            lastName: password,
-            usertype: userType
+            password: password,
+            type: userType
           })
           .then((response) => {
             console.log(response);
@@ -33,7 +33,6 @@ function Signup() {
             else {
                 alert("Registered Successfully");
                 history.push("/login");
-                
             }
           })
           .catch(function (error) {

@@ -3,19 +3,19 @@ import axios from 'axios'
 import { setSessionStorage } from '../../../helpers/LocalStorageValidator'
 import { useHistory } from 'react-router-dom'
 function Login() {
-    const history = useHistory
+    const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(email, password)
+        console.log("🚀 login payload",email, password)
         axios.post('https://medimpact.herokuapp.com/auth/login', {
                 email,
                 password
             })
             .then(res => {
                 console.log("🚀 login", res.data)
-                setSessionStorage(res.data.token,res.data.type)
+                setSessionStorage(res.data.Authorization,res.data.type)
                 if(res.data.isFirstLogin){
                     history.push('/signupDetails')
                 }
@@ -24,6 +24,9 @@ function Login() {
             })
             .catch(err => {
                 console.log(err)
+                if(err.response.status === 400){
+                    alert("Invalid email or password")
+                }
             })
 
     }
@@ -33,7 +36,7 @@ function Login() {
                 <div className="max-w-md w-full space-y-8 card-title">
                     <div>
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                        Sign in to your account
+                        Log in to your account
                     </h2>
                     </div>
                     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
