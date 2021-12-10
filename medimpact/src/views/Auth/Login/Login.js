@@ -66,6 +66,11 @@ function Login() {
                         Sign in
                         </button>
                     </div>
+                    <div>
+                    <a href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
+                            Don't have an account ? Sign Up
+                        </a>
+                    </div>
                     </form>
                 </div>
                 </div>
