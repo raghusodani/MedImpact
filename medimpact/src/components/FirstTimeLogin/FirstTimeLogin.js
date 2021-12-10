@@ -1,4 +1,6 @@
+import axios from 'axios'
 import React,{useState} from 'react'
+import { getToken } from '../../helpers/LocalStorageValidator'
 import Input from '../Input/Input'
 
 function FirstTimeLogin() {
@@ -31,16 +33,50 @@ function FirstTimeLogin() {
     const handlePincodeChange = (e) => {
         setPincode(e.target.value)
     }
-    
+    const handleSubmit = (e) => {
+        const payload = {
+            store,
+            owner,
+            phone,
+            landmark,
+            city,
+            address,
+            pincode
+        }
+        axios.post('https://medimpact.herokuapp.com/auth/addDetails',payload, {
+            headers: {
+                Authorization : getToken()
+            }
+            })
+            .then(res => {
+                console.log(res)
+            }
+            )
+    }   
+
     return (
-        <div>
+        <div className='card border rounded ' 
+            style={{
+                width: '50%',
+                margin: '40px auto ',
+            }}
+        >
             <Input type="text" placeholder="Store Name" value={store} onChange={handleStoreChange}/>
             <Input type="text" placeholder="Owner Name" value={owner} onChange={handleOwnerChange}/>
-            <Input type="number" placeholder="Phone Number" value={phone} onChange={handlePhoneChange}/>
+            <Input type="text" placeholder="Phone Number" value={phone} onChange={handlePhoneChange}/>
             <Input type="text" placeholder="Landmark" value={landmark} onChange={handleLandmarkChange}/>
             <Input type="text" placeholder="Address" value={address} onChange={handleAddressChange}/>
             <Input type="text" placeholder="City" value={city} onChange={handleCityChange}/>
-            <Input type="number" placeholder="Pincode" value={pincode} onChange={handlePincodeChange}/>
+            <Input type="text" placeholder="Pincode" value={pincode} onChange={handlePincodeChange}/>
+            <button className='btn btn-primary' 
+                style={{
+                    width: '100%',
+                    marginTop: '20px'
+                }}
+                onClick={handleSubmit}
+            >
+                Save
+            </button>
         </div>
     )
 }
