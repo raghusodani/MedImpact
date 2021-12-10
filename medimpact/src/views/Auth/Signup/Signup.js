@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import {useHistory } from 'react-router-dom';
-
+import Input from '../../../components/Input/Input';
 function Signup() {
     let history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userType, setUserType] = useState('');
     
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    }
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -47,20 +53,17 @@ function Signup() {
                     <form class="mt-8 space-y-6" action="#" method="POST" onSubmit = {handleSubmit}>
                         <input type="hidden" name="remember" value="true"/>
                         <div class="rounded-md shadow-none -space-y-px flex-col gap-x-2">
-                            <div>
-                                <label for="email-address" class="sr-only">Your e-mail</label>
-                                <input id="email-address" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" 
-                                    onChange={(e)=>setEmail(e.target.value)}
-                                />
-                            </div>
-                            <div>
+
+                            <Input type='Email' placeholder="Email" value={email} onChange={handleEmailChange}/>
+                            <Input type='Password' placeholder="Password" value={password} onChange={handlePasswordChange}/>
+                            {/* <div>
                                 <label for="password" class="sr-only">Password</label>
                                 <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" 
                                 onChange={(e) => setPassword(e.target.value)}/>
-                            </div>
+                            </div> */}
                         </div>
                         <div>               
-                            <select class="w-full text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-none focus:outline-none focus:ring-primary-500 focus:border-primary-500 mt-2" name="usertype" 
+                            <select class="w-full text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-none focus:outline-none focus:ring-primary-500 focus:border-primary-500 " name="usertype" 
                             onChange={(e) => setUserType(e.target.value)}>
                                 <option value="">
                                     Select User Type

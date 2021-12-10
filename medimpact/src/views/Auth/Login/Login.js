@@ -16,6 +16,10 @@ function Login() {
             .then(res => {
                 console.log("🚀 login", res.data)
                 setSessionStorage(res.data.token,res.data.type)
+                if(res.data.isFirstLogin){
+                    history.push('/signupDetails')
+                }
+                else
                 history.push(`/dashboard/${res.data.type}`)
             })
             .catch(err => {
