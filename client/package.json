@@ -1,5 +1,5 @@
 {
-  "name": "medimpact",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,7 +12,8 @@
     "react-router": "^6.0.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.0-next.58",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "web3": "1.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
