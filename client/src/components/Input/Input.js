@@ -1,8 +1,9 @@
 import React from 'react'
 
+
 function Input({value,type,onChange,placeholder,style,name}) {
     return (
-        <div>
+        <div >
             <div>
             <label 
                 class="sr-only"

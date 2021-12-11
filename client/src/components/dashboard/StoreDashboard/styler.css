@@ -1,12 +1,44 @@
-.nav-block{
-    width: 100%;
-    height: 30px;
-    border-radius: 0px;
-    border: none;
-    background-color: #4F46E5;
-}
+
 .nav-container{
     height: 5%;
+    background-color: #4CCCC0;
+    align-items: center;
+}
+.navbar-brand{
+    font-size: 23px;
+    color: white;
+    margin-left: 1%;
+    transition: 0.3s ease-in-out;
+}
+.navbar-brand:hover{
+    font-size: 25px;
+    color: white ;
+    transition: 0.3s ease-in-out;
+}
+.nav-item{
+    display: inline-block;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 15px;
+}
+.btn-logout{
+    background-color:white ;
+    color: #4CCCC0;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding:0 10px;
+    height: 40px;
+    margin: 0 15px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+.nav-item:hover{
+    background-color: #4CCCC0;
+    color: white;
 }
 .navbar-nav{
     padding-right: 2%;

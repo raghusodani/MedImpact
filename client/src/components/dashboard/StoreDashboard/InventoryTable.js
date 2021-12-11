@@ -6,7 +6,7 @@ function InventoryTable() {
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                    <th scope="col">Serial No.</th>
+                    <th scope="col">Batch No.</th>
                     <th scope="col">Medicine</th>
                     <th scope="col">Price</th>
                     <th scope="col">Quantity</th>

@@ -14,7 +14,11 @@ import Billing from './views/Billing/Billing';
 import Inventory from './views/Inventory/Inventory';
 import SearchContent from './views/Search/SearchContent';
 import NavBar from './components/dashboard/StoreDashboard/NavBar';
+
 import Invoice from './views/Invoice/Invoice';
+
+import Home from './views/Landing/Home';
+
 function App() {
   let token = getToken();
   let type = getType();
@@ -132,10 +136,12 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar/>
+      
       <Router>
+      <NavBar/>
         <Switch>
-          <Redirect exact from="/" to="/login" />
+          <Redirect exact from="/" to="/home" />
+          <Route path="/home" component={Home} />
           <Route path="/login" component={Login} />
           <Route path='/dashboard/:type' component={() => checkAuth("Dashboard")} />
           <Route path="/signup" component={Signup} />

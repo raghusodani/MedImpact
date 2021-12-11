@@ -6,8 +6,17 @@ function Login() {
     const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
     const handleSubmit = (e) => {
+        
         e.preventDefault()
+        if(email === '' || password === ''){
+            setError('Email and Password are required')
+        }
+        else if(password.length < 6){
+            setError('Password must be at least 6 characters')
+        }
+        else{
         console.log("🚀 login payload",email, password)
         axios.post('https://medimpact.herokuapp.com/auth/login', {
                 email,
@@ -19,8 +28,10 @@ function Login() {
                 if(res.data.isFirstLogin){
                     history.push('/signupDetails')
                 }
-                else
+                else{
                 history.push(`/dashboard/${res.data.type}`)
+                window.location.reload()
+            }
             })
             .catch(err => {
                 console.log(err)
@@ -28,9 +39,11 @@ function Login() {
                     alert("Invalid email or password")
                 }
             })
+        }
 
     }
     return (
+        <div className="login-container" style={{height:'81vh',marginTop:"50px"}}>
         <div className='card col-6 m-auto mt-4'>
             <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 card-body">
                 <div className="max-w-md w-full space-y-8 card-title">
@@ -55,36 +68,47 @@ function Login() {
                         />
                         </div>
                     </div>
+                    {/* error line */}
+                    {error && <div className="text-red-500 text-sm font-medium">*{error}</div>}
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
                         <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"/>
-                        <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                        <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900" >
                             Remember me
                         </label>
                         </div>
 
                         <div className="text-sm">
-                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500" style={{
+                                    color: '#4CCCC0',
+                                }}>
                             Forgot your password?
                         </a>
                         </div>
                     </div>
 
                     <div>
-                        <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        style={{
+                                    backgroundColor: '#4CCCC0',
+                                }}
+                        >
                         <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                         </span>
                         Sign in
                         </button>
                     </div>
                     <div>
-                    <a href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
+                    <a href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500" style={{
+                                    color: '#4CCCC0',
+                                }}>
                             Don't have an account ? Sign Up
                         </a>
                     </div>
                     </form>
                 </div>
                 </div>
+        </div>
         </div>
     )
 }
