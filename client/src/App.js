@@ -14,9 +14,7 @@ import Billing from './views/Billing/Billing';
 import Inventory from './views/Inventory/Inventory';
 import SearchContent from './views/Search/SearchContent';
 import NavBar from './components/dashboard/StoreDashboard/NavBar';
-
 import Invoice from './views/Invoice/Invoice';
-
 import Home from './views/Landing/Home';
 
 function App() {
@@ -43,13 +41,17 @@ function App() {
         else if(component==="inventory"){
           return <Inventory />
         }
+        else if(component==="invoice"){
+          return <Invoice />
+        }
+        else{
+          return <Redirect to="dashboard/Donor" />
+        }
       }
       else{
-        return <Redirect to="dashboard/Donor" />
+        return <Redirect to="/login" />
       }
   }
-
-
 
   const [account, setAccount] = useState('');
   const [web3, setWeb3] = useState();
@@ -150,7 +152,7 @@ function App() {
           <Route path='/search/:searchType' component={SearchContent} />
           <Route path ="/billing" component={()=>checkStore("billing")} />
           <Route path='/inventory' component={()=>checkStore("inventory")} />
-          <Route path='/invoice' component={Invoice} />
+          <Route path='/invoice' component={()=>checkStore("invoice")} />
         </Switch>
       </Router>
 
