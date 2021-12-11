@@ -102,8 +102,8 @@ const showDirection = (location) => {
 let test = {lat:Number(25.344930),lng:Number(74.631260)};
 
     return (
-		<div className="Map-Search-container">
-			<div className="Map-Search-input">
+		<div className="map-Search-container">
+			<div className="map-Search-input">
 				<Input type="text" placeholder={type==="medicine" ? "Enter Medicine Name":"Enter Blood Type"} onChange={handleMedicineChange}  />
 				<button className="btn btn-primary col-2" onClick={onSubmitHandler}>Submit</button>
 			</div>

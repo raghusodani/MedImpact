@@ -17,7 +17,7 @@ function SideNav() {
                             <a href="/billing" class="text-reset">Billing</a>
                         </div>  
                         <div className="sidenav-link">
-                            <a href="/inventory" class="text-reset">Invoice</a>
+                            <a href="/invoice" class="text-reset">Invoice</a>
                         </div>  
                     </div>
                 </div>

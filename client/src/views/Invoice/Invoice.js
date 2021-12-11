@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import TitleCard from '../../components/dashboard/StoreDashboard/TtileCard'
 import SideNav from '../../components/dashboard/StoreDashboard/SideNav'
 import TitleInvoice from '../../components/dashboard/StoreDashboard/TitleInvoice'
@@ -6,8 +6,16 @@ import InvoiceForm from '../../components/dashboard/StoreDashboard/InvoiceForm'
 import Card from "react-bootstrap/Card";
 import MedicineForm from '../../components/dashboard/StoreDashboard/MedicineForm'
 import InvoiceStyler from './Invoice.css'
+import InvoiceTable from '../../components/dashboard/StoreDashboard/InvoiceTable'
 
 function Invoice() {
+    const [addMedicine, setAddMedicine] = useState([]);
+    const handleMedicineAddition = (medicine) => {
+        setAddMedicine([...addMedicine, medicine]);
+    };
+    useEffect(() => {
+        console.log(addMedicine);
+    }, [addMedicine]);
     return (
         <div className='Container'>
             <div class="row">
@@ -22,13 +30,16 @@ function Invoice() {
                         <div class="row">
                             <div class="col-sm-5">
                                 <InvoiceForm></InvoiceForm>
+                                <InvoiceTable></InvoiceTable>
                             </div>
                             <div class="col-sm-7">
-                                <MedicineForm></MedicineForm>
+                                
+                                <MedicineForm 
+                                    onAddition={handleMedicineAddition} />
                             </div>
                         </div>
-                        <div className='invoice-submit'>
-                            <button >Submit</button>
+                        <div className='invoice-submit-container'>
+                            <button className='invoice-submit-btn'>Submit</button>
                         </div>
                     </Card>
                 </div>

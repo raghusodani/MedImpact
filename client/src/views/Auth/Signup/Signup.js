@@ -17,6 +17,10 @@ function Signup() {
         setPassword(e.target.value);
     }
 
+    // useState(() => {
+    //     setup();
+    // }, [])
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if(email === '' ){

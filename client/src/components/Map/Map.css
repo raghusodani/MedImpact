@@ -1,0 +1,7 @@
+.map-Search-container{
+    display: flex;
+    flex-direction: row;
+}
+.map-Search-input{
+    width: 100px;
+}
