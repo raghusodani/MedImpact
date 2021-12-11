@@ -13,6 +13,8 @@ import { getToken, getType } from './helpers/LocalStorageValidator';
 import FirstTimeLogin from './components/FirstTimeLogin/FirstTimeLogin'
 import Billing from './views/Billing/Billing';
 import Inventory from './views/Inventory/Inventory';
+import SearchContent from './views/Search/SearchContent';
+import NavBar from './components/dashboard/StoreDashboard/NavBar';
 function App() {
   let token = getToken();
   let type = getType();
@@ -130,6 +132,7 @@ function App() {
 
   return (
     <div className="App">
+      <NavBar/>
       <Router>
         <Switch>
           <Redirect exact from="/" to="/login" />
@@ -138,7 +141,7 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/verification/:token" component={VerifyEmail} />
           <Route path="/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
-          <Route path='/map' component={Map} />
+          <Route path='/search/:searchType' component={SearchContent} />
           <Route path ="/billing" component={()=>checkStore("billing")} />
           <Route path='/inventory' component={()=>checkStore("inventory")} />
         </Switch>
