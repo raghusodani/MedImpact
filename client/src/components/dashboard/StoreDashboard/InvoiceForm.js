@@ -75,6 +75,9 @@ function InvoiceForm() {
                             marginTop:'2%'
                         }}>
                     </Input>
+                    <div className='invoice-title'>
+                        <h1>Invoice Table</h1>
+                    </div>
                 </div>
         </div>
     )
