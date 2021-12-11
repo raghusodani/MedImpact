@@ -65,7 +65,7 @@ function FirstTimeLogin({setup, addMedicalStore}) {
                 console.log(err)
             })
 
-            addMedicalStore(store, "email", phone, "1234")
+            //addMedicalStore(store, "email", phone, "1234")
 
     }   
 
