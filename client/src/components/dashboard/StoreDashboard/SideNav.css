@@ -1,0 +1,35 @@
+body {
+    background-color: #fbfbfb;
+  }
+  @media (min-width: 991.98px) {
+    main {
+      padding-left: 240px;
+    }
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    position: absolute;
+    padding: 58px 0 0;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    width: 15%;
+    z-index: 600;
+    height: 100%;
+  }
+  .text-reset{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+  
+  }
+  .list-group-item{
+    height: 70px;
+  }
+  .collapse{
+    margin-top:0%;
+    height: 100%;
+  }
+  .sidenav-link{
+    height: 70px;
+    
+  }

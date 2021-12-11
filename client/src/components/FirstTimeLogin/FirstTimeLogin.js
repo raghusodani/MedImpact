@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React,{useState} from 'react'
-import { getToken } from '../../helpers/LocalStorageValidator'
+import { getToken, getType } from '../../helpers/LocalStorageValidator'
 import Input from '../Input/Input'
 import { useHistory } from 'react-router-dom'
 function FirstTimeLogin() {
     // landmark, city, address, pincode
+    const type = getType();
     const history = useHistory();
     const [store, setStore] = useState('')
     const [owner, setOwner] = useState('')
@@ -54,7 +55,7 @@ function FirstTimeLogin() {
                 if(res.data.success){
                     alert('Details added successfully')
                 }
-                history.push('/dashboard')
+                history.push(`dashboard/${type}`)
             })
             .catch(err => {
                 console.log(err)
