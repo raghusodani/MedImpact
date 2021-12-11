@@ -7,22 +7,26 @@ function FirstTimeLogin({setup, addMedicalStore}) {
     // landmark, city, address, pincode
     const type = getType();
     const history = useHistory();
-    const [store, setStore] = useState('')
-    const [owner, setOwner] = useState('')
+    const [storeName, setStore] = useState('')
+    const [ownerName, setOwner] = useState('')
+    const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [landmark, setLandmark] = useState('')
     const [city, setCity] = useState('')
     const [address, setAddress] = useState('')
     const [pincode, setPincode] = useState('')
-
-    useEffect(() => {
-        setup();
-    }, [])
+    const [bloodGroup, setBloodGroup] = useState('')
+    const [error, setError] = useState('')
+    const [showError, setShowError] = useState(false)
+    const validBloodGroupRegex = /^(A|B|AB|O)[+-]$/i;
     const handleStoreChange = (e) => {
         setStore(e.target.value)
     }
     const handleOwnerChange = (e) => {
         setOwner(e.target.value)
+    }
+    const handleNameChange = (e) => {
+        setName(e.target.value)
     }
     const handlePhoneChange = (e) => {
         setPhone(e.target.value.replace(/[^0-9]/g, ''))
@@ -39,16 +43,71 @@ function FirstTimeLogin({setup, addMedicalStore}) {
     const handlePincodeChange = (e) => {
         setPincode(e.target.value.replace(/[^0-9]/g, ''))
     }
+    const handleBloodGroupChange = (e) => {
+        // set with blood group regex
+        setBloodGroup(e.target.value)
+    }
+    const Validite = (data) => {
+        if(type==="Store" &&  data.storeName === ''){
+            setError('Store Name is required')
+            return false
+        }
+        if(type==="Store" && data.ownerName === ''){
+            setError('Owner Name is required')
+            return false
+        }
+        if(type==="Donor" &&  data.name === ''){
+            setError('Name is required')
+            return false
+        }
+        if(data.phone === '' || data.phone.length !== 10){
+            setError('Enter a valid phone number')
+            return false
+        }
+        if(data.landmark === ''){
+            setError('Landmark is required')
+            return false
+        }
+        if(data.city === ''){
+            setError('City is required')
+            return false
+        }
+        if(data.address === ''){
+            setError('Address is required')
+            return false
+        }
+        if(data.pincode === ''){
+            setError('Pincode is required')
+            return false
+        }
+        if(validBloodGroupRegex.test(data.bloodGroup) === false){
+            setError('Enter Correct Blood Group')
+            return false
+        }
+        return true
+    }
+
+
+
     const handleSubmit = (e) => {
-        const payload = {
-            store,
-            owner,
+        const payload = type === 'Store' ? {
+            storeName,
+            ownerName,
+            phone,
+            landmark,
+            city,
+            address,
+            pincode
+        } :
+        {
+            name,
             phone,
             landmark,
             city,
             address,
             pincode
         }
+        Validite(payload) ? 
         axios.post('https://medimpact.herokuapp.com/auth/addDetails',payload, {
             headers: {
                 Authorization : getToken()
@@ -64,6 +123,7 @@ function FirstTimeLogin({setup, addMedicalStore}) {
             .catch(err => {
                 console.log(err)
             })
+            : setShowError(true)
 
             //addMedicalStore(store, "email", phone, "1234")
 
@@ -76,17 +136,31 @@ function FirstTimeLogin({setup, addMedicalStore}) {
                 margin: '40px auto ',
             }}
         >
-            <Input type="text" placeholder="Store Name" value={store} onChange={handleStoreChange}/>
-            <Input type="text" placeholder="Owner Name" value={owner} onChange={handleOwnerChange}/>
-            <Input type="text" placeholder="Phone Number" value={phone} onChange={handlePhoneChange}/>
+            
+    {   type==="Donor" 
+        ?  
+        <div>
+        <Input type="text" placeholder="Owner Name" value={ownerName} onChange={handleOwnerChange}/>
+        <Input type="text" placeholder="Phone Number" value={storeName} onChange={handlePhoneChange}/>
+        </div>
+        :
+        <div>
+        <Input type="text" placeholder="Name" value={name} onChange={handleNameChange}/>
+        <Input type="text" placeholder="Blood Group" value={bloodGroup} onChange={handleBloodGroupChange}/>
+        </div>
+        }
+            <Input type="number" placeholder="Phone Number" value={phone} onChange={handlePhoneChange}/>
             <Input type="text" placeholder="Landmark" value={landmark} onChange={handleLandmarkChange}/>
             <Input type="text" placeholder="Address" value={address} onChange={handleAddressChange}/>
             <Input type="text" placeholder="City" value={city} onChange={handleCityChange}/>
             <Input type="text" placeholder="Pincode" value={pincode} onChange={handlePincodeChange}/>
-            <button className='btn btn-primary' 
+            {/* show error */}
+            {showError && <div className='text-red-600 text-sm font-medium pt-2'>*{error}</div>}
+            <button className='btn' 
                 style={{
                     width: '100%',
-                    marginTop: '20px'
+                    marginTop: '20px',
+                    backgroundColor: '#4CCCC0',
                 }}
                 onClick={handleSubmit}
             >

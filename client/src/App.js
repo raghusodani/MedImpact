@@ -1,4 +1,3 @@
-
 import './App.css';
 import Web3 from "web3";
 import { useState, useEffect } from 'react';
@@ -15,6 +14,9 @@ import Billing from './views/Billing/Billing';
 import Inventory from './views/Inventory/Inventory';
 import SearchContent from './views/Search/SearchContent';
 import NavBar from './components/dashboard/StoreDashboard/NavBar';
+import Invoice from './views/Invoice/Invoice';
+import Home from './views/Landing/Home';
+
 function App() {
   let token = getToken();
   let type = getType();
@@ -24,7 +26,7 @@ function App() {
         case 'Dashboard':
           return <Dashboard invoicesCount={invoicesCount} purchasesCount={purchasesCount} />
         case 'FirstTimeLogin':
-          return <FirstTimeLogin setup={setup} addMedicalStore={addMedicalStore} />
+          return <FirstTimeLogin addMedicalStore={addMedicalStore} />
       }
     }
     else {
@@ -39,13 +41,17 @@ function App() {
         else if(component==="inventory"){
           return <Inventory />
         }
+        else if(component==="invoice"){
+          return <Invoice />
+        }
+        else{
+          return <Redirect to="dashboard/Donor" />
+        }
       }
       else{
-        return <Redirect to="dashboard/Donor" />
+        return <Redirect to="/login" />
       }
   }
-
-
 
   const [account, setAccount] = useState('');
   const [web3, setWeb3] = useState();
@@ -165,18 +171,21 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar/>
+      
       <Router>
+      <NavBar/>
         <Switch>
-          <Redirect exact from="/" to="/login" />
-          <Route path="/login" component={() => {return <Login setup={setup}/>}} />
+          <Redirect exact from="/" to="/home" />
+          <Route path="/home" component={Home} />
+          <Route path="/login" component={Login} />
           <Route path='/dashboard/:type' component={() => checkAuth("Dashboard")} />
-          <Route path="/signup" component={() => {return <Signup setup={setup} />}} />
-          <Route path="/verification/:token" component={() => {return <VerifyEmail setup={setup}/>}} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/verification/:token" component={()=>{return <VerifyEmail/>}} />
           <Route path="/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
           <Route path='/search/:searchType' component={SearchContent} />
           <Route path ="/billing" component={()=>checkStore("billing")} />
           <Route path='/inventory' component={()=>checkStore("inventory")} />
+          <Route path='/invoice' component={()=>checkStore("invoice")} />
         </Switch>
       </Router>
 

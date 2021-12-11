@@ -5,6 +5,7 @@ import IntroCard from './StoreDashboard/IntroCard'
 import DataCard from './StoreDashboard/DataCard'
 import OutOfStockTable from './StoreDashboard/OutOfStockTable'
 import ExpiryTable from './StoreDashboard/ExpiryTable'
+import StoreDashStyle from './StoreDashboard.css'
 
 function StoreDashboard({invoicesCount, purchasesCount}) {
 
@@ -22,7 +23,6 @@ function StoreDashboard({invoicesCount, purchasesCount}) {
 
     return (
             <div className="Container">
-            <NavBar></NavBar>
             <div class="row">
                 <div class="col-sm-2">
                     <div className="Content-left">
