@@ -125,7 +125,7 @@ function FirstTimeLogin({setup, addMedicalStore}) {
             })
             : setShowError(true)
 
-            //addMedicalStore(store, "email", phone, "1234")
+            addMedicalStore(storeName, "email", phone, "1234")
 
     }   
 
