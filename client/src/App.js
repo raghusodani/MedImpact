@@ -126,14 +126,14 @@ function App() {
 
   const invoicesCount = () => {
     console.log("contract", contract)
-    const invoices = contract.methods.invoicesCount().call()
+    const invoices = contract?.methods.invoicesCount().call()
     console.log("invoices", invoices)
     return invoices;
   }
 
   const purchasesCount = () => {
     console.log("contract", contract)
-    const purchases = contract.methods.purchasesCount().call()
+    const purchases = contract?.methods?.purchasesCount()?.call()
     console.log("purchases", purchases)
     return purchases;
   }

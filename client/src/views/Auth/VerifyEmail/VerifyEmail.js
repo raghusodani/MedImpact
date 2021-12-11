@@ -20,9 +20,9 @@ function VerifyEmail({setup}) {
         })
     }, [])
 
-    useEffect(() => {
-        setup();
-    }, [])
+    // useEffect(() => {
+    //     setup();
+    // }, [])
     //decrese countdown by 1 every second
     useEffect(() => {
         const interval = setInterval(() => {

@@ -15,10 +15,10 @@ function StoreDashboard({invoicesCount, purchasesCount}) {
     const [invoices, setInvoices] = useState();
     const [purchases, setPurchases] = useState();
     useEffect(() => {
-        invoicesCount().then((res) => {
+        invoicesCount()?.then((res) => {
             setInvoices(res);
         })
-        purchasesCount().then((res) => {
+        purchasesCount()?.then((res) => {
             setPurchases(res);
         })
     }, [])

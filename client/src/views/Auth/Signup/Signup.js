@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import {useHistory } from 'react-router-dom';
 import Input from '../../../components/Input/Input';
-function Signup({setup}) {
+function Signup() {
     let history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -17,9 +17,9 @@ function Signup({setup}) {
         setPassword(e.target.value);
     }
 
-    useState(() => {
-        setup();
-    }, [])
+    // useState(() => {
+    //     setup();
+    // }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
