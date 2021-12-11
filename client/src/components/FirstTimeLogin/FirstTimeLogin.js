@@ -1,9 +1,9 @@
 import axios from 'axios'
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import { getToken, getType } from '../../helpers/LocalStorageValidator'
 import Input from '../Input/Input'
 import { useHistory } from 'react-router-dom'
-function FirstTimeLogin() {
+function FirstTimeLogin({setup, addMedicalStore}) {
     // landmark, city, address, pincode
     const type = getType();
     const history = useHistory();
@@ -14,6 +14,10 @@ function FirstTimeLogin() {
     const [city, setCity] = useState('')
     const [address, setAddress] = useState('')
     const [pincode, setPincode] = useState('')
+
+    useEffect(() => {
+        setup();
+    }, [])
     const handleStoreChange = (e) => {
         setStore(e.target.value)
     }
@@ -60,6 +64,8 @@ function FirstTimeLogin() {
             .catch(err => {
                 console.log(err)
             })
+
+            addMedicalStore(store, "email", phone, "1234")
 
     }   
 

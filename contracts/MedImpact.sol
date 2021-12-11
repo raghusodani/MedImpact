@@ -33,21 +33,21 @@ contract MedImpact {
     //mapping(string => mapping(string => mapping(string => Medicine))) public medicines;
 
     // map to store medicines
-    // medicalStoreId => batchId => Medicine
-    mapping(string => mapping(string => Medicine)) public medicines;
+    // owneraddress => batchId => Medicine
+    mapping(address => mapping(string => Medicine)) public medicines;
 
-    // map medicalStoreId => medicine count => batchNo
-    mapping(string => mapping(uint256 => string)) public batchIdOfMedicine;
+    // map owneraddress => medicine count => batchNo
+    mapping(address => mapping(uint256 => string)) public batchIdOfMedicine;
     
-    // map medicalStoreId => medicine count
-    mapping(string => uint256) public medicineCountInMedicalStore;
+    // map owneraddress => medicine count
+    mapping(address => uint256) public medicineCountInMedicalStore;
     
     // map to store medical stores
-    // medicalStoreId => MedicalStore
-    mapping(string => MedicalStore) public medicalStores;
+    // owneraddress => MedicalStore
+    mapping(address => MedicalStore) public medicalStores;
     
     // map to store medical stores of a particular user
-    // userEthereumAddress => MedicalStore
+    // owneraddress => MedicalStore
     mapping(address => MedicalStore) myMedicalStores;
 
     // store the number of medical stores
@@ -58,17 +58,17 @@ contract MedImpact {
     }
 
     // function to add new medical store
-    function addMedicalStore(/*uint256 _latitude, uint256 _longitude,*/ string memory _medicalStoreId, string memory _email, string memory _phoneno, string memory _aadhaarCardHash) public {
-        require(medicalStores[_medicalStoreId].exists == false, "Medical store name already exists");
+    function addMedicalStore(/*uint256 _latitude, uint256 _longitude,*/ string memory _medicalStoreName, string memory _email, string memory _phoneno, string memory _aadhaarCardHash) public {
+        require(medicalStores[/*_medicalStoreId*/msg.sender].exists == false, "Medical store name already exists");
         
         medicalStoresCount++;
-        medicalStores[_medicalStoreId] = MedicalStore(/*_latitude, _longitude,*/ msg.sender, _medicalStoreId, _email, _phoneno, 0, 0, _aadhaarCardHash, true);
-        myMedicalStores[msg.sender] = MedicalStore(/*_latitude, _longitude,*/ msg.sender, _medicalStoreId, _email, _phoneno, 0, 0, _aadhaarCardHash, true);
+        medicalStores[/*_medicalStoreId*/msg.sender] = MedicalStore(/*_latitude, _longitude,*/ msg.sender, _medicalStoreName, _email, _phoneno, 0, 0, _aadhaarCardHash, true);
+        myMedicalStores[msg.sender] = MedicalStore(/*_latitude, _longitude,*/ msg.sender, _medicalStoreName, _email, _phoneno, 0, 0, _aadhaarCardHash, true);
     }
 
     // function to add new stock of a specific medicine having a particular expiry date to a particular medical store
-    function addMedicine(string memory _medicalStoreId, string memory _medicineName, uint256 _price, uint256 _quantity, string memory _batchNo, string memory _expiryDate, string memory _billHash) public {
-        require(medicalStores[_medicalStoreId].owner == msg.sender, "You are not the owner of medical store");
+    function addMedicine(/*string memory _medicalStoreId,*/ string memory _medicineName, uint256 _price, uint256 _quantity, string memory _batchNo, string memory _expiryDate, string memory _billHash) public {
+        require(medicalStores[/*_medicalStoreId*/msg.sender].owner == msg.sender, "You are not the owner of medical store");
         require(_quantity > 0, "Quantity should be greater than 0");
         
         /*if(medicines[_medicalStoreId][_medicineName][_expiryDate].exists){
@@ -77,29 +77,30 @@ contract MedImpact {
         else{
             medicines[_medicalStoreId][_medicineName][_expiryDate] = Medicine( _medicineName, _price, _quantity, _expiryDate, _billHash, true);   
         }*/
-        medicineCountInMedicalStore[_medicalStoreId]++;
-        batchIdOfMedicine[_medicalStoreId][ medicineCountInMedicalStore[_medicalStoreId]] = _batchNo;
-        medicines[_medicalStoreId][_batchNo] = Medicine( _medicineName, _price, _quantity, _batchNo, _expiryDate, _billHash, true);
+        medicineCountInMedicalStore[/*_medicalStoreId*/msg.sender]++;
+        batchIdOfMedicine[/*_medicalStoreId*/msg.sender][ medicineCountInMedicalStore[/*_medicalStoreId*/msg.sender]] = _batchNo;
+        medicines[/*_medicalStoreId*/msg.sender][_batchNo] = Medicine(_medicineName, _price, _quantity, _batchNo, _expiryDate, _billHash, true);
 
-        medicalStores[_medicalStoreId].invoices++;
+        medicalStores[/*_medicalStoreId*/msg.sender].invoices++;
         myMedicalStores[msg.sender].invoices++;
     }
     
     // function to purchase a specific medicine of a particular expiry date from a particular medical store
-    function purchaseMedicine(string memory _medicalStoreId, string memory _medicineName, uint256 _quantity, string memory _batchNo/*, string memory _expiryDate*/) public {
-        require(medicalStores[_medicalStoreId].owner == msg.sender, "You are not the owner of medical store");
-        require(medicines[_medicalStoreId][_batchNo].quantity > 0, "Inufficient stock");
+    function purchaseMedicine(/*string memory _medicalStoreId, string memory _medicineName,*/ uint256 _quantity, string memory _batchNo/*, string memory _expiryDate*/) public {
+        require(medicalStores[/*_medicalStoreId*/msg.sender].owner == msg.sender, "You are not the owner of medical store");
+        require(medicines[/*_medicalStoreId*/msg.sender][_batchNo].quantity > 0, "Inufficient stock");
         require(_quantity > 0, "Quantity should be greater than 0");
         
-        medicines[_medicalStoreId][_batchNo].quantity -= _quantity;
-        medicalStores[_medicalStoreId].purchases++;
+        medicines[/*_medicalStoreId*/msg.sender][_batchNo].quantity -= _quantity;
+        medicalStores[/*_medicalStoreId*/msg.sender].purchases++;
         myMedicalStores[msg.sender].purchases++;
     }
     
     // function to return the count of a specific medicine of a particular expiry date present in a particular medical store 
-    function medicineCount(string memory _medicineName, string memory _medicalStoreId, string memory _batchNo/*, string memory _expiryDate*/) view public returns(uint256){
-        require(medicalStores[_medicalStoreId].exists, "Medical store does not exist");
-        return medicines[_medicalStoreId][_batchNo].quantity;
+    function medicineCount(/*string memory _medicineName, string memory _medicalStoreId, string memory _batchNo, string memory _expiryDate*/) view public returns(uint256){
+        //require(medicalStores[_medicalStoreId].exists, "Medical store does not exist");
+        //return medicines[_medicalStoreId][_batchNo].quantity;
+        medicineCountInMedicalStore[msg.sender];
     }
     
     // function to return the number of invoices for a particular medical store

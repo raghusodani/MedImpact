@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import DonorDashboard from '../../components/dashboard/DonorDashboard'
 import StoreDashboard from '../../components/dashboard/StoreDashboard'
 
-function Dashboard(invoicesCount, purchasesCount) {
+function Dashboard({invoicesCount, purchasesCount}) {
     const type = useParams().type
     console.log(type)
     return (

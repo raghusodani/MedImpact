@@ -6,7 +6,7 @@ import DataCard from './StoreDashboard/DataCard'
 import OutOfStockTable from './StoreDashboard/OutOfStockTable'
 import ExpiryTable from './StoreDashboard/ExpiryTable'
 
-function StoreDashboard(invoicesCount, purchasesCount) {
+function StoreDashboard({invoicesCount, purchasesCount}) {
 
     const [invoices, setInvoices] = useState();
     const [purchases, setPurchases] = useState();

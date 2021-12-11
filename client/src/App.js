@@ -10,7 +10,7 @@ import Signup from './views/Auth/Signup/Signup';
 import VerifyEmail from './views/Auth/VerifyEmail/VerifyEmail';
 import Dashboard from './views/Dashboard/Dashboard';
 import { getToken, getType } from './helpers/LocalStorageValidator';
-import FirstTimeLogin from './components/FirstTimeLogin/FirstTimeLogin'
+import FirstTimeLogin from './components/FirstTimeLogin/FirstTimeLogin';
 import Billing from './views/Billing/Billing';
 import Inventory from './views/Inventory/Inventory';
 import SearchContent from './views/Search/SearchContent';
@@ -24,11 +24,11 @@ function App() {
         case 'Dashboard':
           return <Dashboard invoicesCount={invoicesCount} purchasesCount={purchasesCount} />
         case 'FirstTimeLogin':
-          return <FirstTimeLogin />
+          return <FirstTimeLogin setup={setup} addMedicalStore={addMedicalStore} />
       }
     }
     else {
-      return <Login />
+      return <Login setup={setup} />
     }
   }
   const checkStore = (component) => {
@@ -54,8 +54,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [buffer, setBuffer] = useState('');
 
-  useEffect( async () => {
-    console.log("setup");
+
+  const setup = async () => {
     try {
 
       // Get network provider and web3 instance.
@@ -72,7 +72,7 @@ function App() {
       const deployedNetwork = MedImpact.networks[networkId];
       const contract = new web3.eth.Contract(
         MedImpact.abi,
-        "0x19230b1B67E633a21321bc776c0145F10989b3B8",
+        "0xe7C5d430202Fcb491061ba36bfCCF9cdBa4968E2",
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
@@ -92,22 +92,28 @@ function App() {
       );
       console.error(error);
     }
+  }
+
+  useEffect( async () => {
+    console.log("setup");
+    setup();
   }, [])
 
   console.log("contract", contract);
   console.log("accounts", accounts);
   console.log("web3", web3);
   
-  const addMedicalStore = (medicalStoreId, email, phoneno, aadhaarCardHash) => {
+  const addMedicalStore = (medicalStoreName, email, phoneno, aadhaarCardHash) => {
     setLoading(true)
-    contract.methods.addMedicalStore(medicalStoreId, email, phoneno, aadhaarCardHash).send({ from: account }).on('transactionHash', (hash) => {
+    contract.methods.addMedicalStore(medicalStoreName, email, phoneno, aadhaarCardHash).send({ from: account }).on('transactionHash', (hash) => {
       setLoading(false)
     })
+    console.log("add medicine")
   }
 
-  const addMedicine = (medicalStoreId, medicineName, price, quantity, batchNo, expiryDate, billHash) => {
+  const addMedicine = (medicineName, price, quantity, batchNo, expiryDate, billHash) => {
     setLoading(true)
-    contract.methods.addMedicine(medicalStoreId, medicineName, price, quantity, batchNo, expiryDate, billHash).send({ from: account }).on('transactionHash', (hash) => {
+    contract.methods.addMedicine(medicineName, price, quantity, batchNo, expiryDate, billHash).send({ from: account }).on('transactionHash', (hash) => {
       setLoading(false)
     })
   }
@@ -163,10 +169,10 @@ function App() {
       <Router>
         <Switch>
           <Redirect exact from="/" to="/login" />
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={() => {return <Login setup={setup}/>}} />
           <Route path='/dashboard/:type' component={() => checkAuth("Dashboard")} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/verification/:token" component={VerifyEmail} />
+          <Route path="/signup" component={() => {return <Signup setup={setup} />}} />
+          <Route path="/verification/:token" component={() => {return <VerifyEmail setup={setup}/>}} />
           <Route path="/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
           <Route path='/search/:searchType' component={SearchContent} />
           <Route path ="/billing" component={()=>checkStore("billing")} />

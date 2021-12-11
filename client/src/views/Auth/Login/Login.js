@@ -1,11 +1,15 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import axios from 'axios'
 import { setSessionStorage } from '../../../helpers/LocalStorageValidator'
 import { useHistory } from 'react-router-dom'
-function Login() {
+function Login({setup}) {
     const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    useEffect(() => {
+        setup();
+    }, [])
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log("🚀 login payload",email, password)
