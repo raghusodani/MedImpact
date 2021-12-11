@@ -17,8 +17,8 @@ function NavBar() {
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav ml-auto">
                         <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="#">Search Medicines</a>
-                        <a class="nav-item nav-link" href="#">Search Donors</a>
+                        <a class="nav-item nav-link" href="/search/medicine">Search Medicines</a>
+                        <a class="nav-item nav-link" href="/search/donor">Search Donors</a>
                         </div>
                     </div>
                 </nav>

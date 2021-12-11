@@ -105,12 +105,11 @@ const Billing = () => {
                                     onChange={event => handleChangeInput(inputField.id, event)}
                                     className = "medicinequantity"  
                                 />
-                                <br />
-                                    <button disabled={inputFields.length === 1} onClick={() => handleRemoveFields(index)}>
+                                    <button disabled={inputFields.length === 1} onClick={() => handleRemoveFields(index)} className='removebutton'>
                                         Remove 
                                     </button>
                                     {index === inputFields.length - 1?
-                                        <button onClick={handleAddFields} >
+                                        <button onClick={handleAddFields} className='addbutton'>
                                             Add
                                         </button>
                                     :null}
