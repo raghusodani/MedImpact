@@ -12,7 +12,7 @@ function VerifyEmail() {
                 setCountDown(5)
                 setTimeout(function() {
                     window.location.replace('http://localhost:3000/login');
-                  }, 50000);
+                  }, 5000);
             }
         })
         .catch(err => {
