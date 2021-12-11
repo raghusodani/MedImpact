@@ -5,6 +5,7 @@ import IntroCard from './StoreDashboard/IntroCard'
 import DataCard from './StoreDashboard/DataCard'
 import OutOfStockTable from './StoreDashboard/OutOfStockTable'
 import ExpiryTable from './StoreDashboard/ExpiryTable'
+import StoreDashStyle from './StoreDashboard.css'
 
 function StoreDashboard() {
     return (
