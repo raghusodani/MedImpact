@@ -9,7 +9,6 @@ import ExpiryTable from './StoreDashboard/ExpiryTable'
 function StoreDashboard() {
     return (
             <div className="Container">
-            <NavBar></NavBar>
             <div class="row">
                 <div class="col-sm-2">
                     <div className="Content-left">
