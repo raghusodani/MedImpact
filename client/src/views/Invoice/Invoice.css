@@ -1,6 +1,7 @@
 .Container{
-    height: 800px;
     width: 100%;
+    padding-bottom: 30px;
+    background: #DDF0EE;
 }
 .invoice-card{
     margin-top: 20px;
