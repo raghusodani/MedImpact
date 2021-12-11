@@ -28,6 +28,7 @@ function NavBar() {
                         <a class="nav-item" href="/home">Home <span class="sr-only">(current)</span></a>
                         <a class="nav-item" href="/search/medicine">Search Medicines</a>
                         <a class="nav-item" href="/search/donor">Search Donors</a>
+                        <a class="nav-item" href="/dashboard/store">Dashboard</a>
                         <button className='btn-logout' onClick={getToken()?.length>0 ? handleLogout : handleLogin}>{getToken()?.length>0 ? "Logout" : "Login"}</button>
                         
                         

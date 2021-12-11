@@ -6,6 +6,7 @@ import InvoiceForm from '../../components/dashboard/StoreDashboard/InvoiceForm'
 import Card from "react-bootstrap/Card";
 import MedicineForm from '../../components/dashboard/StoreDashboard/MedicineForm'
 import InvoiceStyler from './Invoice.css'
+import InvoiceTable from '../../components/dashboard/StoreDashboard/InvoiceTable'
 
 function Invoice() {
     const [addMedicine, setAddMedicine] = useState([]);
@@ -29,8 +30,10 @@ function Invoice() {
                         <div class="row">
                             <div class="col-sm-5">
                                 <InvoiceForm></InvoiceForm>
+                                <InvoiceTable></InvoiceTable>
                             </div>
                             <div class="col-sm-7">
+                                
                                 <MedicineForm 
                                     onAddition={handleMedicineAddition} />
                             </div>
