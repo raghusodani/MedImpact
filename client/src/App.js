@@ -28,7 +28,7 @@ function App() {
         case 'Dashboard':
           return <Dashboard />
         case 'FirstTimeLogin':
-          return <FirstTimeLogin />
+          return <FirstTimeLogin  />
       }
     }
     else {
@@ -145,7 +145,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path='/dashboard/:type' component={() => checkAuth("Dashboard")} />
           <Route path="/signup" component={Signup} />
-          <Route path="/verification/:token" component={VerifyEmail} />
+          <Route path="/verification/:token" component={()=>{return <VerifyEmail/>}} />
           <Route path="/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
           <Route path='/search/:searchType' component={SearchContent} />
           <Route path ="/billing" component={()=>checkStore("billing")} />
