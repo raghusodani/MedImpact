@@ -1,8 +1,6 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Card from "react-bootstrap/Card";
 import Input from '../../Input/Input'
-
-
 function InvoiceForm() {
     return (
         <div className='invoice-form'>
@@ -38,8 +36,15 @@ function InvoiceForm() {
                             width:'70%',
                             margin:'auto',
                             marginTop:'2%'
-                        }}>
-                    </Input>
+                        }}
+                        onMouseOver={(e)=>{
+                            e.currentTarget.type='date'
+                        }}
+                        onMouseOut={(e)=>{
+                            e.currentTarget.type='text'
+                            e.currentTarget.placeholder='Bill Date'
+                        }}
+                        />
                     <Input 
                         type="text"
                         className="invoice-input" 

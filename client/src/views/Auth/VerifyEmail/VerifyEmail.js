@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-function VerifyEmail() {
+function VerifyEmail({setup}) {
      const {token} = useParams()
      const [countDown, setCountDown] = useState(5)
     useEffect(() => {
@@ -18,6 +18,10 @@ function VerifyEmail() {
         .catch(err => {
             console.log(err)
         })
+    }, [])
+
+    useEffect(() => {
+        setup();
     }, [])
     //decrese countdown by 1 every second
     useEffect(() => {

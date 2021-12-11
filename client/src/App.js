@@ -9,14 +9,12 @@ import Signup from './views/Auth/Signup/Signup';
 import VerifyEmail from './views/Auth/VerifyEmail/VerifyEmail';
 import Dashboard from './views/Dashboard/Dashboard';
 import { getToken, getType } from './helpers/LocalStorageValidator';
-import FirstTimeLogin from './components/FirstTimeLogin/FirstTimeLogin'
+import FirstTimeLogin from './components/FirstTimeLogin/FirstTimeLogin';
 import Billing from './views/Billing/Billing';
 import Inventory from './views/Inventory/Inventory';
 import SearchContent from './views/Search/SearchContent';
 import NavBar from './components/dashboard/StoreDashboard/NavBar';
-
 import Invoice from './views/Invoice/Invoice';
-
 import Home from './views/Landing/Home';
 
 function App() {
@@ -26,13 +24,13 @@ function App() {
     if (token) {
       switch (type) {
         case 'Dashboard':
-          return <Dashboard />
+          return <Dashboard invoicesCount={invoicesCount} purchasesCount={purchasesCount} />
         case 'FirstTimeLogin':
-          return <FirstTimeLogin />
+          return <FirstTimeLogin addMedicalStore={addMedicalStore} />
       }
     }
     else {
-      return <Login />
+      return <Login setup={setup} />
     }
   }
   const checkStore = (component) => {
@@ -43,13 +41,17 @@ function App() {
         else if(component==="inventory"){
           return <Inventory />
         }
+        else if(component==="invoice"){
+          return <Invoice />
+        }
+        else{
+          return <Redirect to="dashboard/Donor" />
+        }
       }
       else{
-        return <Redirect to="dashboard/Donor" />
+        return <Redirect to="/login" />
       }
   }
-
-
 
   const [account, setAccount] = useState('');
   const [web3, setWeb3] = useState();
@@ -58,8 +60,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [buffer, setBuffer] = useState('');
 
-  useEffect( async () => {
-    console.log("setup");
+
+  const setup = async () => {
     try {
 
       // Get network provider and web3 instance.
@@ -76,7 +78,7 @@ function App() {
       const deployedNetwork = MedImpact.networks[networkId];
       const contract = new web3.eth.Contract(
         MedImpact.abi,
-        "0xC7bd92706Afc3232A2EF3D033690eB001AEA15Bd",
+        "0xe7C5d430202Fcb491061ba36bfCCF9cdBa4968E2",
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
@@ -96,12 +98,45 @@ function App() {
       );
       console.error(error);
     }
+  }
+
+  useEffect( async () => {
+    console.log("setup");
+    setup();
   }, [])
 
   console.log("contract", contract);
   console.log("accounts", accounts);
   console.log("web3", web3);
   
+  const addMedicalStore = (medicalStoreName, email, phoneno, aadhaarCardHash) => {
+    setLoading(true)
+    contract.methods.addMedicalStore(medicalStoreName, email, phoneno, aadhaarCardHash).send({ from: account }).on('transactionHash', (hash) => {
+      setLoading(false)
+    })
+    console.log("add medicine")
+  }
+
+  const addMedicine = (medicineName, price, quantity, batchNo, expiryDate, billHash) => {
+    setLoading(true)
+    contract.methods.addMedicine(medicineName, price, quantity, batchNo, expiryDate, billHash).send({ from: account }).on('transactionHash', (hash) => {
+      setLoading(false)
+    })
+  }
+
+  const invoicesCount = () => {
+    console.log("contract", contract)
+    const invoices = contract.methods.invoicesCount().call()
+    console.log("invoices", invoices)
+    return invoices;
+  }
+
+  const purchasesCount = () => {
+    console.log("contract", contract)
+    const purchases = contract.methods.purchasesCount().call()
+    console.log("purchases", purchases)
+    return purchases;
+  }
   /*captureFile = (e) => {
 
     e.preventDefault()
@@ -145,12 +180,12 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path='/dashboard/:type' component={() => checkAuth("Dashboard")} />
           <Route path="/signup" component={Signup} />
-          <Route path="/verification/:token" component={VerifyEmail} />
+          <Route path="/verification/:token" component={()=>{return <VerifyEmail/>}} />
           <Route path="/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
           <Route path='/search/:searchType' component={SearchContent} />
           <Route path ="/billing" component={()=>checkStore("billing")} />
           <Route path='/inventory' component={()=>checkStore("inventory")} />
-          <Route path='/invoice' component={Invoice} />
+          <Route path='/invoice' component={()=>checkStore("invoice")} />
         </Switch>
       </Router>
 

@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-function Input({value,type,onChange,placeholder,style,name}) {
+function Input({value,type,onChange,placeholder,style,name,onMouseOver,onMouseOut}) {
     return (
         <div >
             <div>
@@ -18,6 +18,8 @@ function Input({value,type,onChange,placeholder,style,name}) {
                 onChange={onChange}
                 value={value}
                 style={style}
+                onMouseOver={onMouseOver}
+                onMouseOut={onMouseOut}
             />
             </div>
         </div>
