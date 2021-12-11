@@ -8,16 +8,16 @@ function SideNav() {
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
                         <div className="sidenav-link">
-                            <a href="/dashboard" class="text-reset">Dashboard</a>
+                            <a href="/dashboard/store" class="text-reset">Dashboard</a>
                         </div>   
                         <div className="sidenav-link">
                             <a href="/inventory" class="text-reset">Inventory</a>
                         </div>  
                         <div className="sidenav-link">
-                            <a href="" class="text-reset">Billing</a>
+                            <a href="/billing" class="text-reset">Billing</a>
                         </div>  
                         <div className="sidenav-link">
-                            <a href="" class="text-reset">Invoice</a>
+                            <a href="/inventory" class="text-reset">Invoice</a>
                         </div>  
                     </div>
                 </div>
