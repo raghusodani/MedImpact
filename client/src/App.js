@@ -9,11 +9,15 @@ import Login from './views/Auth/Login/Login';
 import Signup from './views/Auth/Signup/Signup';
 import VerifyEmail from './views/Auth/VerifyEmail/VerifyEmail';
 import Dashboard from './views/Dashboard/Dashboard';
-import { getToken } from './helpers/LocalStorageValidator';
+import { getToken, getType } from './helpers/LocalStorageValidator';
 import FirstTimeLogin from './components/FirstTimeLogin/FirstTimeLogin'
 import Billing from './views/Billing/Billing';
+import Inventory from './views/Inventory/Inventory';
+import SearchContent from './views/Search/SearchContent';
+import NavBar from './components/dashboard/StoreDashboard/NavBar';
 function App() {
   let token = getToken();
+  let type = getType();
   const checkAuth = (type) => {
     if (token) {
       switch (type) {
@@ -27,6 +31,21 @@ function App() {
       return <Login />
     }
   }
+  const checkStore = (component) => {
+      if(type==="Store"){
+        if(component==="billing"){
+          return <Billing />
+        }
+        else if(component==="inventory"){
+          return <Inventory />
+        }
+      }
+      else{
+        return <Redirect to="dashboard/Donor" />
+      }
+  }
+
+
 
   const [account, setAccount] = useState('');
   const [web3, setWeb3] = useState();
@@ -113,6 +132,7 @@ function App() {
 
   return (
     <div className="App">
+      <NavBar/>
       <Router>
         <Switch>
           <Redirect exact from="/" to="/login" />
@@ -121,8 +141,9 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/verification/:token" component={VerifyEmail} />
           <Route path="/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
-          <Route path='/map' component={Map} />
-          <Route path ="/billing" component={Billing} />
+          <Route path='/search/:searchType' component={SearchContent} />
+          <Route path ="/billing" component={()=>checkStore("billing")} />
+          <Route path='/inventory' component={()=>checkStore("inventory")} />
         </Switch>
       </Router>
 
