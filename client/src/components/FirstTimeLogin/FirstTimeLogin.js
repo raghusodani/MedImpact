@@ -80,7 +80,7 @@ function FirstTimeLogin() {
             setError('Pincode is required')
             return false
         }
-        if(validBloodGroupRegex.test(data.bloodGroup) === false){
+        if(type==="Donor" && validBloodGroupRegex.test(data.bloodGroup) === false){
             setError('Enter Correct Blood Group')
             return false
         }
@@ -135,11 +135,11 @@ function FirstTimeLogin() {
             }}
         >
             
-    {   type==="Donor" 
+    {   type==="Store" 
         ?  
         <div>
         <Input type="text" placeholder="Owner Name" value={ownerName} onChange={handleOwnerChange}/>
-        <Input type="text" placeholder="Phone Number" value={storeName} onChange={handlePhoneChange}/>
+        <Input type="text" placeholder="Store Name" value={storeName} onChange={handleStoreChange}/>
         </div>
         :
         <div>

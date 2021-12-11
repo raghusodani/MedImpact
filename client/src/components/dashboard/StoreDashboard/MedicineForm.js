@@ -122,7 +122,7 @@ function MedicineForm({onAddition}) {
                         } />
 
                     <Input 
-                        type="date"
+                        type="text"
                         className="invoice-input" 
                         placeholder='Manufacture Date' 
                         style={{
@@ -145,7 +145,7 @@ function MedicineForm({onAddition}) {
                         }}
                          />
                     <Input 
-                        type="date"
+                        type="text"
                         className="invoice-input" 
                         placeholder='Expiry Date' 
                         style={{

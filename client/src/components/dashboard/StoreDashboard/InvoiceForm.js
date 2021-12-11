@@ -29,7 +29,7 @@ function InvoiceForm() {
                         }}>
                     </Input>
                     <Input 
-                        type='date'
+                        type='text'
                         className="invoice-input" 
                         placeholder='Bill Date' 
                         style={{

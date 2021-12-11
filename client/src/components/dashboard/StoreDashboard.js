@@ -8,30 +8,34 @@ import ExpiryTable from './StoreDashboard/ExpiryTable'
 import StoreDashStyle from './StoreDashboard.css'
 
 function StoreDashboard() {
+    const user = {
+        name: 'john doe',
+        email: 'raghu@gmail.com',
+    }
     return (
             <div className="Container">
             <div class="row">
                 <div class="col-sm-2">
                     <div className="Content-left">
-                        <SideNav></SideNav> 
+                        <SideNav />
                     </div>
                     
                 </div>
                 <div class="col-sm-10">
-                    <IntroCard></IntroCard>
+                    <IntroCard user={user}/>
                         <div className="Content-right">
                             <div className="records">
                                 <h1 className="records-text">Statistics</h1>
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <DataCard></DataCard>
+                                    <DataCard />
                                 </div>
                                 <div class="col-sm-4">
-                                    <DataCard></DataCard>
+                                    <DataCard />
                                 </div>
                                 <div class="col-sm-4">
-                                    <DataCard></DataCard>
+                                    <DataCard />
                                 </div>
                             </div>
                             <div className="records">
@@ -39,10 +43,10 @@ function StoreDashboard() {
                             </div>
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <OutOfStockTable></OutOfStockTable>
+                                    <OutOfStockTable />
                                 </div>
                                 <div class="col-sm-7">
-                                    <ExpiryTable></ExpiryTable>
+                                    <ExpiryTable />
                                 </div>
                             </div>
                         </div>

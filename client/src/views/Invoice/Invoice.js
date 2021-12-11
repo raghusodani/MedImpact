@@ -35,8 +35,8 @@ function Invoice() {
                                     onAddition={handleMedicineAddition} />
                             </div>
                         </div>
-                        <div className='invoice-submit'>
-                            <button >Submit</button>
+                        <div className='invoice-submit-container'>
+                            <button className='invoice-submit-btn'>Submit</button>
                         </div>
                     </Card>
                 </div>
