@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import SideNav from './StoreDashboard/SideNav'
 import NavBar from './StoreDashboard/NavBar'
 import IntroCard from './StoreDashboard/IntroCard'
@@ -6,7 +6,20 @@ import DataCard from './StoreDashboard/DataCard'
 import OutOfStockTable from './StoreDashboard/OutOfStockTable'
 import ExpiryTable from './StoreDashboard/ExpiryTable'
 
-function StoreDashboard() {
+function StoreDashboard(invoicesCount, purchasesCount) {
+
+    const [invoices, setInvoices] = useState();
+    const [purchases, setPurchases] = useState();
+    useEffect(() => {
+        invoicesCount().then((res) => {
+            setInvoices(res);
+        })
+
+        purchasesCount().then((res) => {
+            setPurchases(res);
+        })
+    }, [])
+
     return (
             <div className="Container">
             <NavBar></NavBar>
@@ -25,10 +38,10 @@ function StoreDashboard() {
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <DataCard></DataCard>
+                                    <DataCard invoices={invoices}/>
                                 </div>
                                 <div class="col-sm-4">
-                                    <DataCard></DataCard>
+                                    <DataCard purchases={purchases}/>
                                 </div>
                                 <div class="col-sm-4">
                                     <DataCard></DataCard>

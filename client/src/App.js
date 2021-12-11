@@ -22,7 +22,7 @@ function App() {
     if (token) {
       switch (type) {
         case 'Dashboard':
-          return <Dashboard />
+          return <Dashboard invoicesCount={invoicesCount} purchasesCount={purchasesCount} />
         case 'FirstTimeLogin':
           return <FirstTimeLogin />
       }
@@ -72,7 +72,7 @@ function App() {
       const deployedNetwork = MedImpact.networks[networkId];
       const contract = new web3.eth.Contract(
         MedImpact.abi,
-        "0xC7bd92706Afc3232A2EF3D033690eB001AEA15Bd",
+        "0x19230b1B67E633a21321bc776c0145F10989b3B8",
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
@@ -98,6 +98,33 @@ function App() {
   console.log("accounts", accounts);
   console.log("web3", web3);
   
+  const addMedicalStore = (medicalStoreId, email, phoneno, aadhaarCardHash) => {
+    setLoading(true)
+    contract.methods.addMedicalStore(medicalStoreId, email, phoneno, aadhaarCardHash).send({ from: account }).on('transactionHash', (hash) => {
+      setLoading(false)
+    })
+  }
+
+  const addMedicine = (medicalStoreId, medicineName, price, quantity, batchNo, expiryDate, billHash) => {
+    setLoading(true)
+    contract.methods.addMedicine(medicalStoreId, medicineName, price, quantity, batchNo, expiryDate, billHash).send({ from: account }).on('transactionHash', (hash) => {
+      setLoading(false)
+    })
+  }
+
+  const invoicesCount = () => {
+    console.log("contract", contract)
+    const invoices = contract.methods.invoicesCount().call()
+    console.log("invoices", invoices)
+    return invoices;
+  }
+
+  const purchasesCount = () => {
+    console.log("contract", contract)
+    const purchases = contract.methods.purchasesCount().call()
+    console.log("purchases", purchases)
+    return purchases;
+  }
   /*captureFile = (e) => {
 
     e.preventDefault()
