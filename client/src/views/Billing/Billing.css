@@ -1,0 +1,116 @@
+.billingtop{
+    height: 160px;
+    background: #E8E7FE;
+    display: flex;
+    border: 1px solid #4F46E5;
+}
+
+.billingtoph1{
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 40px;
+}
+
+.billingbottom{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.billingform{
+    height: auto;
+    width: 50%;
+    left: 4981px;
+    border-radius: 0px;
+    background: #F5F5F5;
+    margin-bottom: 25px;
+}
+
+.formhead{
+    background: #4F46E5;
+    padding: 19px;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+    color: #FFFFFF;
+}
+
+.forminput{
+    margin-top: 14px;
+    background: #E5E5E5;
+    border-radius: 5px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 7px;
+}
+
+.formlabel{
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    margin-top: 14px;
+    column-gap: 359px;
+    padding: 7px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+
+.formlabeldropdown{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 14px;
+}
+
+.formfields{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.formsubmit{
+    width: 223px;
+    height: 37px;
+    background: #4F46E5;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 42px;
+    margin-bottom: 20px;
+}
+
+.totalmoney{
+    margin-top: 40px;
+    /* width: 195px; */
+    height: 25px;
+    display: flex;
+    margin-left: 73px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+    color: #777575;
+}
+
+.label{
+    color: black;
+}
+
+.date{
+    background: #E5E5E5;
+}
+
+.medicinename{
+    margin-right: 3px;
+    margin-top: 14px;
+}
+
+.medicinequantity{
+    width: 10%;
+    margin-top: 7px;
+    margin-left: 90px;
+    padding-left: 8px;
+}
