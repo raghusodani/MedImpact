@@ -1,4 +1,3 @@
-
 import './App.css';
 import Web3 from "web3";
 import { useState, useEffect } from 'react';
@@ -15,6 +14,7 @@ import Billing from './views/Billing/Billing';
 import Inventory from './views/Inventory/Inventory';
 import SearchContent from './views/Search/SearchContent';
 import NavBar from './components/dashboard/StoreDashboard/NavBar';
+import Invoice from './views/Invoice/Invoice';
 function App() {
   let token = getToken();
   let type = getType();
@@ -144,6 +144,7 @@ function App() {
           <Route path='/search/:searchType' component={SearchContent} />
           <Route path ="/billing" component={()=>checkStore("billing")} />
           <Route path='/inventory' component={()=>checkStore("inventory")} />
+          <Route path='/invoice' component={Invoice} />
         </Switch>
       </Router>
 
