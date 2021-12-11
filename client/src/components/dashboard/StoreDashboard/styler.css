@@ -165,3 +165,10 @@
   background-color: #4CCCC0;
   color: white;
 }
+.invoice-table{
+    margin-top: 5%;
+    width: 100%;
+    border: white 5px solid;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    border-radius: 10px;
+}
