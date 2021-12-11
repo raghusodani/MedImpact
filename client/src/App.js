@@ -10,6 +10,8 @@ import Signup from './views/Auth/Signup/Signup';
 import VerifyEmail from './views/Auth/VerifyEmail/VerifyEmail';
 import Dashboard from './views/Dashboard/Dashboard';
 import { getToken } from './helpers/LocalStorageValidator';
+import FirstTimeLogin from './components/FirstTimeLogin/FirstTimeLogin'
+import Billing from './views/Billing/Billing';
 function App() {
   let token = getToken();
   const checkAuth = (type) => {
@@ -120,6 +122,7 @@ function App() {
           <Route path="/verification/:token" component={VerifyEmail} />
           <Route path="/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
           <Route path='/map' component={Map} />
+          <Route path ="/billing" component={Billing} />
         </Switch>
       </Router>
 
