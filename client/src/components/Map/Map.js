@@ -3,7 +3,8 @@ import { DirectionsRenderer,DirectionsService, GoogleMap, LoadScript, Marker} fr
 import Input from '../Input/Input';
 import axios from 'axios';
 import { getType } from "../../helpers/LocalStorageValidator";
-export default function Map({type="Donor"}){
+export default function Map({type}){
+	console.log("In map type",type);
 	const [medicineName, setmedicineName] = useState("");
 	const [data, setdata] = useState({
 		center: {lat: 37.772,lng: -122.214},
@@ -106,7 +107,7 @@ let test = {lat:Number(25.344930),lng:Number(74.631260)};
     return (
 		<div>
 			<div>
-				<Input type="text" placeholder={type==="Donor" ? "Enter medicine name":"Enter Blood Type"} onChange={handleMedicineChange}  />
+				<Input type="text" placeholder={type==="medicine" ? "Enter Medicine Name":"Enter Blood Type"} onChange={handleMedicineChange}  />
 				<button className="btn btn-primary col-2" onClick={onSubmitHandler}>Submit</button>
 			</div>
 			<LoadScript
