@@ -40,10 +40,10 @@ function StoreDashboard({invoicesCount, purchasesCount}) {
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <DataCard invoices={invoices}/>
+                                    <DataCard invoices={invoices} cardType="Invoices"/>
                                 </div>
                                 <div class="col-sm-4">
-                                    <DataCard purchases={purchases}/>
+                                    <DataCard purchases={purchases} cardType="Purchases"/>
                                 </div>
                                 <div class="col-sm-4">
                                     <DataCard />

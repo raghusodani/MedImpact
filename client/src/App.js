@@ -39,7 +39,7 @@ function App() {
           return <Billing />
         }
         else if(component==="inventory"){
-          return <Inventory />
+          return <Inventory getMedicines={getMedicines} />
         }
         else if(component==="invoice"){
           return <Invoice />
@@ -136,6 +136,18 @@ function App() {
     const purchases = contract?.methods?.purchasesCount()?.call()
     console.log("purchases", purchases)
     return purchases;
+  }
+
+  const getMedicines = () => {
+    const medicineCount = contract?.methods?.medicineCountInMedicalStore(account).call();
+    console.log("medicineCount", medicineCount);
+    const medicines = [];
+    for(let i=1; i<=medicineCount; i++){
+      const batchId = contract?.methods?.batchIdOfMedicine(account, i).call();
+      const medicine = contract?.methods?.medicines(account, batchId).call();
+      medicines = [...medicines, medicine]
+    }
+    return medicines;
   }
   /*captureFile = (e) => {
 

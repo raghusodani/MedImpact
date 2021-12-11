@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 
-function InventoryTable() {
+function InventoryTable({medicines}) {
     return (
         <div className="inventory-table">
             <table class="table">
