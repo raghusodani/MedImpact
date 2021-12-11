@@ -9,12 +9,27 @@ body {
   
   /* Sidebar */
   .sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    padding: 58px 0 0; /* Height of navbar */
+    position: absolute;
+    padding: 58px 0 0;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-    width: 240px;
+    width: 15%;
     z-index: 600;
+    height: 100%;
+  }
+  .text-reset{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+  
+  }
+  .list-group-item{
+    height: 70px;
+  }
+  .collapse{
+    margin-top:0%;
+    height: 100%;
+  }
+  .sidenav-link{
+    height: 70px;
+    
   }
