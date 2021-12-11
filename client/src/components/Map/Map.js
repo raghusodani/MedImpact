@@ -17,8 +17,8 @@ export default function Map({ type }){
 	const [directionResponse,setResponse] = useState(null);
 	const [showDirections, setshowDirections] = useState(true);
 	const containerStyle ={
-		width: '900px',
-	  	height: '600px'	
+		width: '500px',
+	  	height: '500px'	
 	};
 	const options = {
 		enableHighAccuracy: true,
@@ -102,8 +102,8 @@ const showDirection = (location) => {
 let test = {lat:Number(25.344930),lng:Number(74.631260)};
 
     return (
-		<div>
-			<div>
+		<div className="Map-Search-container">
+			<div className="Map-Search-input">
 				<Input type="text" placeholder={type==="medicine" ? "Enter Medicine Name":"Enter Blood Type"} onChange={handleMedicineChange}  />
 				<button className="btn btn-primary col-2" onClick={onSubmitHandler}>Submit</button>
 			</div>

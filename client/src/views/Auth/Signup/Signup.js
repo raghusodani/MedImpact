@@ -56,7 +56,8 @@ function Signup() {
           e.target.reset();}
     }
     return (
-        <div className='card col-6 m-auto mt-4'>
+        <div className="container" style={{height:'81vh',marginTop:"50px"}}>
+        <div className='card col-6 m-auto mt-4' >
             <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 card-body">
                 <div className="max-w-md w-full space-y-8 card-title">
                     <div>
@@ -68,9 +69,8 @@ function Signup() {
                         <input type="hidden" name="remember" value="true"/>
                         <div className="rounded-md shadow-none -space-y-px flex-col gap-x-2">
 
-                            <Input type='Email' placeholder="Email" value={email} onChange={handleEmailChange} />
-                            <Input type='Password' placeholder="Password" value={password} onChange={handlePasswordChange}
-                             />
+                            <Input type='Email' placeholder="Email" value={email} onChange={handleEmailChange}  />
+                            <Input type='Password' placeholder="Password" value={password} onChange={handlePasswordChange} />
                         </div>
                         <div>               
                             <select className="w-full text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-none focus:outline-none focus:ring-primary-500 focus:border-primary-500 " name="usertype" 
@@ -90,13 +90,19 @@ function Signup() {
                             error && <div className="text-red-600 text-sm font-medium">*{error}</div>
                         }
                         <div className="flex items-center justify-between">
-                            <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500 m-auto">
+                            <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500 m-auto" style={{
+                                color:'#4CCCC0'
+                            }}>
                                 Already have an account ? Sign In
                             </a>
                         </div>
 
                         <div>
-                            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                style={{
+                                    backgroundColor: '#4CCCC0',
+                                }}
+                            >
                             <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                             </span>
                             Sign Up
@@ -106,6 +112,7 @@ function Signup() {
                 </div>
             </div>
         </div>
+    </div>
     )
 }
 
