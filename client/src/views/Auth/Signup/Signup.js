@@ -7,16 +7,31 @@ function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userType, setUserType] = useState('');
-    
+    const [error, setError] = useState('');
     const handleEmailChange = (e) => {
+        setError('');
         setEmail(e.target.value);
     }
     const handlePasswordChange = (e) => {
+        setError('');
         setPassword(e.target.value);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(email === '' ){
+            setError('Email is required');
+        }
+        else if(password === ''){
+            setError('Password is required');   
+        }
+        else if(userType === ''){
+            setError('User Type is required');
+        }
+        else if(password.length < 6){
+            setError('Password must be at least 6 characters');
+        }
+        else{
         console.log(email);
         console.log(password);
         console.log(userType);
@@ -38,7 +53,7 @@ function Signup() {
           .catch(function (error) {
             console.log(error);
           });
-          e.target.reset();
+          e.target.reset();}
     }
     return (
         <div className='card col-6 m-auto mt-4'>
@@ -49,17 +64,17 @@ function Signup() {
                             Create a new account 
                         </h2>
                     </div>
-                    <form className="mt-8 space-y-6" action="#" method="POST" onSubmit = {handleSubmit}>
+                    <form className="mt-8 space-y-6"  onSubmit = {handleSubmit}>
                         <input type="hidden" name="remember" value="true"/>
                         <div className="rounded-md shadow-none -space-y-px flex-col gap-x-2">
 
-                            <Input type='Email' placeholder="Email" value={email} onChange={handleEmailChange}/>
-                            <Input type='Password' placeholder="Password" value={password} onChange={handlePasswordChange}/>
-                            
+                            <Input type='Email' placeholder="Email" value={email} onChange={handleEmailChange} />
+                            <Input type='Password' placeholder="Password" value={password} onChange={handlePasswordChange}
+                             />
                         </div>
                         <div>               
                             <select className="w-full text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-none focus:outline-none focus:ring-primary-500 focus:border-primary-500 " name="usertype" 
-                            onChange={(e) => setUserType(e.target.value)}>
+                            onChange={(e) => {setError('');setUserType(e.target.value)}}>
                                 <option value="">
                                     Select User Type
                                 </option>
@@ -71,6 +86,9 @@ function Signup() {
                                 </option>
                             </select>
                         </div>
+                        {
+                            error && <div className="text-red-600 text-sm font-medium">*{error}</div>
+                        }
                         <div className="flex items-center justify-between">
                             <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500 m-auto">
                                 Already have an account ? Sign In

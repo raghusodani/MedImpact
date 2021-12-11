@@ -132,8 +132,9 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar/>
+      
       <Router>
+      <NavBar/>
         <Switch>
           <Redirect exact from="/" to="/login" />
           <Route path="/login" component={Login} />

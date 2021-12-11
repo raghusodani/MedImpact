@@ -6,8 +6,17 @@ function Login() {
     const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
     const handleSubmit = (e) => {
+        
         e.preventDefault()
+        if(email === '' || password === ''){
+            setError('Email and Password are required')
+        }
+        else if(password.length < 6){
+            setError('Password must be at least 6 characters')
+        }
+        else{
         console.log("🚀 login payload",email, password)
         axios.post('https://medimpact.herokuapp.com/auth/login', {
                 email,
@@ -19,8 +28,10 @@ function Login() {
                 if(res.data.isFirstLogin){
                     history.push('/signupDetails')
                 }
-                else
+                else{
                 history.push(`/dashboard/${res.data.type}`)
+                window.location.reload()
+            }
             })
             .catch(err => {
                 console.log(err)
@@ -28,6 +39,7 @@ function Login() {
                     alert("Invalid email or password")
                 }
             })
+        }
 
     }
     return (
@@ -55,6 +67,8 @@ function Login() {
                         />
                         </div>
                     </div>
+                    {/* error line */}
+                    {error && <div className="text-red-500 text-sm font-medium">*{error}</div>}
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
                         <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"/>

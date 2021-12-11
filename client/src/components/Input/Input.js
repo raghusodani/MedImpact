@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Input({value,type,onChange,placeholder}) {
+function Input({value,type,onChange,placeholder,style}) {
     return (
-        <div>
+        <div >
             <div>
             <label 
                 class="sr-only"
@@ -15,6 +15,7 @@ function Input({value,type,onChange,placeholder}) {
                 placeholder={placeholder}
                 onChange={onChange}
                 value={value}
+                style={style}
             />
             </div>
         </div>

@@ -2,9 +2,7 @@ import React,{useState,useEffect} from "react";
 import { DirectionsRenderer,DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
 import Input from '../Input/Input';
 import axios from 'axios';
-import { getType } from "../../helpers/LocalStorageValidator";
-export default function Map({type}){
-	console.log("In map type",type);
+export default function Map({ type }){
 	const [medicineName, setmedicineName] = useState("");
 	const [data, setdata] = useState({
 		center: {lat: 37.772,lng: -122.214},
@@ -68,7 +66,6 @@ export default function Map({type}){
 	const url = "https://frontida.herokuapp.com/users/medicine_search/"
 	axios.post(url, APIdata)
 	.then(response=>{
-		console.log(response.data);
 		setmedicalStores(response.data);
 	})
 	.catch(error=>{console.log(error)});
@@ -116,13 +113,13 @@ let test = {lat:Number(25.344930),lng:Number(74.631260)};
 				<GoogleMap
 					mapContainerStyle={containerStyle}
 					center={data.center}
-					zoom={15}
+					zoom={13}
 					onClick={()=>{setshowDirections(false);setselectedLocation(null);console.log(data);}}
 				>
 					<Marker position={data.center}/>
 					{/* <Marker onClick={()=>showDirection(test)} position={test}/> */}
-					{medicalStores&&destinations.map((pos)=>
-						<Marker onClick={()=>showDirection(pos)}  position={pos}/>
+					{medicalStores&&destinations.map((pos,index)=>
+						<Marker key={index} onClick={()=>showDirection(pos)}  position={pos}/>
 					)}
 					{directionResponse===null &&  showDirections && <DirectionsService options={{origin: origin,
 									destination: selectedLocation,
