@@ -1,9 +1,8 @@
 
 .Container{
-    height: 100%;
 }
 .Content-right{
-    height: 100%;
+    height: auto;
 }
 .Content-left{
     height: 100%;
