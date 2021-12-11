@@ -8,7 +8,6 @@ import InventoryTable from '../../components/dashboard/StoreDashboard/InventoryT
 function Inventory() {
     return (
         <div className="Container">
-            <NavBar></NavBar>
             <div class="row">
                 <div class="col-sm-2">
                     <div className="Content-left">
