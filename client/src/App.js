@@ -138,6 +138,15 @@ function App() {
     contract?.methods?.addMedicine(medicineName, rate, price, quantity, batchNo, manufactDate, expiryDate).send({ from: account }).on('transactionHash', (hash) => {
       setLoading(false)
     })
+  }
+
+  const purchaseMedicine = async (quantity, batchNo) => {
+      console.log("quantity", quantity)
+      setLoading(true)
+      contract?.methods?.purchaseMedicine(quantity, batchNo).send({ from: account }).on('transactionHash', (hash) => {
+        setLoading(false)
+      })
+    }
 
     // console.log("Submitting file to ipfs...")
 
@@ -149,7 +158,6 @@ function App() {
     //     return
     //   }
     // })
-  }
 
   const invoicesCount = async () => {
     console.log("contract", contract)
