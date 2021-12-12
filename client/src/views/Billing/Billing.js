@@ -86,10 +86,10 @@ const Billing = ({purchaseMedicine}) => {
                                     className='medicinename'
                                 >
                                     <option value="none" selected disabled hidden>Select an Option</option>
-                                    <option value="String">String</option>
-                                    <option value="Alphanumeric">Alphanumeric</option>
-                                    <option value="Number">Number</option>
-                                    <option value="Date">Date</option>
+                                    <option value="String">Penicillin</option>
+                                    <option value="Alphanumeric">Cough Syrup</option>
+                                    <option value="Number">Pudinhara</option>
+                                    <option value="Date">Crocin</option>
                                 </select>
                                 <input
                                     name="medicinequantity"
@@ -107,7 +107,6 @@ const Billing = ({purchaseMedicine}) => {
                                     :null}
                               </div>
                           ))}
-                            <h1 className='totalmoney'>Total Amount - 200</h1>
                            <button
                             type="submit"
                             className='formsubmit'
