@@ -47,7 +47,7 @@ function App() {
         return <Inventory getMedicines={getMedicines} getBills={getBills} />
       }
       else if (component === "invoice") {
-        return <Invoice addingMedicine={addingMedicine} retrieveFile={retrieveFile} handleUpload={handleUpload} />
+        return <Invoice addingMedicine={addingMedicine} retrieveFile={retrieveFile} handleUploadInvoice={handleUploadInvoice} />
       }
       else if (component === "uploadinvoice") {
         return <UploadInvoice retrieveFile={retrieveFile} handleUploadInvoice={handleUploadInvoice}/>
