@@ -1,15 +1,52 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import SubscirbeStyling from './Subscribe.css'
 import Card from "react-bootstrap/Card";
 import { useState } from 'react';
 import Input from '../Input/Input';
+import axios from 'axios';
 
-function Subscribe({demand}) {
+function Subscribe({type}) {
+    const [fields, setFields] = useState(type)
+    useEffect(()=>{
+        setFields(type)
+    },[type])
+    
+    const [data, setdata] = useState({
+		center: {lat: 37.772,lng: -122.214},
+	});
+	
+	
+	
+	const options = {
+		enableHighAccuracy: true,
+		timeout: 5000,
+		maximumAge: 0
+	  };
+
+    const success = (position) => {
+		setdata({
+			center:{
+				lat:position.coords.latitude,
+				lng:position.coords.longitude
+			}
+		});
+	};
+
+    const error=(err)=> {
+		console.warn(`ERROR(${err.code}): ${err.message}`);
+	}
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(success, error, options);
+        // eslint-disable-next-line
+      },[]);
+   
     const [subscribe,setSubscribe] = useState(
         {
             name: '',
             email: '',
-            requirement: ''
+            medicine: null,
+            bloodGroup: null
         });
     const style = {
         margin:'auto',
@@ -27,6 +64,31 @@ function Subscribe({demand}) {
         fontFamily:'Source Sans Pro',
         fontSize:'16px',
     }
+
+    const HandleSubmit = (e) => {
+		console.log(e);
+		e.preventDefault();
+        console.log(data.center.lat)
+
+        const apiData = {
+            name:subscribe.name,
+            email:subscribe.email,
+            lat:data.center.lat,
+            lng:data.center.lng,
+            bloodGroup: subscribe.bloodGroup,
+            medicine: subscribe.medicine
+        }
+        
+        axios.post("https://medimpact.herokuapp.com/subscribe",apiData)
+        .then((reason)=>{
+            alert("Subscribed Successfully!");
+            window.location.reload(false);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
     return (
         <div className='subscribe-container'>
             <Card className="subscribe-card">
@@ -46,6 +108,9 @@ function Subscribe({demand}) {
                     value = {subscribe.name}
                     className="subscribe-input" 
                     style={style1}
+                    onChange={(e) => {
+					setSubscribe({ ...subscribe, [e.target.name]: e.target.value });
+					}}
                     ></Input>
                     <Input
                     placeholder='Email'
@@ -54,16 +119,40 @@ function Subscribe({demand}) {
                     value = {subscribe.email}
                     className="subscribe-input" 
                     style={style}
+                    onChange={(e) => {
+					setSubscribe({ ...subscribe, [e.target.name]: e.target.value });
+					}}
                     ></Input>
+                    {
+                        fields === "medicine" ?
+                        (
                     <Input
                     placeholder='Medicine required'
                     type="text"
-                    name='requirement'
-                    value = {subscribe.requirement}
+                    name='medicine'
+                    value = {subscribe?.medicine}
                     className="subscribe-input" 
                     style={style}
+                    onChange={(e) => {
+					setSubscribe({ ...subscribe, [e.target.name]: e.target.value });
+					}}
                     ></Input>
-                    <button className='subscribe-button'>Send</button>
+                        ) : (
+                    <Input
+                    placeholder='Blood Group required'
+                    type="text"
+                    name='bloodGroup'
+                    value = {subscribe?.bloodGroup}
+                    className="subscribe-input" 
+                    style={style}
+                    onChange={(e) => {
+					setSubscribe({ ...subscribe, [e.target.name]: e.target.value });
+					}}
+                    ></Input>
+                        )
+                    }
+                   
+                    <button className='subscribe-button' onClick={(e) => HandleSubmit(e)}>Send</button>
                 </Card>
             </Card>
         </div>
