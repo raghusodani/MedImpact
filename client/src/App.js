@@ -15,6 +15,7 @@ import Inventory from './views/Inventory/Inventory';
 import SearchContent from './views/Search/SearchContent';
 import NavBar from './components/dashboard/StoreDashboard/NavBar';
 import Invoice from './views/Invoice/Invoice';
+import UploadInvoice from './views/Invoice/UploadInvoice';
 import Home from './views/Landing/Home';
 //import ipfsClient from 'ipfs-http-client';
 import { create } from "ipfs-http-client";
@@ -48,6 +49,9 @@ function App() {
       }
       else if (component === "invoice") {
         return <Invoice addingMedicine={addingMedicine} retrieveFile={retrieveFile} handleUpload={handleUpload} />
+      }
+      else if (component === "uploadinvoice") {
+        return <UploadInvoice retrieveFile={retrieveFile} handleUpload={handleUpload}/>
       }
       else {
         return <Redirect to="dashboard/Donor" />
@@ -163,7 +167,7 @@ function App() {
 
   const getMedicines = async () => {
     const medicineCount = await contract?.methods?.medicineCountInMedicalStore(account).call();
-    //console.log("medicineCount", medicineCount);
+    console.log("medicineCount", medicineCount);
     setMedicines([]);
     for (let i = 1; i <= medicineCount; i++) {
       console.log("i", i)
@@ -252,6 +256,7 @@ function App() {
           <Route path="/billing" component={() => checkStore("billing")} />
           <Route path='/inventory' component={() => checkStore("inventory")} />
           <Route path='/invoice' component={() => checkStore("invoice")} />
+          <Route path='/uploadinvoice' component={() => checkStore("uploadinvoice")} />
         </Switch>
       </HashRouter>
 

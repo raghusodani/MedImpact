@@ -11,7 +11,6 @@ function InvoiceForm({ submitInvoice }) {
         total:''
     })
     const handleChange = (e) => {
-        console.log("handle change of",e.target.name)
         setInvoice({
             ...invoice,
             [e.target.name]: e.target.value

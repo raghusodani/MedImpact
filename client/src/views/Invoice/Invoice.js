@@ -8,12 +8,14 @@ import MedicineForm from '../../components/dashboard/StoreDashboard/MedicineForm
 import InvoiceStyler from './Invoice.css'
 import InvoiceTable from '../../components/dashboard/StoreDashboard/InvoiceTable'
 import jsPDF from 'jspdf';
+import {useHistory} from 'react-router-dom';
 import "jspdf-autotable";
-function Invoice({ addingMedicine, retrieveFile, handleUpload}) {
+function Invoice({addingMedicine}) {
+    const history = useHistory();
     const [addMedicine, setAddMedicine] = useState([]);
     const [distributorData, setDistributorData] = useState({});
     const [showUploadDiv, setShowUploadDiv] = useState(false);
-    const [pdf, setPdf] = useState(null);
+    
     const handleMedicineAddition = (medicine) => {
         setAddMedicine([...addMedicine, medicine]);
     };
@@ -38,11 +40,10 @@ function Invoice({ addingMedicine, retrieveFile, handleUpload}) {
             //     discount:'',
             //     total:''
             // }
-        setShowUploadDiv(true);
-        addingMedicine(addMedicine[0].medicineName, parseInt(addMedicine[0].Price), parseInt(addMedicine[0].MRP), parseInt(addMedicine[0].quantity), addMedicine[0].batchId, addMedicine[0].ManDate, addMedicine[0].ExpDate)
+        addingMedicine(addMedicine[0].medicineName, parseInt(addMedicine[0].Price), parseInt(addMedicine[0].quantity), addMedicine[0].batchId, addMedicine[0].ExpDate, "billhash")
         generatePDF(addMedicine,distributorData);
-        //setShowUploadDiv(true);
-
+        setShowUploadDiv(true);
+        history.push('/uploadinvoice');
     };
     const generatePDF = (medicines,invoiceData) => {
         // initialize jsPDF
@@ -79,9 +80,6 @@ function Invoice({ addingMedicine, retrieveFile, handleUpload}) {
     const handleInvoiceData = (data) => {
         setDistributorData(data);
     };
-    useEffect(() => {
-        console.log(addMedicine);
-    }, [addMedicine]);
     return (
         <div className='Container'>
             <div class="row">
@@ -113,20 +111,7 @@ function Invoice({ addingMedicine, retrieveFile, handleUpload}) {
                    
                     </div>)
                     : 
-                    (
-                        <div className='invoice-upload-container'>
-                            <div className='invoice-upload-text'>
-                                 Upload the PDF file Downloaded in your browser
-                            </div>
-                            <div className='invoice-upload-btn'>
-                                        <input type='file' id='file' name='file' onChange={retrieveFile} style={{
-                                    width: '100%',
-                                    height: '200px',
-                                }}/>
-                            </div>
-                                    <button className='invoice-submit-btn' onClick={handleUpload}>Submit</button>
-                        </div>
-                    )
+                    null
                     }
 
                     </Card>

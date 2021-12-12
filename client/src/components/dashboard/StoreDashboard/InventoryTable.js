@@ -14,20 +14,18 @@ function InventoryTable({medicines}) {
                     </tr>
                 </thead>
                 <tbody>
+                {medicines.map((m,id)=>{
+                    return (
                     <tr>
-                    <th scope="row">1</th>
-                    <td>Vicks</td>
-                    <td>Rs.10</td>
-                    <td>2000</td>
-                    <td>1/1/2022</td>
+                    <th scope="row">{id+1}</th>
+                    <td>{m.name}</td>
+                    <td>{m.price}</td>
+                    <td>{m.quantity}</td>
+                    <td>{m.expiryDate}</td>
                     </tr>
-                    <tr>
-                    <th scope="row">2</th>
-                    <td>Dolo</td>
-                    <td>Rs.20</td>
-                    <td>1000</td>
-                    <td>1/1/2022</td>
-                    </tr>
+                    )
+                })}
+                   
                 </tbody>
                 </table>
 
