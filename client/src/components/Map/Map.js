@@ -67,7 +67,7 @@ export default function Map({ type }){
 		lng:data.center.lng	
 	};
 	///set Data VIA API
-	const url = type==="Donor" ? "https://medimpact.herokuapp.com/donor/nearestDonors" : "https://medimpact.herokuapp.com/store/nearestStores";
+	const url = type==="donor" ? "https://medimpact.herokuapp.com/donor/nearestDonors" : "https://medimpact.herokuapp.com/store/nearestStores";
 	axios.post(url, APIdata)
 	.then(response=>{
 		setmedicalStores(response.data);
@@ -93,6 +93,8 @@ useEffect(() => {
 	}
 	 );
 }, [medicalStores]);
+
+console.log(medicalStores)
 
 
 const showDirection = (location) => {
@@ -159,7 +161,7 @@ let test = {lat:Number(25.344930),lng:Number(74.631260)};
 					}} />
 					<button className="btn btn-primary col-2 submit-btn" onClick={onSubmitHandler}>Submit</button>
 					</div>
-					<RecordTable></RecordTable>
+					<RecordTable data={medicalStores}/>
 				</div>
 			</div>
 		</div>

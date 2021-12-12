@@ -7,6 +7,7 @@ import axios from 'axios';
 
 function Subscribe({type}) {
     const [fields, setFields] = useState(type)
+    console.log(type)
     useEffect(()=>{
         setFields(type)
     },[type])
