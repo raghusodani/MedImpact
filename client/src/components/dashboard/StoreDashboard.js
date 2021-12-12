@@ -6,7 +6,7 @@ import DataCard from './StoreDashboard/DataCard'
 import OutOfStockTable from './StoreDashboard/OutOfStockTable'
 import ExpiryTable from './StoreDashboard/ExpiryTable'
 import StoreDashStyle from './StoreDashboard.css'
-function StoreDashboard({invoicesCount, purchasesCount}) {
+function StoreDashboard({ invoicesCount, purchasesCount, medicalStore}) {
     const user = {
         name: 'Anuj Pillai',
         email: 'anujpillai1201@gmail.com'
@@ -14,12 +14,16 @@ function StoreDashboard({invoicesCount, purchasesCount}) {
     const [invoices, setInvoices] = useState(0);
     const [purchases, setPurchases] = useState(0);
     useEffect(() => {
-        invoicesCount()?.then((res) => {
-            setInvoices(res);
+        medicalStore()?.then((res) => {
+            setInvoices(res.invoices)
+            setPurchases(res.purchases)
         })
-        purchasesCount()?.then((res) => {
-            setPurchases(res);
-        })
+        // invoicesCount()?.then((res) => {
+        //     setInvoices(res);
+        // })
+        // purchasesCount()?.then((res) => {
+        //     setPurchases(res);
+        // })
     }, [])
 
     return (

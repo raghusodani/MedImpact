@@ -14,7 +14,7 @@ function Dashboard({invoicesCount, purchasesCount}) {
     console.log(type)
     return (
         <div>
-            {type === "Donor" ? <DonorDashboard /> : <StoreDashboard invoicesCount={invoicesCount} purchasesCount={purchasesCount}/>}
+            {type === "Donor" ? <DonorDashboard /> : <StoreDashboard invoicesCount={invoicesCount} purchasesCount={purchasesCount} medicalStore={medicalStore} />}
         </div>
     )
 }

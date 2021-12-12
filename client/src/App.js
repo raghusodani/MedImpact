@@ -30,7 +30,7 @@ function App() {
     if (token) {
       switch (type) {
         case 'Dashboard':
-          return <Dashboard invoicesCount={invoicesCount} purchasesCount={purchasesCount} />
+          return <Dashboard invoicesCount={invoicesCount} purchasesCount={purchasesCount} medicalStore={medicalStore} />
         case 'FirstTimeLogin':
           return <FirstTimeLogin addMedicalStore={addMedicalStore} />
       }
@@ -162,7 +162,7 @@ function App() {
     //   }
     // })
 
-  const invoicesCount = async () => {
+  /*const invoicesCount = async () => {
     console.log("contract", contract)
     const invoices = await contract?.methods.invoicesCount().call()
     console.log("invoices", invoices)
@@ -171,10 +171,17 @@ function App() {
 
   const purchasesCount = async () => {
     console.log("contract", contract)
-    const purchases = await contract?.methods?.purchasesCount()?.call()
+    const purchases = await contract?.methods?.purchasesCount().call()
     console.log("purchases", purchases)
     return purchases;
-  }
+  }*/
+
+  const medicalStore = async () => {
+    console.log("contract", contract)
+    const medicalStore = await contract?.methods.medicalStores(account).call()
+    console.log("medicalStore", medicalStore)
+    return medicalStore;
+  }  
 
   const getMedicines = async () => {
     const medicineCount = await contract?.methods?.medicineCountInMedicalStore(account).call();
