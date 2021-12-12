@@ -7,8 +7,8 @@ import InventoryTable from '../../components/dashboard/StoreDashboard/InventoryT
 
 function Inventory({getMedicines, getBills}) {
     
-    const [medicines, setMedicines] = useState([{}])
-    const [bills, setBills] = useState([{}])
+    const [medicines, setMedicines] = useState({})
+    const [bills, setBills] = useState({})
     let a = true;
 
     useEffect(() => {

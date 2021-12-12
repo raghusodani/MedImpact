@@ -6,14 +6,14 @@ import DataCard from './StoreDashboard/DataCard'
 import OutOfStockTable from './StoreDashboard/OutOfStockTable'
 import ExpiryTable from './StoreDashboard/ExpiryTable'
 import StoreDashStyle from './StoreDashboard.css'
-
+import { getEmail } from '../../helpers/LocalStorageValidator'
 function StoreDashboard({invoicesCount, purchasesCount}) {
     const user = {
-        name: 'john doe',
-        email: 'raghu@gmail.com',
+        name: 'raghu raj',
+        email: 'sodaniraghuraj@gmail.com'
     }
-    const [invoices, setInvoices] = useState();
-    const [purchases, setPurchases] = useState();
+    const [invoices, setInvoices] = useState(0);
+    const [purchases, setPurchases] = useState(0);
     useEffect(() => {
         invoicesCount()?.then((res) => {
             setInvoices(res);
@@ -40,13 +40,13 @@ function StoreDashboard({invoicesCount, purchasesCount}) {
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <DataCard invoices={invoices} cardType="Invoices"/>
+                                    <DataCard data={invoices} cardType="Invoices"/>
                                 </div>
                                 <div class="col-sm-4">
-                                    <DataCard purchases={purchases} cardType="Purchases"/>
+                                    <DataCard data={purchases} cardType="Purchases"/>
                                 </div>
                                 <div class="col-sm-4">
-                                    <DataCard cardType={"Profit"} />
+                                    <DataCard cardType={"Profit"} data={'XXX'} />
                                 </div>
                             </div>
                             <div className="records">
