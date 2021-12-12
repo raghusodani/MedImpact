@@ -21,14 +21,12 @@ setData(props.data);
                     <table class="table">
                     <thead class="thead-light">
                 <tr>
-                    <th width="1%" scope="col">No</th>
-                    <th width="10%" scope="col">Store</th>
-                    <th width="10%" scope="col">Owner</th>
-                    <th width="10%" scope="col">Email</th>
-                    <th width="10%" scope="col">Contact</th>
-                    <th width="10%" scope="col">Address</th>
-                    <th width="10%" scope="col">City</th>
-                    <th width="5%" scope="col">Pincode</th>
+                    <th scope="col">No</th>
+                    <th  scope="col">Store</th>
+                    <th  scope="col">Owner</th>
+                    <th  scope="col">Email</th>
+                    <th  scope="col">Contact</th>
+                    <th  scope="col">Address</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,8 +40,6 @@ setData(props.data);
                     <td>{d.email}</td>
                     <td>{d.contact}</td>
                     <td>{d.address}</td>
-                    <td>{d.city}</td>
-                    <td>{d.pincode}</td>
                     </tr>    
                         )
                     })
@@ -55,13 +51,11 @@ setData(props.data);
                     <table class="table">
                     <thead class="thead-light">
                 <tr>
-                    <th width="1%" scope="col">No</th>
-                    <th width="10%" scope="col">Donor-Name</th>
-                    <th width="10%" scope="col">Email</th>
-                    <th width="10%" scope="col">Contact</th> 
-                    <th width="10%" scope="col">Address</th>
-                    <th width="10%" scope="col">City</th>
-                    <th width="5%" scope="col">Pincode</th>
+                    <th scope="col">No</th>
+                    <th  scope="col">Donor-Name</th>
+                    <th  scope="col">Email</th>
+                    <th  scope="col">Contact</th> 
+                    <th  scope="col">Address</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,8 +68,6 @@ setData(props.data);
                     <td>{d.email}</td>
                     <td>{d.contact}</td>
                     <td>{d.address}</td>
-                    <td>{d.city}</td>
-                    <td>{d.pincode}</td>
                     </tr>    
                         )
                     })

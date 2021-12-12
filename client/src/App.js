@@ -19,7 +19,6 @@ import UploadInvoice from './views/Invoice/UploadInvoice';
 import Home from './views/Landing/Home';
 //import ipfsClient from 'ipfs-http-client';
 import { create } from "ipfs-http-client";
-import { HashRouter } from 'react-router-dom';
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
@@ -246,7 +245,7 @@ function App() {
   return (
     <div className="App">
 
-      <HashRouter>
+      <BrowserRouter>
         <NavBar />
         <Switch>
           <Redirect exact from={'/'} to={'/home'} />
@@ -262,7 +261,7 @@ function App() {
           <Route path='/invoice' component={() => checkStore("invoice")} />
           <Route path='/uploadinvoice' component={() => checkStore("uploadinvoice")} />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
 
     </div>
   );
