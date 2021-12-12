@@ -3,8 +3,13 @@ import React from 'react'
 function OutOfStockTable() {
     return (
         <div className="out-of-stock-table">
-            <table class="table table-striped">
-                <thead>
+            <table class="table" style={{
+                color: 'black',
+                backgroundColor: '#4CCCC0',
+                marginBottom: '0px',
+                fontFamily: 'source sans pro',
+            }}>
+                <thead >
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Out Of Stock</th>

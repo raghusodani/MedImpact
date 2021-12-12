@@ -25,7 +25,7 @@ function Invoice() {
                     </div>
                 </div>
                 <div class="col-sm-10">
-                    <TitleInvoice></TitleInvoice>
+                    <TitleInvoice text={'Invoice'}></TitleInvoice>
                     <Card className='invoice-card'>
                         <div class="row">
                             <div class="col-sm-5">

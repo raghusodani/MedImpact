@@ -29,17 +29,17 @@
 }
 
 .formhead{
-    background: #4F46E5;
+    background: #4CCCC0;
     padding: 19px;
-    font-weight: normal;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 25px;
     line-height: 25px;
     color: #FFFFFF;
 }
 
 .forminput{
     margin-top: 14px;
-    background: #E5E5E5;
+    background: #FFFFFF;
     border-radius: 5px;
     width: 80%;
     margin-left: auto;
@@ -75,14 +75,19 @@
 .formsubmit{
     width: 223px;
     height: 37px;
-    background: #4F46E5;
+    border: #4CCCC0 1px solid;
+    border-radius: 5px;
+    background-color: #4CCCC0;
     color: white;
     margin-left: auto;
     margin-right: auto;
     margin-top: 42px;
     margin-bottom: 20px;
 }
-
+.formsubmit:hover{
+    background-color: white;
+    color: #4CCCC0;
+}
 .totalmoney{
     margin-top: 40px;
     /* width: 195px; */
@@ -109,7 +114,7 @@
 }
 
 .medicinequantity{
-    width: 10%;
+    width: 15%;
     margin-top: 7px;
     margin-left: 90px;
     padding-left: 8px;
@@ -117,16 +122,19 @@
 
 .removebutton{
     width: fit-content;
-    background: #4F46E5;
+    background: #4CCCC0;
+    border-radius: 5px;
     color: white;
     margin-right: 14px;
+    margin-left: 10px;
     padding: 7px;
     margin-top:  6px;
 }
 
 .addbutton{
     width: fit-content;
-    background: #4F46E5;
+    background: #4CCCC0;
+    border-radius: 5px;
     color: white;
     margin-right: 14px;
     padding: 7px;

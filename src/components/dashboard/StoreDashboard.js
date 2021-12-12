@@ -46,7 +46,7 @@ function StoreDashboard({invoicesCount, purchasesCount}) {
                                     <DataCard purchases={purchases} cardType="Purchases"/>
                                 </div>
                                 <div class="col-sm-4">
-                                    <DataCard />
+                                    <DataCard cardType={"Profit"} />
                                 </div>
                             </div>
                             <div className="records">

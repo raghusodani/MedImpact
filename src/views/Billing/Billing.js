@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './Billing.css'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
+import TitleInvoice from '../../components/dashboard/StoreDashboard/TitleInvoice';
 const Billing = () => {
     const [formkey, setFormkey] = useState(2);
     const [amount, setAmount] = useState();
@@ -25,9 +26,10 @@ const Billing = () => {
     const handleAddFields = () => {
         setInputFields([...inputFields, {id: uuidv4()}])
     }
-    const handleRemoveFields = (id) => {
+    const handleRemoveFields = (id,e) => {
         // console.log(id);
-        setInputFields(inputFields.splice(id, 1));
+        e.preventDefault();
+        setInputFields(inputFields.filter(field => field.id !== id));
     }
     const handleChangeInput = (id, event) => {
         const newInputFields = inputFields.map(i => {
@@ -67,9 +69,7 @@ const Billing = () => {
     }
     return (
         <div className='billing'>
-            <div className="billingtop">
-                <h1 className='billingtoph1'>Billing</h1>
-            </div>
+            <TitleInvoice text={'Billing'} />
             <div className='billingbottom'>
                 <form className='billingform' onSubmit={handleSubmit}>
                     <h1 className='formhead'>Bill 12abc435</h1>
@@ -105,7 +105,7 @@ const Billing = () => {
                                     onChange={event => handleChangeInput(inputField.id, event)}
                                     className = "medicinequantity"  
                                 />
-                                    <button disabled={inputFields.length === 1} onClick={() => handleRemoveFields(index)} className='removebutton'>
+                                    <button disabled={inputFields.length === 1} onClick={(e) => handleRemoveFields(inputField.id,e)} className='removebutton'>
                                         Remove 
                                     </button>
                                     {index === inputFields.length - 1?

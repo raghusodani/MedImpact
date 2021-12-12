@@ -3,7 +3,12 @@ import React from 'react'
 function ExpiryTable() {
     return (
         <div className="expiry-table">
-            <table class="table table-striped">
+            <table class="table" style={{
+                color: 'black',
+                backgroundColor: '#4CCCC0',
+                marginBottom: '0px',
+                fontFamily: 'source sans pro',
+            }}>
                 <thead>
                     <tr>
                     <th scope="col">#</th>

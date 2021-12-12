@@ -6,7 +6,7 @@ function DataCard({data, cardType}) {
     return (
         <div >
             <Card className="data-card">
-                <Card.Body className="data-card-text">{data}<p className="data-card-sub-text">{cardType}</p></Card.Body>
+                <Card.Body className="data-card-text">{cardType}<p className="data-card-sub-text">Hello{data}</p></Card.Body>
             </Card>
         </div>
     )
