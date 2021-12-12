@@ -4,6 +4,9 @@ import Input from '../Input/Input';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import './Map.css';
+import RecordTable from "./RecordTable";
+
+
 export default function Map({ type }){
 	const [medicineName, setmedicineName] = useState("");
 	const [data, setdata] = useState({
@@ -19,8 +22,9 @@ export default function Map({ type }){
 	const [directionResponse,setResponse] = useState(null);
 	const [showDirections, setshowDirections] = useState(true);
 	const containerStyle ={
-		width: '500px',
-	  	height: '500px'	
+		width: '100%',
+	  	height: '100%',
+		marginLeft: '-1%'
 	};
 	const options = {
 		enableHighAccuracy: true,
@@ -99,52 +103,64 @@ let test = {lat:Number(25.344930),lng:Number(74.631260)};
 
     return (
 		<div className="map-Search-container">
-			
-			<div className="map-container">
-			<LoadScript
-				googleMapsApiKey="AIzaSyBZWUmH4zYtWSPyFCRuvJxHLxsJj407-78"
-			>
-				<GoogleMap
-					mapContainerStyle={containerStyle}
-					center={data.center}
-					zoom={13}
-					onClick={()=>{setshowDirections(false);setselectedLocation(null);console.log(data);}}
-				>
-					<Marker position={data.center}/>
-					{medicalStores&&destinations.map((pos,index)=>
-						<Marker key={index} onClick={()=>showDirection(pos)}  position={pos}/>
-					)}
-					{directionResponse===null &&  showDirections && <DirectionsService options={{origin: origin,
-									destination: selectedLocation,
-									travelMode: 'DRIVING'}}
-							callback={(response)=>{
-								console.log(response,`response`,`state`);
-								setshowDirections(true);
-								if (response !== null) {
-								if (response.status === 'OK') {
-									setResponse(response);
-								} else {
-									console.log('response: ', response)
-	  }
-	}
-							}}/>}
-					{directionResponse!==null&& showDirections&&
-		        <DirectionsRenderer options={{directions:directionResponse}}/>}
-				</GoogleMap>
-			</LoadScript>
-			</div>
-			<div className="map-Search-input">
-				<Input 
-					type="text" 
-					placeholder={type==="medicine" ? "Enter Medicine Name":"Enter Blood Type"} 
-					onChange={handleMedicineChange} 
-					style={{
-						width: "100%",
-						height: "40px",
-						margin: "20px auto",
-						fontFamily: "Source Sans Pro",
+			<div className="row">
+				<div className="col-sm-6">
+					<div className="map-container">
+						
+							<LoadScript
+							googleMapsApiKey="AIzaSyBZWUmH4zYtWSPyFCRuvJxHLxsJj407-78"
+							>
+								<GoogleMap
+									mapContainerStyle={containerStyle}
+									center={data.center}
+									zoom={13}
+									onClick={()=>{setshowDirections(false);setselectedLocation(null);console.log(data);}}
+								>
+									<Marker position={data.center}/>
+									{medicalStores&&destinations.map((pos,index)=>
+										<Marker key={index} onClick={()=>showDirection(pos)}  position={pos}/>
+									)}
+									{directionResponse===null &&  showDirections && <DirectionsService options={{origin: origin,
+													destination: selectedLocation,
+													travelMode: 'DRIVING'}}
+											callback={(response)=>{
+												console.log(response,`response`,`state`);
+												setshowDirections(true);
+												if (response !== null) {
+												if (response.status === 'OK') {
+													setResponse(response);
+												} else {
+													console.log('response: ', response)
+													}
+												}
+											}}/>}
+									{directionResponse!==null&& showDirections&&
+								<DirectionsRenderer options={{directions:directionResponse}}/>}
+								</GoogleMap>
+						</LoadScript>
+						
+					</div>
+				</div>
+				<div className="col-sm-6">
+					<div className="map-Search-input">
+					<Input 
+						type="text" 
+						className="map-input"
+						placeholder={type==="medicine" ? "Enter Medicine Name":"Enter Blood Type"} 
+						onChange={handleMedicineChange} 
+						style={{
+							width:"120%",
+							height:"40px",
+							marginRight:"40px",
+							marginLeft:"-20px",
+							marginTop:"100px",
+							marginBottom:"30px",
+							fontFamily: "Source Sans Pro",
 					}} />
-				<button className="btn btn-primary col-2 submit-btn" onClick={onSubmitHandler}>Submit</button>
+					<button className="btn btn-primary col-2 submit-btn" onClick={onSubmitHandler}>Submit</button>
+					</div>
+					<RecordTable></RecordTable>
+				</div>
 			</div>
 		</div>
         
