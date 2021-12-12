@@ -1,0 +1,52 @@
+.subscribe-container{
+    height: 600px;
+}
+.subscribe-title{
+    margin-top: 1%;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}
+.subscribe-card{
+    width: 100%;
+    margin: auto;
+    margin-top: 30px;
+    background-color: #4CCCC0;
+    height:100%;
+    border-radius: 0;
+}
+.noti-card{
+    width: 30%;
+    background-color: #4CCCC0;
+    border: 1px solid white;
+    margin: auto;
+    margin-top: 1%;
+    height: 80%;
+    margin-bottom: 2%;
+} 
+.noti-title{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}
+.noti-text{
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    margin-bottom: 5%;
+}
+.subscribe-button{
+    width: 30%;
+    height: 30px;
+    background-color: white;
+    margin-top: 40px;
+    border: #4CCCC0 2px solid;
+    color: #4CCCC0;
+    border-radius: 5px;
+    margin: auto;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
