@@ -17,10 +17,10 @@ function InventoryTable({medicines}) {
                 
                     <tr>
                     <th scope="row">{1}</th>
-                    <td>{medicines.name}</td>
-                    <td>{medicines.price}</td>
-                    <td>{medicines.quantity}</td>
-                    <td>{medicines.expiryDate}</td>
+                    <td>{medicines?.name}</td>
+                    <td>{medicines?.price}</td>
+                    <td>{medicines?.quantity}</td>
+                    <td>{medicines?.expiryDate}</td>
                     </tr>
                    
                 </tbody>

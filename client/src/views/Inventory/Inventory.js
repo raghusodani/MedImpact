@@ -16,6 +16,10 @@ function Inventory({getMedicines, getBills}) {
             setMedicines(res);
             console.log("res", res)
         });
+        getBills()?.then((res) => {
+            setBills(res);
+            console.log("bill hello", res)
+        });
     }, [])
 
     // useEffect(() => {

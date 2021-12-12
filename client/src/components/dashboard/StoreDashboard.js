@@ -6,7 +6,6 @@ import DataCard from './StoreDashboard/DataCard'
 import OutOfStockTable from './StoreDashboard/OutOfStockTable'
 import ExpiryTable from './StoreDashboard/ExpiryTable'
 import StoreDashStyle from './StoreDashboard.css'
-import { getEmail } from '../../helpers/LocalStorageValidator'
 function StoreDashboard({invoicesCount, purchasesCount}) {
     const user = {
         name: 'raghu raj',

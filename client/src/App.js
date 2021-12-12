@@ -104,7 +104,6 @@ function App() {
       setContract(contract);
 
       setLoading(false);
-
       console.log("medicalStoresCount", contract?.methods?.medicalStoresCount().call());
 
     } catch (error) {
