@@ -44,7 +44,7 @@ function App() {
         return <Billing />
       }
       else if (component === "inventory") {
-        return <Inventory getMedicines={getMedicines} />
+        return <Inventory getMedicines={getMedicines} getBills={getBills} />
       }
       else if (component === "invoice") {
         return <Invoice addingMedicine={addingMedicine} retrieveFile={retrieveFile} handleUpload={handleUpload} />
@@ -89,7 +89,7 @@ function App() {
       const deployedNetwork = MedImpact.networks[networkId];
       const contract = new web3.eth.Contract(
         MedImpact.abi,
-        "0x3A9D9b5324D9DA5A21b21176EaB44029c603E979",
+        "0x6CF1713a0293Ca6634Efd6F1a7d0Ff91aF9df0a0",
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
@@ -172,11 +172,7 @@ function App() {
       const medicine = await contract?.methods?.medicines(account, batchId).call();
       //setMedicines([...medicines, medicine])
       setMedicines((prevState) => [...prevState, medicine])
-      console.log("in for medicine", medicine)
-
-      const bill = await contract?.methods?.myBills(account).call();
-      console.log("in for bill", bill)
-      setBills((prevState) => [...prevState, bill])
+      console.log("in for medicine", medicine)      
     }
     return medicines;
   }
