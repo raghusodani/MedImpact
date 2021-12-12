@@ -27,7 +27,6 @@ setData(props.data);
                     <th width="10%" scope="col">Email</th>
                     <th width="10%" scope="col">Contact</th>
                     <th width="10%" scope="col">Address</th>
-                    <th width="10%" scope="col">Landmark</th>
                     <th width="10%" scope="col">City</th>
                     <th width="5%" scope="col">Pincode</th>
                     </tr>
@@ -43,7 +42,6 @@ setData(props.data);
                     <td>{d.email}</td>
                     <td>{d.contact}</td>
                     <td>{d.address}</td>
-                    <td>{d.landmark}</td>
                     <td>{d.city}</td>
                     <td>{d.pincode}</td>
                     </tr>    
@@ -62,7 +60,6 @@ setData(props.data);
                     <th width="10%" scope="col">Email</th>
                     <th width="10%" scope="col">Contact</th> 
                     <th width="10%" scope="col">Address</th>
-                    <th width="10%" scope="col">Landmark</th>
                     <th width="10%" scope="col">City</th>
                     <th width="5%" scope="col">Pincode</th>
                     </tr>
@@ -77,7 +74,6 @@ setData(props.data);
                     <td>{d.email}</td>
                     <td>{d.contact}</td>
                     <td>{d.address}</td>
-                    <td>{d.landmark}</td>
                     <td>{d.city}</td>
                     <td>{d.pincode}</td>
                     </tr>    
