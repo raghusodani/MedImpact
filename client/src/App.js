@@ -163,21 +163,17 @@ function App() {
 
   const getMedicines = async () => {
     const medicineCount = await contract?.methods?.medicineCountInMedicalStore(account).call();
-    //console.log("medicineCount", medicineCount);
+    console.log("medicineCount", medicineCount);
     setMedicines([]);
-    for (let i = 1; i <= medicineCount; i++) {
-      console.log("i", i)
-      const batchId = await contract?.methods?.batchIdOfMedicine(account, i).call();
-      console.log("in for batchId", batchId)
-      const medicine = await contract?.methods?.medicines(account, batchId).call();
-      //setMedicines([...medicines, medicine])
-      setMedicines((prevState) => [...prevState, medicine])
-      console.log("in for medicine", medicine)
+    // for (let i = 1; i <= medicineCount; i++) {
+    //   const batchId = await contract?.methods?.batchIdOfMedicine(account, i).call();
+    //   // const medicine = await contract?.methods?.medicines(account, batchId).call();
+    //   // setMedicines((prevState) => [...prevState, medicine])
+    //   // console.log("in for medicine", medicine)
 
-      const bill = await contract?.methods?.myBills(account, batchId).call();
-      console.log("in for bill", bill)
-      setMedicines((prevState) => [...prevState, bill])
-    }
+    //   // const bill = await contract?.methods?.myBills(account, batchId).call();
+    //   // setMedicines((prevState) => [...prevState, bill])
+    // }
     return medicines;
   }
 
