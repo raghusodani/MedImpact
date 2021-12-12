@@ -184,11 +184,11 @@ function App() {
   return (
     <div className="App">
       
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
       <NavBar/>
         <Switch>
-          <Redirect exact from={process.env.PUBLIC_URL + '/'} to={process.env.PUBLIC_URL + '/home'}/>
-          <Route path={process.env.PUBLIC_URL + '/home'} component={Home} />
+          <Redirect exact from={'/'} to={'/home'}/>
+          <Route path={ + '/home'} component={Home} />
           <Route path="/login" component={Login} />
           <Route path='/dashboard/:type' component={() => checkAuth("Dashboard")} />
           <Route path="/signup" component={Signup} />
