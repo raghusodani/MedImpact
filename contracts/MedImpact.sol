@@ -8,23 +8,30 @@ contract MedImpact {
         //uint256 latitude;
         //uint256 longitude;
         address owner;
-        string name;
-        string email;
+        string ownerName;
+        string storeName;
+        //string email;
         string phoneno;
+        //string landmark;
+        //string city;
+        string ownerAddress;
+        //string pincode;
         uint256 invoices;
         uint256 purchases;
-        string aadhaarCardHash;
+        //string aadhaarCardHash;
         bool exists;
     }
     
     // model Medicine
     struct Medicine {
         string name;
+        uint256 rate;
         uint256 price;
         uint256 quantity;
         string batchNo;
+        string manufactDate;
         string expiryDate;
-        string billHash;
+        //string billHash;
         bool exists;
     }
     
@@ -50,6 +57,9 @@ contract MedImpact {
     // owneraddress => MedicalStore
     mapping(address => MedicalStore) myMedicalStores;
 
+    // map owneraddress => batchNo => bills
+    mapping(address => mapping(string => string)) myBills;
+
     // store the number of medical stores
     uint256 public medicalStoresCount;
 
@@ -58,17 +68,17 @@ contract MedImpact {
     }
 
     // function to add new medical store
-    function addMedicalStore(/*uint256 _latitude, uint256 _longitude,*/ string memory _medicalStoreName, string memory _email, string memory _phoneno, string memory _aadhaarCardHash) public {
+    function addMedicalStore(/*uint256 _latitude, uint256 _longitude,*/ string memory _ownerName, string memory _medicalStoreName,/* string memory _email,*/ string memory _phoneno, string memory _landmark, string memory _city, string memory _ownerAddress, string memory _pincode/*, string memory _aadhaarCardHash*/) public {
         require(medicalStores[/*_medicalStoreId*/msg.sender].exists == false, "Medical store name already exists");
         
         medicalStoresCount++;
-        medicalStores[/*_medicalStoreId*/msg.sender] = MedicalStore(/*_latitude, _longitude,*/ msg.sender, _medicalStoreName, _email, _phoneno, 0, 0, _aadhaarCardHash, true);
-        myMedicalStores[msg.sender] = MedicalStore(/*_latitude, _longitude,*/ msg.sender, _medicalStoreName, _email, _phoneno, 0, 0, _aadhaarCardHash, true);
+        medicalStores[/*_medicalStoreId*/msg.sender] = MedicalStore(/*_latitude, _longitude,*/ msg.sender, _ownerName, _medicalStoreName,/* _email,*/ _phoneno,/* _landmark, _city,*/ _ownerAddress,/* _pincode,*/ 0, 0,/* _aadhaarCardHash,*/ true);
+        myMedicalStores[msg.sender] = MedicalStore(/*_latitude, _longitude,*/ msg.sender, _ownerName, _medicalStoreName,/* _email,*/ _phoneno,/* _landmark, _city,*/ _ownerAddress,/* _pincode,*/ 0, 0,/* _aadhaarCardHash,*/ true);
     }
 
     // function to add new stock of a specific medicine having a particular expiry date to a particular medical store
-    function addMedicine(/*string memory _medicalStoreId,*/ string memory _medicineName, uint256 _price, uint256 _quantity, string memory _batchNo, string memory _expiryDate, string memory _billHash) public {
-        require(medicalStores[/*_medicalStoreId*/msg.sender].owner == msg.sender, "You are not the owner of medical store");
+    function addMedicine(/*string memory _medicalStoreId,*/ string memory _medicineName, uint256 _rate, uint256 _price, uint256 _quantity, string memory _batchNo, string memory _manufactDate, string memory _expiryDate/*, string memory _billHash*/) public {
+        //require(medicalStores[/*_medicalStoreId*/msg.sender].owner == msg.sender, "You are not the owner of medical store");
         require(_quantity > 0, "Quantity should be greater than 0");
         
         /*if(medicines[_medicalStoreId][_medicineName][_expiryDate].exists){
@@ -79,7 +89,7 @@ contract MedImpact {
         }*/
         medicineCountInMedicalStore[/*_medicalStoreId*/msg.sender]++;
         batchIdOfMedicine[/*_medicalStoreId*/msg.sender][ medicineCountInMedicalStore[/*_medicalStoreId*/msg.sender]] = _batchNo;
-        medicines[/*_medicalStoreId*/msg.sender][_batchNo] = Medicine(_medicineName, _price, _quantity, _batchNo, _expiryDate, _billHash, true);
+        medicines[/*_medicalStoreId*/msg.sender][_batchNo] = Medicine(_medicineName, _rate, _price, _quantity, _batchNo, _manufactDate, _expiryDate,/* _billHash,*/ true);
 
         medicalStores[/*_medicalStoreId*/msg.sender].invoices++;
         myMedicalStores[msg.sender].invoices++;
@@ -87,13 +97,17 @@ contract MedImpact {
     
     // function to purchase a specific medicine of a particular expiry date from a particular medical store
     function purchaseMedicine(/*string memory _medicalStoreId, string memory _medicineName,*/ uint256 _quantity, string memory _batchNo/*, string memory _expiryDate*/) public {
-        require(medicalStores[/*_medicalStoreId*/msg.sender].owner == msg.sender, "You are not the owner of medical store");
+        //require(medicalStores[/*_medicalStoreId*/msg.sender].owner == msg.sender, "You are not the owner of medical store");
         require(medicines[/*_medicalStoreId*/msg.sender][_batchNo].quantity > 0, "Inufficient stock");
         require(_quantity > 0, "Quantity should be greater than 0");
         
         medicines[/*_medicalStoreId*/msg.sender][_batchNo].quantity -= _quantity;
         medicalStores[/*_medicalStoreId*/msg.sender].purchases++;
         myMedicalStores[msg.sender].purchases++;
+    }
+
+    function addBills(string memory _batchNo, string memory _billHash) public {
+        myBills[msg.sender][_batchNo] = _billHash;
     }
     
     // function to return the count of a specific medicine of a particular expiry date present in a particular medical store 
