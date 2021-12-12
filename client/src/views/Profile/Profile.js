@@ -1,11 +1,24 @@
-import React from 'react'
+import React,{ useState, useEffect } from 'react'
 import MyBills from './MyBills'
-import MyProfile from './MyProfile'
-function Profile() {
+import MyInvoices from './MyInvoices'
+function Profile({getBills,getInvoices}) {
+    const [invoices, setInvoices] = useState([])
+    const [bills, setBills] = useState([])
+    useEffect(() => {
+        getBills()?.then(res => {
+            console.log("getbills",res)
+            setBills([res?.data])
+        })
+        getInvoices()?.then(res => {
+            console.log("getinvoices",res)
+            setInvoices([res?.data])
+        })
+    }, [])
+
     return (
         <div>
-            <MyProfile />
-            <MyBills />
+            <MyInvoices list={invoices} />
+            <MyBills  bills={bills} />
         </div>
     )
 }

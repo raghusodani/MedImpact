@@ -19,6 +19,9 @@ function SideNav() {
                         <div className="sidenav-link">
                             <a href="/invoice" class="text-reset">Invoice</a>
                         </div>  
+                        <div className="sidenav-link">
+                            <a href="/profile" class="text-reset">Profile</a>
+                        </div>
                     </div>
                 </div>
             </nav>

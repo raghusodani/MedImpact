@@ -15,10 +15,7 @@ function Inventory({getMedicines, getBills}) {
         getMedicines()?.then((res) => {
             setMedicines(res);
             console.log("res", res)
-        });
-        getBills()?.then((res) => {
-            setBills(res);
-            console.log("bill hello", res)
+            
         });
     }, [])
 

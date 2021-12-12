@@ -17,6 +17,7 @@ import NavBar from './components/dashboard/StoreDashboard/NavBar';
 import Invoice from './views/Invoice/Invoice';
 import UploadInvoice from './views/Invoice/UploadInvoice';
 import Home from './views/Landing/Home';
+import Profile from './views/Profile/Profile';
 //import ipfsClient from 'ipfs-http-client';
 import { create } from "ipfs-http-client";
 
@@ -51,6 +52,9 @@ function App() {
       }
       else if (component === "uploadinvoice") {
         return <UploadInvoice retrieveFile={retrieveFile} handleUploadInvoice={handleUploadInvoice}/>
+      }
+      else if(component === "profile"){
+        return <Profile getBills={getBills} getInvoices={getInvoices}/>
       }
       else {
         return <Redirect to="dashboard/Donor" />
@@ -202,7 +206,19 @@ function App() {
     const bill = await contract?.methods?.myBills(account, 1).call();
     return bill;
   }  
-
+  const getInvoices = async () => {
+    const invoiceCount = await contract?.methods?.myInvoicesCount(account).call();
+    console.log("invoiceCount", invoiceCount);
+    // setBills([]);
+    // for (let i = 1; i <= billCount; i++) {
+    //   console.log("i", i)
+      
+    //   console.log("in for bill", bill)
+    //   setBills((prevState) => [...prevState, bill])
+    // }
+    const invoice = await contract?.methods?.myInvoices(account, 1).call();
+    return invoice;
+  }  
 
   // const captureFile = (e) => {
 
@@ -284,6 +300,7 @@ function App() {
           <Route path='/inventory' component={() => checkStore("inventory")} />
           <Route path='/invoice' component={() => checkStore("invoice")} />
           <Route path='/uploadinvoice' component={() => checkStore("uploadinvoice")} />
+          <Route path='/profile' component={() => checkStore("profile")} />
         </Switch>
       </BrowserRouter>
 
