@@ -50,7 +50,7 @@ function App() {
         return <Invoice addingMedicine={addingMedicine} retrieveFile={retrieveFile} handleUpload={handleUpload} />
       }
       else if (component === "uploadinvoice") {
-        return <UploadInvoice retrieveFile={retrieveFile} handleUpload={handleUpload}/>
+        return <UploadInvoice retrieveFile={retrieveFile} handleUploadInvoice={handleUploadInvoice}/>
       }
       else {
         return <Redirect to="dashboard/Donor" />
@@ -93,7 +93,7 @@ function App() {
       const deployedNetwork = MedImpact.networks[networkId];
       const contract = new web3.eth.Contract(
         MedImpact.abi,
-        "0xb223017b3789d064a61bdbA72fF34C99eB551DD8",
+        "0x3B4782ba414bd84b649204cfeEd1F8303d8aF662",
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
@@ -137,6 +137,15 @@ function App() {
     contract?.methods?.addMedicine(medicineName, rate, price, quantity, batchNo, manufactDate, expiryDate).send({ from: account }).on('transactionHash', (hash) => {
       setLoading(false)
     })
+  }
+
+  const purchaseMedicine = async (quantity, batchNo) => {
+      console.log("quantity", quantity)
+      setLoading(true)
+      contract?.methods?.purchaseMedicine(quantity, batchNo).send({ from: account }).on('transactionHash', (hash) => {
+        setLoading(false)
+      })
+    }
 
     // console.log("Submitting file to ipfs...")
 
@@ -148,7 +157,6 @@ function App() {
     //     return
     //   }
     // })
-  }
 
   const invoicesCount = async () => {
     console.log("contract", contract)
@@ -222,7 +230,7 @@ function App() {
     }
   }
 
-  const handleUpload = async (e) => {
+  const handleUploadBill = async (e) => {
     e.preventDefault();
     try {
       const created = await client.add(file);
@@ -233,11 +241,27 @@ function App() {
         setLoading(false)
       })
 
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleUploadInvoice = async (e) => {
+    e.preventDefault();
+    try {
+      const created = await client.add(file);
+      const url = `https://ipfs.infura.io/ipfs/${created.path}`;
+      //setUrlArr(prev => [...prev, url]);
+      setLoading(true)
+      contract?.methods?.addInvoices(url).send({ from: account }).on('transactionHash', (hash) => {
+        setLoading(false)
+      })
 
     } catch (error) {
       console.log(error.message);
     }
   };
+
   useEffect(() => {
     console.log("useEffect medicine", medicines);
   }, [medicines]);
