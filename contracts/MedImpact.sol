@@ -57,8 +57,12 @@ contract MedImpact {
     // owneraddress => MedicalStore
     mapping(address => MedicalStore) myMedicalStores;
 
-    // map owneraddress => batchNo => bills
-    mapping(address => mapping(string => string)) myBills;
+    // map owneraddress => bill count => bills
+    mapping(address => mapping(uint256 => string)) myBills;
+
+    // map owneraddress => bill count
+    mapping(address => uint256) myBillsCount;
+
 
     // store the number of medical stores
     uint256 public medicalStoresCount;
@@ -68,7 +72,7 @@ contract MedImpact {
     }
 
     // function to add new medical store
-    function addMedicalStore(/*uint256 _latitude, uint256 _longitude,*/ string memory _ownerName, string memory _medicalStoreName,/* string memory _email,*/ string memory _phoneno, string memory _landmark, string memory _city, string memory _ownerAddress, string memory _pincode/*, string memory _aadhaarCardHash*/) public {
+    function addMedicalStore(/*uint256 _latitude, uint256 _longitude,*/ string memory _ownerName, string memory _medicalStoreName,/* string memory _email,*/ string memory _phoneno, /*string memory _landmark, string memory _city,*/ string memory _ownerAddress /*string memory _pincode, string memory _aadhaarCardHash*/) public {
         require(medicalStores[/*_medicalStoreId*/msg.sender].exists == false, "Medical store name already exists");
         
         medicalStoresCount++;
@@ -106,8 +110,9 @@ contract MedImpact {
         myMedicalStores[msg.sender].purchases++;
     }
 
-    function addBills(string memory _batchNo, string memory _billHash) public {
-        myBills[msg.sender][_batchNo] = _billHash;
+    function addBills(string memory _billHash) public {
+        myBillsCount[msg.sender]++;
+        myBills[msg.sender][myBillsCount[msg.sender]] = _billHash;
     }
     
     // function to return the count of a specific medicine of a particular expiry date present in a particular medical store 
