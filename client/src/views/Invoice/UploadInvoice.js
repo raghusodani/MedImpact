@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
 
-function UploadInvoice({retrieveFile,handleUpload}) {
+function UploadInvoice({retrieveFile,handleUploadInvoice}) {
     const history = useHistory();
     const [pdf, setPdf] = useState(null);
     return (
@@ -17,7 +17,7 @@ function UploadInvoice({retrieveFile,handleUpload}) {
                                 }}/>
                             </div>
                                     <button className='invoice-submit-btn' onClick={(e)=>{
-                                        handleUpload(e)
+                                        handleUploadInvoice(e)
                                         history.push('/invoice')
                                         }}>Submit</button>
                         </div>

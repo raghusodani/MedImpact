@@ -66,6 +66,12 @@ contract MedImpact {
     // map owneraddress => bill count
     mapping(address => uint256) public myBillsCount;
 
+    // map owneraddress => invoices count => bills
+    mapping(address => mapping(uint256 => string)) public myInvoices;
+
+    // map owneraddress => invoices count
+    mapping(address => uint256) public myInvoicesCount;
+
 
     // store the number of medical stores
     uint256 public medicalStoresCount;
@@ -118,12 +124,17 @@ contract MedImpact {
         myBillsCount[msg.sender]++;
         myBills[msg.sender][myBillsCount[msg.sender]] = _billHash;
     }
+
+    function addInvoices(string memory _invoiceHash) public {
+        myInvoicesCount[msg.sender]++;
+        myInvoices[msg.sender][myInvoicesCount[msg.sender]] = _invoiceHash;
+    }
     
     // function to return the count of a specific medicine of a particular expiry date present in a particular medical store 
     function medicineCount(/*string memory _medicineName, string memory _medicalStoreId, string memory _batchNo, string memory _expiryDate*/) view public returns(uint256){
         //require(medicalStores[_medicalStoreId].exists, "Medical store does not exist");
         //return medicines[_medicalStoreId][_batchNo].quantity;
-        medicineCountInMedicalStore[msg.sender];
+        return medicineCountInMedicalStore[msg.sender];
     }
     
     // function to return the number of invoices for a particular medical store
