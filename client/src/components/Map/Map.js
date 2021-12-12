@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import { DirectionsRenderer,DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
 import Input from '../Input/Input';
 import axios from 'axios';
+import jsPDF from 'jspdf';
 import './Map.css';
 import RecordTable from "./RecordTable";
 
@@ -92,7 +93,6 @@ useEffect(() => {
 	}
 	 );
 }, [medicalStores]);
-
 
 
 const showDirection = (location) => {

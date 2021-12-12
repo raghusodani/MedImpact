@@ -9,14 +9,13 @@ function SearchContent() {
     const {searchType} = useParams();
     return (
         <div>
+
         <Card className='search-card'>
             <Card className='map-card'>
                 <Map type={searchType}/> 
             </Card>
-            <Subscribe></Subscribe>
+            <Subscribe type={searchType}></Subscribe>
         </Card>
-            
-            
         </div>
     )
 }
