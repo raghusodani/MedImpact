@@ -1,7 +1,7 @@
 import './App.css';
 import Web3 from "web3";
 import { useState, useEffect } from 'react';
-import { BrowserRouter , Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import MedImpact from "./contracts/MedImpact.json";
 import getWeb3 from "./getWeb3";
 import Login from './views/Auth/Login/Login';
@@ -16,6 +16,7 @@ import SearchContent from './views/Search/SearchContent';
 import NavBar from './components/dashboard/StoreDashboard/NavBar';
 import Invoice from './views/Invoice/Invoice';
 import Home from './views/Landing/Home';
+//import ipfsClient from 'ipfs-http-client';
 import { HashRouter } from 'react-router-dom';
 
 function App() {
@@ -35,23 +36,23 @@ function App() {
     }
   }
   const checkStore = (component) => {
-      if(type==="Store"){
-        if(component==="billing"){
-          return <Billing />
-        }
-        else if(component==="inventory"){
-          return <Inventory getMedicines={getMedicines} />
-        }
-        else if(component==="invoice"){
-          return <Invoice />
-        }
-        else{
-          return <Redirect to="dashboard/Donor" />
-        }
+    if (type === "Store") {
+      if (component === "billing") {
+        return <Billing />
       }
-      else{
-        return <Redirect to="/login" />
+      else if (component === "inventory") {
+        return <Inventory getMedicines={getMedicines} />
       }
+      else if (component === "invoice") {
+        return <Invoice addingMedicine={addingMedicine} />
+      }
+      else {
+        return <Redirect to="dashboard/Donor" />
+      }
+    }
+    else {
+      return <Redirect to="/login" />
+    }
   }
 
   const [account, setAccount] = useState('');
@@ -60,7 +61,10 @@ function App() {
   const [contract, setContract] = useState(null);
   const [loading, setLoading] = useState(true);
   const [buffer, setBuffer] = useState('');
+  const [medicines, setMedicines] = useState([]);
 
+  //const ipfsAPI = require('ipfs-api');
+  //const ipfs = ipfsAPI('ipfs.infura.io', '5001', { protocol: 'https' });
 
   const setup = async () => {
     try {
@@ -90,7 +94,7 @@ function App() {
 
       setLoading(false);
 
-      console.log("medicalStoresCount", contract.methods.medicalStoresCount().call());
+      console.log("medicalStoresCount", contract?.methods?.medicalStoresCount().call());
 
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -101,7 +105,7 @@ function App() {
     }
   }
 
-  useEffect( async () => {
+  useEffect(async () => {
     console.log("setup");
     setup();
   }, [])
@@ -109,44 +113,49 @@ function App() {
   console.log("contract", contract);
   console.log("accounts", accounts);
   console.log("web3", web3);
-  
-  const addMedicalStore = (medicalStoreName, email, phoneno, aadhaarCardHash) => {
+
+  const addMedicalStore = async (medicalStoreName, email, phoneno, aadhaarCardHash) => {
     setLoading(true)
-    contract.methods.addMedicalStore(medicalStoreName, email, phoneno, aadhaarCardHash).send({ from: account }).on('transactionHash', (hash) => {
+    contract?.methods?.addMedicalStore(medicalStoreName, email, phoneno, aadhaarCardHash).send({ from: account }).on('transactionHash', (hash) => {
       setLoading(false)
     })
     console.log("add medicine")
   }
 
-  const addMedicine = (medicineName, price, quantity, batchNo, expiryDate, billHash) => {
+  const addingMedicine = async (medicineName, price, quantity, batchNo, expiryDate, billHash) => {
+    console.log("medicineName", medicineName)
     setLoading(true)
-    contract.methods.addMedicine(medicineName, price, quantity, batchNo, expiryDate, billHash).send({ from: account }).on('transactionHash', (hash) => {
+    contract?.methods?.addMedicine(medicineName, price, quantity, batchNo, expiryDate, billHash).send({ from: account }).on('transactionHash', (hash) => {
       setLoading(false)
     })
   }
 
-  const invoicesCount = () => {
+  const invoicesCount = async () => {
     console.log("contract", contract)
-    const invoices = contract?.methods.invoicesCount().call()
+    const invoices = await contract?.methods.invoicesCount().call()
     console.log("invoices", invoices)
     return invoices;
   }
 
-  const purchasesCount = () => {
+  const purchasesCount = async () => {
     console.log("contract", contract)
-    const purchases = contract?.methods?.purchasesCount()?.call()
+    const purchases = await contract?.methods?.purchasesCount()?.call()
     console.log("purchases", purchases)
     return purchases;
   }
 
-  const getMedicines = () => {
-    const medicineCount = contract?.methods?.medicineCountInMedicalStore(account).call();
-    console.log("medicineCount", medicineCount);
-    const medicines = [];
-    for(let i=1; i<=medicineCount; i++){
-      const batchId = contract?.methods?.batchIdOfMedicine(account, i).call();
-      const medicine = contract?.methods?.medicines(account, batchId).call();
-      medicines = [...medicines, medicine]
+  const getMedicines = async () => {
+    const medicineCount = await contract?.methods?.medicineCountInMedicalStore(account).call();
+    //console.log("medicineCount", medicineCount);
+    setMedicines([]);
+    for (let i = 1; i <= medicineCount; i++) {
+      console.log("i", i)
+      const batchId = await contract?.methods?.batchIdOfMedicine(account, i).call();
+      console.log("in for batchId", batchId)
+      const medicine = await contract?.methods?.medicines(account, batchId).call();
+      console.log("in for medicine", medicine)
+      //setMedicines([...medicines, medicine])
+      setMedicines((prevState) => [...prevState, medicine])
     }
     return medicines;
   }
@@ -184,21 +193,21 @@ function App() {
 
   return (
     <div className="App">
-      
+
       <HashRouter>
-      <NavBar/>
+        <NavBar />
         <Switch>
-          <Redirect exact from={'/'} to={'/home'}/>
+          <Redirect exact from={'/'} to={'/home'} />
           <Route path={'/home'} component={Home} />
           <Route path="/login" component={Login} />
           <Route path='/dashboard/:type' component={() => checkAuth("Dashboard")} />
           <Route path="/signup" component={Signup} />
-          <Route path="/verification/:token" component={()=>{return <VerifyEmail/>}} />
+          <Route path="/verification/:token" component={() => { return <VerifyEmail /> }} />
           <Route path="/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
           <Route path='/search/:searchType' component={SearchContent} />
-          <Route path ="/billing" component={()=>checkStore("billing")} />
-          <Route path='/inventory' component={()=>checkStore("inventory")} />
-          <Route path='/invoice' component={()=>checkStore("invoice")} />
+          <Route path="/billing" component={() => checkStore("billing")} />
+          <Route path='/inventory' component={() => checkStore("inventory")} />
+          <Route path='/invoice' component={() => checkStore("invoice")} />
         </Switch>
       </HashRouter>
 

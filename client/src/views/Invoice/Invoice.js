@@ -8,7 +8,7 @@ import MedicineForm from '../../components/dashboard/StoreDashboard/MedicineForm
 import InvoiceStyler from './Invoice.css'
 import InvoiceTable from '../../components/dashboard/StoreDashboard/InvoiceTable'
 
-function Invoice() {
+function Invoice({addingMedicine}) {
     const [addMedicine, setAddMedicine] = useState([]);
     const [distributorData, setDistributorData] = useState({});
     const handleMedicineAddition = (medicine) => {
@@ -16,7 +16,7 @@ function Invoice() {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(addMedicine, distributorData);
+        console.log(addMedicine/*, distributorData*/);
             //// Add to blockchain
             // medicine = {
             //     medicineName: '',
@@ -35,6 +35,7 @@ function Invoice() {
             //     discount:'',
             //     total:''
             // }
+        addingMedicine(addMedicine[0].medicineName, parseInt(addMedicine[0].Price), parseInt(addMedicine[0].quantity), addMedicine[0].batchId, addMedicine[0].ExpDate, "billhash")
 
     };
     const handleInvoiceData = (data) => {

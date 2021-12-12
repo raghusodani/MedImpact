@@ -9,14 +9,18 @@ function Inventory({getMedicines}) {
 
     
     const [medicines, setMedicines] = useState([{}])
-
-    useEffect(() => {
-        console.log("getMedicines", getMedicines())
-        getMedicines()?.then((res) => {
-            setMedicines(res);
-            console.log("res", res)
-        });
-    }, [])
+    let a = true;
+    getMedicines()?.then((res) => {
+        setMedicines(res);
+        console.log("res", res)
+    });
+    // useEffect(() => {
+    //     //console.log("getMedicines", getMedicines())
+    //     getMedicines()?.then((res) => {
+    //         setMedicines(res);
+    //         console.log("res", res)
+    //     });
+    // }, [a])
 
     return (
         <div className="Container">
