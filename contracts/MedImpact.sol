@@ -48,6 +48,9 @@ contract MedImpact {
     
     // map owneraddress => medicine count
     mapping(address => uint256) public medicineCountInMedicalStore;
+
+    // map ownerAddress => medicineCount => medicine
+    mapping(address => mapping(uint256 => Medicine)) public myMedicines;
     
     // map to store medical stores
     // owneraddress => MedicalStore
@@ -92,6 +95,7 @@ contract MedImpact {
             medicines[_medicalStoreId][_medicineName][_expiryDate] = Medicine( _medicineName, _price, _quantity, _expiryDate, _billHash, true);   
         }*/
         medicineCountInMedicalStore[/*_medicalStoreId*/msg.sender]++;
+        myMedicines[msg.sender][medicineCountInMedicalStore[/*_medicalStoreId*/msg.sender]] = Medicine(_medicineName, _rate, _price, _quantity, _batchNo, _manufactDate, _expiryDate,/* _billHash,*/ true);
         batchIdOfMedicine[/*_medicalStoreId*/msg.sender][ medicineCountInMedicalStore[/*_medicalStoreId*/msg.sender]] = _batchNo;
         medicines[/*_medicalStoreId*/msg.sender][_batchNo] = Medicine(_medicineName, _rate, _price, _quantity, _batchNo, _manufactDate, _expiryDate,/* _billHash,*/ true);
 
