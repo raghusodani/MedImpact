@@ -187,17 +187,17 @@ function App() {
       <Router basename={process.env.PUBLIC_URL}>
       <NavBar/>
         <Switch>
-          <Redirect exact from={'/'} to={'/home'}/>
-          <Route path={ + '/home'} component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path='/dashboard/:type' component={() => checkAuth("Dashboard")} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/verification/:token" component={()=>{return <VerifyEmail/>}} />
-          <Route path="/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
-          <Route path='/search/:searchType' component={SearchContent} />
-          <Route path ="/billing" component={()=>checkStore("billing")} />
-          <Route path='/inventory' component={()=>checkStore("inventory")} />
-          <Route path='/invoice' component={()=>checkStore("invoice")} />
+          <Redirect exact from={'/MedImpact/'} to={'/MedImpact/home'}/>
+          <Route path={  '/MedImpact/home'} component={Home} />
+          <Route path="/MedImpact/login" component={Login} />
+          <Route path='/MedImpact/dashboard/:type' component={() => checkAuth("Dashboard")} />
+          <Route path="/MedImpact/signup" component={Signup} />
+          <Route path="/MedImpact/verification/:token" component={()=>{return <VerifyEmail/>}} />
+          <Route path="/MedImpact/signupdetails" component={() => checkAuth("FirstTimeLogin")} />
+          <Route path='/MedImpact/search/:searchType' component={SearchContent} />
+          <Route path ="/MedImpact/billing" component={()=>checkStore("billing")} />
+          <Route path='/MedImpact/inventory' component={()=>checkStore("inventory")} />
+          <Route path='/MedImpact/invoice' component={()=>checkStore("invoice")} />
         </Switch>
       </Router>
 

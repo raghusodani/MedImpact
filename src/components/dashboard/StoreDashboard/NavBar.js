@@ -12,7 +12,7 @@ function NavBar() {
         handleLogin()
     }
     const handleLogin = () => {
-        history.push('/login');
+        history.push('/MedImpact/login');
         window.location.reload()
     }
     return (
@@ -25,10 +25,10 @@ function NavBar() {
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav ml-auto">
-                        <a class="nav-item" href="/home">Home <span class="sr-only">(current)</span></a>
-                        <a class="nav-item" href="/search/medicine">Search Medicines</a>
-                        <a class="nav-item" href="/search/donor">Search Donors</a>
-                        <a class="nav-item" href="/dashboard/store">Dashboard</a>
+                        <a class="nav-item" href="/MedImpact/home">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-item" href="/MedImpact/search/medicine">Search Medicines</a>
+                        <a class="nav-item" href="/MedImpact/search/donor">Search Donors</a>
+                        <a class="nav-item" href="/MedImpact/dashboard/store">Dashboard</a>
                         <button className='btn-logout' onClick={getToken()?.length>0 ? handleLogout : handleLogin}>{getToken()?.length>0 ? "Logout" : "Login"}</button>
                         
                         
