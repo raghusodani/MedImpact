@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 function VerifyEmail({setup}) {
      const {token} = useParams()
-     const [countDown, setCountDown] = useState(5)
+     const [countDown, setCountDown] = useState(10)
     useEffect(() => {
         axios.get(`https://medimpact.herokuapp.com/auth/verify/${token}`)
         .then(res => {
