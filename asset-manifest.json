@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/MedImpact/static/css/main.da6f76da.css",
+    "main.js": "/MedImpact/static/js/main.7a46e8c2.js",
+    "index.html": "/MedImpact/index.html",
+    "main.da6f76da.css.map": "/MedImpact/static/css/main.da6f76da.css.map",
+    "main.7a46e8c2.js.map": "/MedImpact/static/js/main.7a46e8c2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.da6f76da.css",
+    "static/js/main.7a46e8c2.js"
+  ]
+}
