@@ -42,7 +42,7 @@ function App() {
   const checkStore = (component) => {
     if (type === "Store") {
       if (component === "billing") {
-        return <Billing />
+        return <Billing  purchaseMedicine={purchaseMedicine}/>
       }
       else if (component === "inventory") {
         return <Inventory getMedicines={getMedicines} getBills={getBills} />

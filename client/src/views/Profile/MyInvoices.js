@@ -1,6 +1,12 @@
 import React from 'react'
 
 function MyInvoices({list}) {
+    const openPdf = (url) => {
+        window.open(url, '_blank')
+    }
+    console.log("list",list)
+
+
     return (
         <div style={{
             padding: '10px',
@@ -16,7 +22,7 @@ function MyInvoices({list}) {
             {list?.map((item, index) => {
                 return(
                     <div key={index}>
-                        
+                        {console.log("item",item)}
                         <div className="card" style={{
                             display: 'flex',
                             flexDirection: 'row',
@@ -35,13 +41,14 @@ function MyInvoices({list}) {
                             }}>
                             Invoice {index + 1}
                             </div>
+                            <a href={item} target="_blank" >
                             <button className='invoice-button' style={{
                                 backgroundColor: '#4cccc0',
                                 color: 'white',
                                 width: '100px',
                                 margin:'0',
                                 marginRight: '25px',
-                            }} onClick={()=>{window.open(item)}} >View</button>
+                            }} >View</button></a>
                     </div>
                     </div>
                 )

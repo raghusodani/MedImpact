@@ -3,7 +3,7 @@ import './Billing.css'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import TitleInvoice from '../../components/dashboard/StoreDashboard/TitleInvoice';
-const Billing = () => {
+const Billing = ({purchaseMedicine}) => {
     const [formkey, setFormkey] = useState(2);
     const [amount, setAmount] = useState();
     const [customerName, setCustomerName] = useState('');
@@ -51,21 +51,13 @@ const Billing = () => {
             medicines : inputFields
         }
         console.log(data);
-        axios
-        .post("", data,
-             )
-       .then((res) => {
-         console.log('api response 🚀', res)
-       })
-       .catch((error) => {
-         console.error(error.response)
-       })
-       setFormkey(formkey + 1);
-       setInputFields([{id: uuidv4()}]);
-       setCustomerName('');
-       setCustomerContact('');
-       setRefferredBy('');
-       setBillDate('');
+        purchaseMedicine(inputFields[0].medicinequantity,"B101")
+        setFormkey(formkey + 1);
+        setInputFields([{id: uuidv4()}]);
+        setCustomerName('');
+        setCustomerContact('');
+        setRefferredBy('');
+        setBillDate('');
     }
     return (
         <div className='billing'>
