@@ -3,5 +3,22 @@
     flex-direction: row;
 }
 .map-Search-input{
-    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+.submit-btn{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #4cccc0;
+    color: white;
+    border: #4cccc0 solid 1px;
+    height: 40px;
+}
+.submit-btn:hover{
+    background-color: white;
+    color: #4cccc0;
+    border: #4cccc0 solid 2px;
 }

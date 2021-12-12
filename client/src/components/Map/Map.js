@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import { DirectionsRenderer,DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
 import Input from '../Input/Input';
 import axios from 'axios';
+import './Map.css';
 export default function Map({ type }){
 	const [medicineName, setmedicineName] = useState("");
 	const [data, setdata] = useState({
@@ -57,19 +58,17 @@ export default function Map({ type }){
 	  //console.log("submit");
 	const APIdata = {
 		medicine: medicineName,
-		latitude:data.center.lat,
-		longitude:data.center.lng	
+		lat:data.center.lat,
+		lng:data.center.lng	
 	};
-	console.log(APIdata);	
 	///set Data VIA API
-	// const url = type==="Donor" ? "https://medimpact.herokuapp.com/api/donorlist/" : "https://medimpact.herokuapp.com/api/medicalStores";
-	const url = "https://frontida.herokuapp.com/users/medicine_search/"
+	const url = type==="Donor" ? "https://medimpact.herokuapp.com/donor/nearestDonors" : "https://medimpact.herokuapp.com/store/nearestStores";
 	axios.post(url, APIdata)
 	.then(response=>{
 		setmedicalStores(response.data);
 	})
 	.catch(error=>{console.log(error)});
-	///Set Data From blockchain
+	// Set Data From blockchain
 	// 
 	// 
 	// 
@@ -80,21 +79,18 @@ const handleMedicineChange=(e)=>{
 }
 
 useEffect(() => {
-	// eslint-disable-next-line
-	console.log(medicalStores);
-	// eslint-disable-next-line
-	let Markers = medicalStores&& medicalStores.map((store) =>{
-		const loc={lat:Number(store.point.split(/\(([^)]+)\)/)[1].split(" ")[1]),
-					  lng:Number(store.point.split(/\(([^)]+)\)/)[1].split(" ")[0])};
-					  console.log(loc);
-		setdestinations([...destinations,{
-			lat:loc.lat,
-			lng:loc.lng
-		}]);
+    medicalStores?.forEach((store) =>{
+		let loc={
+			lat:store.lat,
+			lng:store.lng
+		}
+		setdestinations( (destinations) => [...destinations,loc]);
 	}
 	 );
-	 // eslint-disable-next-line
 }, [medicalStores]);
+
+
+
 const showDirection = (location) => {
 	setselectedLocation(location);
 	setResponse(null);
@@ -103,10 +99,8 @@ let test = {lat:Number(25.344930),lng:Number(74.631260)};
 
     return (
 		<div className="map-Search-container">
-			<div className="map-Search-input">
-				<Input type="text" placeholder={type==="medicine" ? "Enter Medicine Name":"Enter Blood Type"} onChange={handleMedicineChange}  />
-				<button className="btn btn-primary col-2" onClick={onSubmitHandler}>Submit</button>
-			</div>
+			
+			<div className="map-container">
 			<LoadScript
 				googleMapsApiKey="AIzaSyBZWUmH4zYtWSPyFCRuvJxHLxsJj407-78"
 			>
@@ -117,7 +111,6 @@ let test = {lat:Number(25.344930),lng:Number(74.631260)};
 					onClick={()=>{setshowDirections(false);setselectedLocation(null);console.log(data);}}
 				>
 					<Marker position={data.center}/>
-					{/* <Marker onClick={()=>showDirection(test)} position={test}/> */}
 					{medicalStores&&destinations.map((pos,index)=>
 						<Marker key={index} onClick={()=>showDirection(pos)}  position={pos}/>
 					)}
@@ -139,6 +132,20 @@ let test = {lat:Number(25.344930),lng:Number(74.631260)};
 		        <DirectionsRenderer options={{directions:directionResponse}}/>}
 				</GoogleMap>
 			</LoadScript>
+			</div>
+			<div className="map-Search-input">
+				<Input 
+					type="text" 
+					placeholder={type==="medicine" ? "Enter Medicine Name":"Enter Blood Type"} 
+					onChange={handleMedicineChange} 
+					style={{
+						width: "100%",
+						height: "40px",
+						margin: "20px auto",
+						fontFamily: "Source Sans Pro",
+					}} />
+				<button className="btn btn-primary col-2 submit-btn" onClick={onSubmitHandler}>Submit</button>
+			</div>
 		</div>
         
     );
