@@ -94,7 +94,7 @@ function Signup() {
                             error && <div className="text-red-600 text-sm font-medium">*{error}</div>
                         }
                         <div className="flex items-center justify-between">
-                            <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500 m-auto" style={{
+                            <a href="/#/login" className="font-medium text-indigo-600 hover:text-indigo-500 m-auto" style={{
                                 color:'#4CCCC0'
                             }}>
                                 Already have an account ? Sign In
