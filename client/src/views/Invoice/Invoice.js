@@ -93,7 +93,7 @@ function Invoice({ addingMedicine, retrieveFile, handleUpload}) {
                 <div class="col-sm-10">
                     <TitleInvoice text={'Invoice'}></TitleInvoice>
                     <Card className='invoice-card ' style={{borderRadius:"10px"}}>
-                    {showUploadDiv ?
+                    {!showUploadDiv ?
                     (<div>
                     <div class="row">
                         <div class="col-sm-5">

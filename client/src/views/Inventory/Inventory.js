@@ -18,12 +18,12 @@ function Inventory({getMedicines, getBills}) {
         });
     }, [])
 
-    useEffect(() => {
-        getBills()?.then((res) => {
-            setBills(res);
-            console.log("res", res)
-        });
-    }, [])
+    // useEffect(() => {
+    //     getBills()?.then((res) => {
+    //         setBills(res);
+    //         console.log("res", res)
+    //     });
+    // }, [])
 
     return (
         <div className="Container">
