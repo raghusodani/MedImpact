@@ -40,7 +40,7 @@ function Invoice({addingMedicine}) {
             //     discount:'',
             //     total:''
             // }
-        addingMedicine(addMedicine[0].medicineName, parseInt(addMedicine[0].Price), parseInt(addMedicine[0].quantity), addMedicine[0].batchId, addMedicine[0].ExpDate, "billhash")
+        addingMedicine(addMedicine[0].medicineName, parseInt(addMedicine[0].Price), parseInt(addMedicine[0].quantity), addMedicine[0].batchId, addMedicine[0].ExpDate)
         generatePDF(addMedicine,distributorData);
         setShowUploadDiv(true);
         history.push('/uploadinvoice');
