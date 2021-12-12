@@ -18,15 +18,11 @@ function OutOfStockTable() {
                 <tbody>
                     <tr>
                     <th scope="row">1</th>
-                    <td>Mark</td>
+                    <td>Aspirin</td>
                     </tr>
                     <tr>
                     <th scope="row">2</th>
-                    <td>Jacob</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
+                    <td>Paracetamol</td>
                     </tr>
                 </tbody>
             </table>
