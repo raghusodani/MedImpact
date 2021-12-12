@@ -61,11 +61,22 @@ export default function Map({ type }){
   const onSubmitHandler=()=>{
 	  setmedicalStores([]);
 	  //console.log("submit");
-	const APIdata = {
-		medicine: medicineName,
+	  let APIdata = {};
+	  if(type === "medicine"){
+		APIdata = {
 		lat:data.center.lat,
-		lng:data.center.lng	
-	};
+		lng:data.center.lng,
+		medicine: medicineName
+		  }	
+	}
+	else{
+		APIdata = {
+		lat:data.center.lat,
+		lng:data.center.lng,
+		bloodGroup: medicineName
+		}	
+	}
+	
 	///set Data VIA API
 	const url = type==="donor" ? "https://medimpact.herokuapp.com/donor/nearestDonors" : "https://medimpact.herokuapp.com/store/nearestStores";
 	axios.post(url, APIdata)
@@ -161,7 +172,7 @@ let test = {lat:Number(25.344930),lng:Number(74.631260)};
 					}} />
 					<button className="btn btn-primary col-2 submit-btn" onClick={onSubmitHandler}>Submit</button>
 					</div>
-					<RecordTable data={medicalStores}/>
+					<RecordTable data={medicalStores} type={type}/>
 				</div>
 			</div>
 		</div>
