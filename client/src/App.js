@@ -17,7 +17,10 @@ import NavBar from './components/dashboard/StoreDashboard/NavBar';
 import Invoice from './views/Invoice/Invoice';
 import Home from './views/Landing/Home';
 //import ipfsClient from 'ipfs-http-client';
+import { create } from "ipfs-http-client";
 import { HashRouter } from 'react-router-dom';
+
+const client = create('https://ipfs.infura.io:5001/api/v0');
 
 function App() {
   let token = getToken();
@@ -60,8 +63,11 @@ function App() {
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [buffer, setBuffer] = useState('');
+  //const [buffer, setBuffer] = useState('');
   const [medicines, setMedicines] = useState([]);
+  const [bills, setBills] = useState([]);
+  const [file, setFile] = useState(null);
+  const [urlArr, setUrlArr] = useState([]);
 
   //const ipfsAPI = require('ipfs-api');
   //const ipfs = ipfsAPI('ipfs.infura.io', '5001', { protocol: 'https' });
@@ -83,7 +89,7 @@ function App() {
       const deployedNetwork = MedImpact.networks[networkId];
       const contract = new web3.eth.Contract(
         MedImpact.abi,
-        "0xe7C5d430202Fcb491061ba36bfCCF9cdBa4968E2",
+        "0x6bbbEb507F12E41c349c0EEeEFD33c6A114bd0c4",
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
@@ -122,12 +128,23 @@ function App() {
     console.log("add medicine")
   }
 
-  const addingMedicine = async (medicineName, price, quantity, batchNo, expiryDate, billHash) => {
+  const addingMedicine = async (medicineName, price, quantity, batchNo, expiryDate/*, billHash*/) => {
     console.log("medicineName", medicineName)
     setLoading(true)
-    contract?.methods?.addMedicine(medicineName, price, quantity, batchNo, expiryDate, billHash).send({ from: account }).on('transactionHash', (hash) => {
+    contract?.methods?.addMedicine(medicineName, price, quantity, batchNo, expiryDate).send({ from: account }).on('transactionHash', (hash) => {
       setLoading(false)
     })
+
+    // console.log("Submitting file to ipfs...")
+
+    // //adding file to the IPFS
+    // ipfs.files.add(buffer, (error, result) => {
+    //   console.log('Ipfs result', result)
+    //   if (error) {
+    //     console.error(error)
+    //     return
+    //   }
+    // })
   }
 
   const invoicesCount = async () => {
@@ -153,43 +170,60 @@ function App() {
       const batchId = await contract?.methods?.batchIdOfMedicine(account, i).call();
       console.log("in for batchId", batchId)
       const medicine = await contract?.methods?.medicines(account, batchId).call();
-      console.log("in for medicine", medicine)
       //setMedicines([...medicines, medicine])
       setMedicines((prevState) => [...prevState, medicine])
+      console.log("in for medicine", medicine)
+
+      const bill = await contract?.methods?.myBills(account, batchId).call();
+      console.log("in for bill", bill)
+      setMedicines((prevState) => [...prevState, bill])
     }
     return medicines;
   }
-  /*captureFile = (e) => {
 
-    e.preventDefault()
-    const file = e.target.files[0]
-    const reader = new FileReader()
-    reader.readAsArrayBuffer(file)
 
+  // const captureFile = (e) => {
+
+  //   e.preventDefault()
+  //   const file = e.target.files[0]
+  //   const reader = new FileReader()
+  //   reader.readAsArrayBuffer(file)
+
+  //   reader.onloadend = () => {
+  //     setBuffer(Buffer(reader.result))
+  //     console.log('buffer', buffer)
+  //   }
+  // }
+
+  const retrieveFile = (e) => {
+    const data = e.target.files[0];
+    const reader = new window.FileReader();
+    reader.readAsArrayBuffer(data);
     reader.onloadend = () => {
-      setBuffer(Buffer(reader.result))
-      console.log('buffer', buffer)
+      console.log("Buffer data: ", Buffer(reader.result));
+      setFile(Buffer(reader.result));
     }
+
+    e.preventDefault();
   }
 
-  addMedicalStore = () => {
-    console.log("Submitting file to ipfs...")
-
-    //adding file to the IPFS
-    ipfs.files.add(buffer, (error, result) => {
-      console.log('Ipfs result', result)
-      if (error) {
-        console.error(error)
-        return
-      }
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const created = await client.add(file);
+      const url = `https://ipfs.infura.io/ipfs/${created.path}`;
+      //setUrlArr(prev => [...prev, url]);
       setLoading(true)
-      contract.methods.uploadImage(result[0].hash).send({ from: account }).on('transactionHash', (hash) => {
+      contract?.methods?.addBills(batchId, url).send({ from: account }).on('transactionHash', (hash) => {
         setLoading(false)
       })
-    })
-  }
-  */
+
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  
 
   return (
     <div className="App">
