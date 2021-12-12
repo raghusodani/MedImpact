@@ -1,7 +1,34 @@
-import React,{useState} from 'react'
+import React,{ useEffect, useState } from 'react'
 import Card from "react-bootstrap/Card";
 import Input from '../../Input/Input'
-function InvoiceForm() {
+function InvoiceForm({ submitInvoice }) {
+    const [invoice,setInvoice] = useState({
+        distributorName:'',
+        billNumber:'',
+        billDate:'',
+        companyName:'',
+        discount:'',
+        total:''
+    })
+    const handleChange = (e) => {
+        console.log("handle change of",e.target.name)
+        setInvoice({
+            ...invoice,
+            [e.target.name]: e.target.value
+        })
+    }
+    const style = {
+        width:'70%',
+        margin:'auto',
+        marginTop:'2%',
+        color:'black',
+        fontFamily:'Source Sans Pro',
+        fontSize:'16px',
+    }
+    useEffect(()=>{
+        console.log(invoice)
+    },[invoice])
+    
     return (
         <div className='invoice-form'>
                 <div className='invoice-title'>
@@ -12,31 +39,33 @@ function InvoiceForm() {
                         type="text"
                         className="invoice-input" 
                         placeholder='Distributor Name' 
-                        style={{
-                            width:'70%',
-                            margin:'auto',
-                            marginTop:'2%'
-                        }}>
+                        name={'distributorName'}
+                        onChange={handleChange}
+                        style={style}>
                     </Input>
+                    
                     <Input 
                         type="text"
+                        name={'billNumber'}
                         className="invoice-input" 
                         placeholder='Bill Number' 
-                        style={{
-                            width:'70%',
-                            margin:'auto',
-                            marginTop:'2%'
-                        }}>
+                        onChange={handleChange}
+                        style={style}>
+                        
                     </Input>
                     <Input 
                         type='text'
+                        nammes={'billDate'}
                         className="invoice-input" 
                         placeholder='Bill Date' 
-                        style={{
-                            width:'70%',
-                            margin:'auto',
-                            marginTop:'2%'
-                        }}
+                        style={style}
+                        onChange={ (e) => {
+                            setInvoice({
+                                ...invoice,
+                                billDate:e.target.value
+                            })
+                        
+                        } }
                         onMouseOver={(e)=>{
                             e.currentTarget.type='date'
                         }}
@@ -47,37 +76,30 @@ function InvoiceForm() {
                         />
                     <Input 
                         type="text"
+                        name={'companyName'}
                         className="invoice-input" 
                         placeholder='Company Name' 
-                        style={{
-                            width:'70%',
-                            margin:'auto',
-                            marginTop:'2%'
-                        }}>
+                        onChange={handleChange}
+                        style={style}>
+                        
                     </Input>
                     <Input 
                         type="number"
+                        name={'discount'}
                         className="invoice-input" 
                         placeholder='Discount' 
-                        style={{
-                            width:'70%',
-                            margin:'auto',
-                            marginTop:'2%'
-                        }}>
+                        onChange={handleChange}
+                        style={style}>
+                        
                     </Input>
                     <Input 
                         type="number"
+                        name={'total'}
                         className="invoice-input" 
                         placeholder='Total' 
-                        style={{
-                            width:'70%',
-                            margin:'auto',
-                            marginTop:'2%'
-                        }}>
+                        onChange={handleChange}
+                        style={style}>
                     </Input>
-                    <div className='invoice-title'>
-                        <h1>Invoice Table</h1>
-                    </div>
                 </div>
         </div>
     )

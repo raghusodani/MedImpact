@@ -158,23 +158,27 @@ tbody{
 .invoice-form{
     height: 50%;
 }
-.invoice-input{
-    width: 10px;
-}
 .invoice-title{
- font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
  font-size: 30px;
  font-weight: 600;
  padding: 20px 20px 20px 20px;   
 }
 .invoice-sub-title{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 21px;
     font-weight: 600;
     text-align: left;
-    padding-left:15% ;
+    padding-left:10% ;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+.invoice-medicine-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin-bottom: 10px;
 }
 .invoice-button{
     width: 50%;
@@ -191,16 +195,20 @@ tbody{
     font-weight: 500;
 }
 .invoice-button-container{
-    margin-left: 30%;
+    margin-left: 10%;
+    font-family: 'Source Sans Pro', sans-serif;
     
 }
 .invoice-submit-btn{
-    border: #4CCCC0 1px solid;
-    border-radius: 5px;
+    border: #4CCCC0 3px solid;
+    font-family: 'Source Sans Pro', sans-serif;
+    border-radius: 10px;
     background-color: #4CCCC0;
     color: white;
     width: 150px;
-    font-size: 20px;
+    height: 45px;
+    font-size: 21px;
+    font-weight: bold;
     margin: auto;
 }
 .invoice-submit-btn:hover{
@@ -210,17 +218,20 @@ tbody{
 .invoice-submit-container{
     margin-bottom: 40px;
 }
+.invoice-button{
+    font-family: 'Source Sans Pro', sans-serif;
+    height: 30px;
+    font-size: 16px;
+    font-weight: 600;
+}
 .invoice-button:hover {
-  background-color: #4CCCC0;
-  color: white;
+    transform:scale(1.1,1.1);
+    transition: transform 0.5s;
 }
 .invoice-table{
     font-size: 15px;
     width: 100%;
     margin: auto;
-    margin-top: 15%;
+    margin-top: 10%;
     margin-left: 5%;
-    border: white 5px solid;
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-    border-radius: 10px;
 }

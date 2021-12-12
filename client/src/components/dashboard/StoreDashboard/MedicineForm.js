@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Card from "react-bootstrap/Card";
 import Input from '../../Input/Input'
 import { useState } from 'react';
@@ -7,21 +7,28 @@ import { useState } from 'react';
 function MedicineForm({onAddition}) {
     const [invoice,setInvoice] = useState(
         {
-            MedName: '',
-            Quantity: '',
-            Price: '',
-            MRP:  '',
-            BatchId: '',
-            ManDate: '',
-            ExpDate: '',
+            medicineName: '',
+            quantity: '',
+            Price: null,
+            MRP:  null,
+            batchId: '',
+            ManDate: null,
+            ExpDate: null,
         }
         );
         const [showError,setShowError] = useState(false);
         const [errorMessage,setErrorMessage] = useState('');
-
+        const style = {
+            width:'70%',
+            marginLeft:'15%',
+            marginTop:'2%',
+            color:'black',
+            fontFamily:'Source Sans Pro',
+            fontSize:'16px',
+        }
         const checkValidity = (invoice) => {
             let isValid = true;
-            if(invoice.MedName === '' || invoice.Quantity === '' || invoice.Price === '' || invoice.MRP === '' || invoice.BatchId === '' || invoice.ManDate === '' || invoice.ExpDate === ''){
+            if(invoice.medicineName === '' || invoice.quantity === '' || invoice.Price === '' || invoice.MRP === '' || invoice.batchId === '' || invoice.ManDate === '' || invoice.ExpDate === ''){
                 isValid = false;
                 setErrorMessage('All fields are required');
             }
@@ -29,7 +36,21 @@ function MedicineForm({onAddition}) {
         }
 
     const handleAddition = () => {
-        checkValidity(invoice) ? onAddition(invoice) : setShowError(true)
+        if(checkValidity(invoice)){
+            onAddition(invoice) 
+            setInvoice({
+                medicineName: '',
+                quantity: '',
+                Price: null,
+                MRP:  null,
+                batchId: '',
+                ManDate: null,
+                ExpDate: null,
+            })
+    }
+    else{
+        setShowError(true);
+    }
     }
 
     return (
@@ -38,22 +59,19 @@ function MedicineForm({onAddition}) {
                     <h1>Invoice Details</h1>
                 </div>
                 <div className='invoice-content'>
-                    <h1 className='invoice-sub-title'>Medicine Details</h1>
+                    <h1 className='invoice-sub-title' >Medicine Details</h1>
+                    <div className='invoice-medicine-details'>
                     <Input 
                         type="text"
                         className="invoice-input" 
                         placeholder='Medicine Name' 
-                        name='MedName'
-                        value= {invoice.MedName}
-                        style={{
-                            width:'70%',
-                            marginLeft:'20%',
-                            marginTop:'2%'
-                        }}
+                        name='medicineName'
+                        value= {invoice.medicineName}
+                        style={ style }
                         onChange={(e) => {
                             setInvoice({
                                 ...invoice,
-                                MedName: e.target.value
+                                medicineName: e.target.value
                             })}
                         } />
                     <Input 
@@ -61,27 +79,19 @@ function MedicineForm({onAddition}) {
                         className="invoice-input" 
                         placeholder='Quantity'
                         name='Quantity'
-                        value={invoice.Quantity} 
-                        style={{
-                            width:'70%',
-                            marginLeft:'20%',
-                            marginTop:'2%'
-                        }}
+                        value={invoice.quantity} 
+                        style={ style }
                         onChange={(e) => {
                             setInvoice({
                                 ...invoice,
-                                Quantity: e.target.value
+                                quantity: e.target.value
                             })}
                         } />
                     <Input 
                         type="number"
                         className="invoice-input" 
                         placeholder='Price per medicine' 
-                        style={{
-                            width:'70%',
-                            marginLeft:'20%',
-                            marginTop:'2%'
-                        }}
+                        style={style}
                         onChange={(e) => {
                             setInvoice({    
                                 ...invoice,
@@ -92,32 +102,24 @@ function MedicineForm({onAddition}) {
                         type="number"
                         className="invoice-input" 
                         placeholder='MRP' 
-                        style={{
-                            width:'70%',
-                            marginLeft:'20%',
-                            marginTop:'2%'
-                        }}
+                        style={style}
                         onChange={(e) => {
                             setInvoice({
                                 ...invoice,
                                 MRP: e.target.value
                             })}
                         } />
-
+                    </div>
                     <h1 className='invoice-sub-title'>Manufacture Details</h1>
                     <Input 
                         type="text"
                         className="invoice-input" 
                         placeholder='Batch ID' 
-                        style={{
-                            width:'70%',
-                            marginLeft:'20%',
-                            marginTop:'2%'
-                        }}
+                        style={style}
                         onChange={(e) => {
                             setInvoice({
                                 ...invoice,
-                                BatchId: e.target.value
+                                batchId: e.target.value
                             })}
                         } />
 
@@ -125,11 +127,7 @@ function MedicineForm({onAddition}) {
                         type="text"
                         className="invoice-input" 
                         placeholder='Manufacture Date' 
-                        style={{
-                            width:'70%',
-                            marginLeft:'20%',
-                            marginTop:'2%'
-                        }}
+                        style={style}
                         onChange={(e) => {
                             setInvoice({
                                 ...invoice,
@@ -148,11 +146,7 @@ function MedicineForm({onAddition}) {
                         type="text"
                         className="invoice-input" 
                         placeholder='Expiry Date' 
-                        style={{
-                            width:'70%',
-                            marginLeft:'20%',
-                            marginTop:'2%'
-                        }}
+                        style={style}
                         onChange={(e) => {
                             setInvoice({
                                 ...invoice,
@@ -181,11 +175,11 @@ function MedicineForm({onAddition}) {
                         <div className='col-sm-6'>
                             <div className='invoice-button-container'>
                                 <button className='invoice-button' onClick={()=>{setInvoice({
-                                    MedName: '',
-                                    Quantity: '',
+                                    medicineName: '',
+                                    quantity: '',
                                     Price: '',
                                     MRP:  '',
-                                    BatchId: '',
+                                    batchId: '',
                                     ManDate: '',
                                     ExpDate: '',
                                 })}}>

@@ -10,8 +10,35 @@ import InvoiceTable from '../../components/dashboard/StoreDashboard/InvoiceTable
 
 function Invoice() {
     const [addMedicine, setAddMedicine] = useState([]);
+    const [distributorData, setDistributorData] = useState({});
     const handleMedicineAddition = (medicine) => {
         setAddMedicine([...addMedicine, medicine]);
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(addMedicine, distributorData);
+            //// Add to blockchain
+            // medicine = {
+            //     medicineName: '',
+            //     quantity: '',
+            //     Price: null,
+            //     MRP:  null,
+            //     batchId: '',
+            //     ManDate: null,
+            //     ExpDate: null,
+            // }
+            // distributorData = {
+            //     distributorName:'',
+            //     billNumber:'',
+            //     billDate:'',
+            //     companyName:'',
+            //     discount:'',
+            //     total:''
+            // }
+
+    };
+    const handleInvoiceData = (data) => {
+        setDistributorData(data);
     };
     useEffect(() => {
         console.log(addMedicine);
@@ -26,20 +53,21 @@ function Invoice() {
                 </div>
                 <div class="col-sm-10">
                     <TitleInvoice text={'Invoice'}></TitleInvoice>
-                    <Card className='invoice-card'>
+                    <Card className='invoice-card ' style={{borderRadius:"10px"}}>
                         <div class="row">
                             <div class="col-sm-5">
-                                <InvoiceForm></InvoiceForm>
-                                <InvoiceTable></InvoiceTable>
+                                <InvoiceForm submitInvoice={handleInvoiceData} />
+                                {
+                                    addMedicine?.length > 0 &&
+                                    <InvoiceTable list={addMedicine} />}
                             </div>
                             <div class="col-sm-7">
-                                
                                 <MedicineForm 
                                     onAddition={handleMedicineAddition} />
                             </div>
                         </div>
                         <div className='invoice-submit-container'>
-                            <button className='invoice-submit-btn'>Submit</button>
+                            <button className='invoice-submit-btn' onClick={handleSubmit}>Submit</button>
                         </div>
                     </Card>
                 </div>

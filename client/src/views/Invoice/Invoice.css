@@ -1,13 +1,24 @@
 .Container{
-    height: 800px;
     width: 100%;
 }
 .invoice-card{
     margin-top: 20px;
-    height: 900px;
     background-color: white;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
     margin-bottom: 5%;
+}
+.invoice-content{
+    border: #4cccc0 20px solid;
+    border-radius: 20px;
+    background: #4cccc0;
+    width: 95%;
+    margin-left: 27px;
+    margin-bottom: 10px
+}
+.invoice-title{
+    margin-top: 10px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 33px;
 }
 .invoice-submit{
     height: 5%;
