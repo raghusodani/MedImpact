@@ -99,7 +99,7 @@ function Login({ setup }) {
                                 </button>
                             </div>
                             <div>
-                                <a href="/#/signup" className="font-medium text-indigo-600 hover:text-indigo-500" style={{
+                                <a href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500" style={{
                                     color: '#4CCCC0',
                                 }}>
                                     Don't have an account ? Sign Up
