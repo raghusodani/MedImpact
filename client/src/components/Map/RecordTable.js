@@ -1,35 +1,53 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios';
 import './Map.css';
 
-function RecordTable() {
+function RecordTable(props) {
+
+const [data, setData] = useState([]);
+
+useEffect(()=>{
+setData(props.data);
+
+},[props.data])
+
+
+
     return (
         <div className='record-table'> 
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Store</th>
-                    <th scope="col">Owner</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Contact</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Landmark</th>
-                    <th scope="col">City</th>
-                    <th scope="col">Pincode</th>
+                    <th width="1%" scope="col">No</th>
+                    <th width="10%" scope="col">Store</th>
+                    <th width="10%" scope="col">Owner</th>
+                    <th width="10%" scope="col">Email</th>
+                    <th width="10%" scope="col">Contact</th>
+                    <th width="10%" scope="col">Address</th>
+                    <th width="10%" scope="col">Landmark</th>
+                    <th width="10%" scope="col">City</th>
+                    <th width="5%" scope="col">Pincode</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <th scope="row">1</th>
-                    <td>Kishore Medicals</td>
-                    <td>Kishore Gaur</td>
-                    <td>kishore@kishore.com</td>
-                    <td>0123456789</td>
-                    <td>E-303, Kishore Tower</td>
-                    <td>Kishore Chowk</td>
-                    <td>Kishoregarh</td>
-                    <td>380059</td>
-                    </tr>
+                {
+                    data.map((d, id)=>{
+                        return (
+                            <tr>
+                    <th scope="row">{id+1}</th>
+                    <td>{d.storeName}</td>
+                    <td>{d.storeOwner}</td>
+                    <td>{d.email}</td>
+                    <td>{d.contact}</td>
+                    <td>{d.address}</td>
+                    <td>{d.landmark}</td>
+                    <td>{d.city}</td>
+                    <td>{d.pincode}</td>
+                    </tr>    
+                        )
+                    })
+                }
+                   
                 </tbody>
                 </table>
         </div>
