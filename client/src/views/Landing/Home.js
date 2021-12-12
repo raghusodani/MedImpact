@@ -4,7 +4,7 @@ const Home = () => {
 
     return (
         <div className='home'>
-            <div className='homeabove' style={{backgroundImage:`url(assets/heroImage.svg)`}}>
+            <div className='homeabove'>
                 <div className='homeabovecontainer'>
                     <a className='homeabovecontaineritem' href="/search/donor">
                         <p className='containeritemtext' >Find a Blood Donor Online</p>

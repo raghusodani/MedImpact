@@ -4,6 +4,7 @@
 }
 
 .homeabove{
+    background-image: url('/public/assets/heroImage.svg');
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: cover;
