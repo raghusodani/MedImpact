@@ -93,7 +93,7 @@ function App() {
       const deployedNetwork = MedImpact.networks[networkId];
       const contract = new web3.eth.Contract(
         MedImpact.abi,
-        "0x6CF1713a0293Ca6634Efd6F1a7d0Ff91aF9df0a0",
+        "0x0FC72f1b810A6fE6ff2a585c1c250f640C1c7ACA",
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
@@ -171,9 +171,9 @@ function App() {
     setMedicines([]);
     for (let i = 1; i <= medicineCount; i++) {
       console.log("i", i)
-      const batchId = await contract?.methods?.batchIdOfMedicine(account, i).call();
-      console.log("in for batchId", batchId)
-      const medicine = await contract?.methods?.medicines(account, batchId).call();
+      //const batchId = await contract?.methods?.batchIdOfMedicine(account, i).call();
+      //console.log("in for batchId", batchId)
+      const medicine = await contract?.methods?.myMedicines(account, i).call();
       //setMedicines([...medicines, medicine])
       setMedicines((prevState) => [...prevState, medicine])
       console.log("in for medicine", medicine)      
