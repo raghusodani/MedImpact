@@ -38,9 +38,10 @@ function Invoice({ addingMedicine, retrieveFile, handleUpload}) {
             //     discount:'',
             //     total:''
             // }
+        setShowUploadDiv(true);
         addingMedicine(addMedicine[0].medicineName, parseInt(addMedicine[0].Price), parseInt(addMedicine[0].MRP), parseInt(addMedicine[0].quantity), addMedicine[0].batchId, addMedicine[0].ManDate, addMedicine[0].ExpDate)
         generatePDF(addMedicine,distributorData);
-        setShowUploadDiv(true);
+        //setShowUploadDiv(true);
 
     };
     const generatePDF = (medicines,invoiceData) => {
