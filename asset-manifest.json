@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/MedImpact/static/css/main.da6f76da.css",
-    "main.js": "/MedImpact/static/js/main.14e4ff5a.js",
+    "main.js": "/MedImpact/static/js/main.ac64460d.js",
     "index.html": "/MedImpact/index.html",
     "main.da6f76da.css.map": "/MedImpact/static/css/main.da6f76da.css.map",
-    "main.14e4ff5a.js.map": "/MedImpact/static/js/main.14e4ff5a.js.map"
+    "main.ac64460d.js.map": "/MedImpact/static/js/main.ac64460d.js.map"
   },
   "entrypoints": [
     "static/css/main.da6f76da.css",
-    "static/js/main.14e4ff5a.js"
+    "static/js/main.ac64460d.js"
   ]
 }
