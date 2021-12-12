@@ -15,6 +15,7 @@ import Inventory from './views/Inventory/Inventory';
 import SearchContent from './views/Search/SearchContent';
 import NavBar from './components/dashboard/StoreDashboard/NavBar';
 import Invoice from './views/Invoice/Invoice';
+import UploadInvoice from './views/Invoice/UploadInvoice';
 import Home from './views/Landing/Home';
 //import ipfsClient from 'ipfs-http-client';
 import { create } from "ipfs-http-client";
@@ -44,10 +45,13 @@ function App() {
         return <Billing />
       }
       else if (component === "inventory") {
-        return <Inventory getMedicines={getMedicines} />
+        return <Inventory getMedicines={getMedicines} getBills={getBills} />
       }
       else if (component === "invoice") {
-        return <Invoice addingMedicine={addingMedicine} />
+        return <Invoice addingMedicine={addingMedicine} retrieveFile={retrieveFile} handleUpload={handleUpload} />
+      }
+      else if (component === "uploadinvoice") {
+        return <UploadInvoice retrieveFile={retrieveFile} handleUpload={handleUpload}/>
       }
       else {
         return <Redirect to="dashboard/Donor" />
@@ -67,7 +71,7 @@ function App() {
   const [medicines, setMedicines] = useState([]);
   const [bills, setBills] = useState([]);
   const [file, setFile] = useState(null);
-  const [urlArr, setUrlArr] = useState([]);
+  //const [urlArr, setUrlArr] = useState([]);
 
   //const ipfsAPI = require('ipfs-api');
   //const ipfs = ipfsAPI('ipfs.infura.io', '5001', { protocol: 'https' });
@@ -89,7 +93,7 @@ function App() {
       const deployedNetwork = MedImpact.networks[networkId];
       const contract = new web3.eth.Contract(
         MedImpact.abi,
-        "0x3A9D9b5324D9DA5A21b21176EaB44029c603E979",
+        "0x6CF1713a0293Ca6634Efd6F1a7d0Ff91aF9df0a0",
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
@@ -120,18 +124,18 @@ function App() {
   console.log("accounts", accounts);
   console.log("web3", web3);
 
-  const addMedicalStore = async (medicalStoreName, email, phoneno, aadhaarCardHash) => {
+  const addMedicalStore = async (ownerName, medicalStoreName, phoneno, ownerAddress) => {
     setLoading(true)
-    contract?.methods?.addMedicalStore(medicalStoreName, email, phoneno, aadhaarCardHash).send({ from: account }).on('transactionHash', (hash) => {
+    contract?.methods?.addMedicalStore(ownerName, medicalStoreName, phoneno, ownerAddress).send({ from: account }).on('transactionHash', (hash) => {
       setLoading(false)
     })
     console.log("add medicine")
   }
 
-  const addingMedicine = async (medicineName, price, quantity, batchNo, expiryDate/*, billHash*/) => {
+  const addingMedicine = async (medicineName, rate, price, quantity, batchNo, manufactDate, expiryDate) => {
     console.log("medicineName", medicineName)
     setLoading(true)
-    contract?.methods?.addMedicine(medicineName, price, quantity, batchNo, expiryDate).send({ from: account }).on('transactionHash', (hash) => {
+    contract?.methods?.addMedicine(medicineName, rate, price, quantity, batchNo, manufactDate, expiryDate).send({ from: account }).on('transactionHash', (hash) => {
       setLoading(false)
     })
 
@@ -165,17 +169,30 @@ function App() {
     const medicineCount = await contract?.methods?.medicineCountInMedicalStore(account).call();
     console.log("medicineCount", medicineCount);
     setMedicines([]);
-    // for (let i = 1; i <= medicineCount; i++) {
-    //   const batchId = await contract?.methods?.batchIdOfMedicine(account, i).call();
-    //   // const medicine = await contract?.methods?.medicines(account, batchId).call();
-    //   // setMedicines((prevState) => [...prevState, medicine])
-    //   // console.log("in for medicine", medicine)
-
-    //   // const bill = await contract?.methods?.myBills(account, batchId).call();
-    //   // setMedicines((prevState) => [...prevState, bill])
-    // }
+    for (let i = 1; i <= medicineCount; i++) {
+      console.log("i", i)
+      const batchId = await contract?.methods?.batchIdOfMedicine(account, i).call();
+      console.log("in for batchId", batchId)
+      const medicine = await contract?.methods?.medicines(account, batchId).call();
+      //setMedicines([...medicines, medicine])
+      setMedicines((prevState) => [...prevState, medicine])
+      console.log("in for medicine", medicine)      
+    }
     return medicines;
   }
+
+  const getBills = async () => {
+    const billCount = await contract?.methods?.myBillsCount(account).call();
+    console.log("billCount", billCount);
+    setBills([]);
+    for (let i = 1; i <= billCount; i++) {
+      console.log("i", i)
+      const bill = await contract?.methods?.myBills(account, i).call();
+      console.log("in for bill", bill)
+      setBills((prevState) => [...prevState, bill])
+    }
+    return bills;
+  }  
 
 
   // const captureFile = (e) => {
@@ -192,18 +209,19 @@ function App() {
   // }
 
   const retrieveFile = (e) => {
+    e.preventDefault();
     const data = e.target.files[0];
+    console.log(data);
     const reader = new window.FileReader();
+    console.log(reader)
     reader.readAsArrayBuffer(data);
     reader.onloadend = () => {
-      console.log("Buffer data: ", Buffer(reader.result));
-      setFile(Buffer(reader.result));
+      console.log("Buffer data: ", reader.result);
+      setFile(reader.result);
     }
-
-    e.preventDefault();
   }
 
-  const handleSubmit = async (e) => {
+  const handleUpload = async (e) => {
     e.preventDefault();
     try {
       const created = await client.add(file);
@@ -238,6 +256,7 @@ function App() {
           <Route path="/billing" component={() => checkStore("billing")} />
           <Route path='/inventory' component={() => checkStore("inventory")} />
           <Route path='/invoice' component={() => checkStore("invoice")} />
+          <Route path='/uploadinvoice' component={() => checkStore("uploadinvoice")} />
         </Switch>
       </HashRouter>
 

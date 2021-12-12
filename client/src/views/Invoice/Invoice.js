@@ -8,12 +8,14 @@ import MedicineForm from '../../components/dashboard/StoreDashboard/MedicineForm
 import InvoiceStyler from './Invoice.css'
 import InvoiceTable from '../../components/dashboard/StoreDashboard/InvoiceTable'
 import jsPDF from 'jspdf';
+import {useHistory} from 'react-router-dom';
 import "jspdf-autotable";
 function Invoice({addingMedicine}) {
+    const history = useHistory();
     const [addMedicine, setAddMedicine] = useState([]);
     const [distributorData, setDistributorData] = useState({});
     const [showUploadDiv, setShowUploadDiv] = useState(false);
-    const [pdf, setPdf] = useState(null);
+    
     const handleMedicineAddition = (medicine) => {
         setAddMedicine([...addMedicine, medicine]);
     };
@@ -41,7 +43,7 @@ function Invoice({addingMedicine}) {
         addingMedicine(addMedicine[0].medicineName, parseInt(addMedicine[0].Price), parseInt(addMedicine[0].quantity), addMedicine[0].batchId, addMedicine[0].ExpDate, "billhash")
         generatePDF(addMedicine,distributorData);
         setShowUploadDiv(true);
-
+        history.push('/uploadinvoice');
     };
     const generatePDF = (medicines,invoiceData) => {
         // initialize jsPDF
@@ -78,9 +80,6 @@ function Invoice({addingMedicine}) {
     const handleInvoiceData = (data) => {
         setDistributorData(data);
     };
-    useEffect(() => {
-        console.log(addMedicine);
-    }, [addMedicine]);
     return (
         <div className='Container'>
             <div class="row">

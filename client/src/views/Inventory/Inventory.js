@@ -5,22 +5,25 @@ import IntroCard from '../../components/dashboard/StoreDashboard/IntroCard'
 import TitleCard from '../../components/dashboard/StoreDashboard/TtileCard'
 import InventoryTable from '../../components/dashboard/StoreDashboard/InventoryTable'
 
-function Inventory({getMedicines}) {
-
+function Inventory({getMedicines, getBills}) {
     
     const [medicines, setMedicines] = useState([{}])
+    const [bills, setBills] = useState([{}])
     let a = true;
-    getMedicines()?.then((res) => {
-        setMedicines(res);
-        console.log("res", res)
-    });
-    // useEffect(() => {
-    //     //console.log("getMedicines", getMedicines())
-    //     getMedicines()?.then((res) => {
-    //         setMedicines(res);
-    //         console.log("res", res)
-    //     });
-    // }, [a])
+
+    useEffect(() => {
+        getMedicines()?.then((res) => {
+            setMedicines(res);
+            console.log("res", res)
+        });
+    }, [])
+
+    useEffect(() => {
+        getBills()?.then((res) => {
+            setBills(res);
+            console.log("res", res)
+        });
+    }, [])
 
     return (
         <div className="Container">
