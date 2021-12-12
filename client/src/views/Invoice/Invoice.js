@@ -112,20 +112,7 @@ function Invoice({addingMedicine}) {
                    
                     </div>)
                     : 
-                    (
-                        <div className='invoice-upload-container'>
-                            <div className='invoice-upload-text'>
-                                 Upload the PDF file Downloaded in your browser
-                            </div>
-                            <div className='invoice-upload-btn'>
-                                <input type='file' id='file' name='file' onChange={(e) => {setPdf(e.target.value)}} style={{
-                                    width: '100%',
-                                    height: '200px',
-                                }}/>
-                            </div>
-                            <button className='invoice-submit-btn' onClick={() => setShowUploadDiv(false)}>Submit</button>
-                        </div>
-                    )
+                    null
                     }
 
                     </Card>
