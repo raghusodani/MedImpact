@@ -1,7 +1,7 @@
 import './App.css';
 import Web3 from "web3";
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter , Route, Switch, Redirect } from 'react-router-dom';
 import MedImpact from "./contracts/MedImpact.json";
 import getWeb3 from "./getWeb3";
 import Login from './views/Auth/Login/Login';
@@ -16,6 +16,7 @@ import SearchContent from './views/Search/SearchContent';
 import NavBar from './components/dashboard/StoreDashboard/NavBar';
 import Invoice from './views/Invoice/Invoice';
 import Home from './views/Landing/Home';
+import { HashRouter } from 'react-router-dom';
 
 function App() {
   let token = getToken();
@@ -184,7 +185,7 @@ function App() {
   return (
     <div className="App">
       
-      <Router basename={process.env.PUBLIC_URL}>
+      <BrowserRouter>
       <NavBar/>
         <Switch>
           <Redirect exact from={'/MedImpact/'} to={'/MedImpact/home'}/>
@@ -199,7 +200,7 @@ function App() {
           <Route path='/MedImpact/inventory' component={()=>checkStore("inventory")} />
           <Route path='/MedImpact/invoice' component={()=>checkStore("invoice")} />
         </Switch>
-      </Router>
+      </BrowserRouter>
 
     </div>
   );
