@@ -89,7 +89,7 @@ function App() {
       const deployedNetwork = MedImpact.networks[networkId];
       const contract = new web3.eth.Contract(
         MedImpact.abi,
-        "0x6bbbEb507F12E41c349c0EEeEFD33c6A114bd0c4",
+        "0x3A9D9b5324D9DA5A21b21176EaB44029c603E979",
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
@@ -214,7 +214,7 @@ function App() {
       const url = `https://ipfs.infura.io/ipfs/${created.path}`;
       //setUrlArr(prev => [...prev, url]);
       setLoading(true)
-      contract?.methods?.addBills(batchId, url).send({ from: account }).on('transactionHash', (hash) => {
+      contract?.methods?.addBills(url).send({ from: account }).on('transactionHash', (hash) => {
         setLoading(false)
       })
 
