@@ -8,8 +8,8 @@ import ExpiryTable from './StoreDashboard/ExpiryTable'
 import StoreDashStyle from './StoreDashboard.css'
 function StoreDashboard({invoicesCount, purchasesCount}) {
     const user = {
-        name: 'raghu raj',
-        email: 'sodaniraghuraj@gmail.com'
+        name: 'Anuj Pillai',
+        email: 'anujpillai1201@gmail.com'
     }
     const [invoices, setInvoices] = useState(0);
     const [purchases, setPurchases] = useState(0);
