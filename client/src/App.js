@@ -71,6 +71,7 @@ function App() {
   const [medicines, setMedicines] = useState([]);
   const [bills, setBills] = useState([]);
   const [file, setFile] = useState(null);
+  
   //const [urlArr, setUrlArr] = useState([]);
 
   //const ipfsAPI = require('ipfs-api');
@@ -237,7 +238,9 @@ function App() {
       console.log(error.message);
     }
   };
-  
+  useEffect(() => {
+    console.log("useEffect medicine", medicines);
+  }, [medicines]);
 
   return (
     <div className="App">
