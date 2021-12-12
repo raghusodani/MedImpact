@@ -1,0 +1,22 @@
+.total-card{
+    width: 90%;
+    margin: auto;
+    margin-top: 100px;
+    height: 120px;
+    border-radius: 10px;
+}
+.progress-card{
+    width: 90%;
+    margin: auto;
+    margin-top: 30px;
+    height: 120px;
+    border-radius: 10px;
+}
+.total-title{
+    font-size: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    text-align: left;
+    margin-left: 10%;
+    margin-top: 2%;
+}
