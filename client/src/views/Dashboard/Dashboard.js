@@ -9,12 +9,12 @@ import OutOfStockTable from '../../components/dashboard/StoreDashboard/OutOfStoc
 import DonorDashboard from '../../components/dashboard/DonorDashboard'
 import StoreDashboard from '../../components/dashboard/StoreDashboard'
 
-function Dashboard({invoicesCount, purchasesCount}) {
+function Dashboard({medicalStore}) {
     const type = useParams().type
     console.log(type)
     return (
         <div>
-            {type === "Donor" ? <DonorDashboard /> : <StoreDashboard invoicesCount={invoicesCount} purchasesCount={purchasesCount} medicalStore={medicalStore} />}
+            {type === "Donor" ? <DonorDashboard /> : <StoreDashboard medicalStore={medicalStore} />}
         </div>
     )
 }

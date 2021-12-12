@@ -30,7 +30,7 @@ function App() {
     if (token) {
       switch (type) {
         case 'Dashboard':
-          return <Dashboard invoicesCount={invoicesCount} purchasesCount={purchasesCount} medicalStore={medicalStore} />
+          return <Dashboard  medicalStore={medicalStore} />
         case 'FirstTimeLogin':
           return <FirstTimeLogin addMedicalStore={addMedicalStore} />
       }

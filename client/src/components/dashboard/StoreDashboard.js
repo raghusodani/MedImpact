@@ -6,7 +6,7 @@ import DataCard from './StoreDashboard/DataCard'
 import OutOfStockTable from './StoreDashboard/OutOfStockTable'
 import ExpiryTable from './StoreDashboard/ExpiryTable'
 import StoreDashStyle from './StoreDashboard.css'
-function StoreDashboard({ invoicesCount, purchasesCount, medicalStore}) {
+function StoreDashboard({ medicalStore}) {
     const user = {
         name: 'Anuj Pillai',
         email: 'anujpillai1201@gmail.com'
