@@ -71,6 +71,7 @@ function App() {
   const [medicines, setMedicines] = useState([]);
   const [bills, setBills] = useState([]);
   const [file, setFile] = useState(null);
+  
   //const [urlArr, setUrlArr] = useState([]);
 
   //const ipfsAPI = require('ipfs-api');
@@ -103,7 +104,6 @@ function App() {
       setContract(contract);
 
       setLoading(false);
-
       console.log("medicalStoresCount", contract?.methods?.medicalStoresCount().call());
 
     } catch (error) {
@@ -176,30 +176,32 @@ function App() {
   const getMedicines = async () => {
     const medicineCount = await contract?.methods?.medicineCountInMedicalStore(account).call();
     console.log("medicineCount", medicineCount);
-    setMedicines([]);
-    for (let i = 1; i <= medicineCount; i++) {
-      console.log("i", i)
-      //const batchId = await contract?.methods?.batchIdOfMedicine(account, i).call();
-      //console.log("in for batchId", batchId)
-      const medicine = await contract?.methods?.myMedicines(account, i).call();
-      //setMedicines([...medicines, medicine])
-      setMedicines((prevState) => [...prevState, medicine])
-      console.log("in for medicine", medicine)      
-    }
-    return medicines;
+    // setMedicines([]);
+    // for (let i = 1; i <= medicineCount; i++) {
+    //   console.log("i", i)
+      const batchId = await contract?.methods?.batchIdOfMedicine(account, 1).call();
+    //   //console.log("in for batchId", batchId)
+      
+    //   //setMedicines([...medicines, medicine])
+    //   setMedicines((prevState) => [...prevState, medicine])
+    //   console.log("in for medicine", medicine)      
+    // }
+    const medicine = await contract?.methods?.medicines(account, batchId).call();
+    return medicine;
   }
 
   const getBills = async () => {
     const billCount = await contract?.methods?.myBillsCount(account).call();
     console.log("billCount", billCount);
-    setBills([]);
-    for (let i = 1; i <= billCount; i++) {
-      console.log("i", i)
-      const bill = await contract?.methods?.myBills(account, i).call();
-      console.log("in for bill", bill)
-      setBills((prevState) => [...prevState, bill])
-    }
-    return bills;
+    // setBills([]);
+    // for (let i = 1; i <= billCount; i++) {
+    //   console.log("i", i)
+      
+    //   console.log("in for bill", bill)
+    //   setBills((prevState) => [...prevState, bill])
+    // }
+    const bill = await contract?.methods?.myBills(account, 1).call();
+    return bill;
   }  
 
 
@@ -245,7 +247,9 @@ function App() {
       console.log(error.message);
     }
   };
-  
+  useEffect(() => {
+    console.log("useEffect medicine", medicines);
+  }, [medicines]);
 
   return (
     <div className="App">
