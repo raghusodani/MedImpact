@@ -7,7 +7,7 @@ function SearchContent() {
     return (
         <div>
             <Map type={searchType}/>
-            <Subscribe></Subscribe>
+            <Subscribe type={searchType}></Subscribe>
         </div>
     )
 }
