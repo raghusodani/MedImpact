@@ -9,7 +9,7 @@ import InvoiceStyler from './Invoice.css'
 import InvoiceTable from '../../components/dashboard/StoreDashboard/InvoiceTable'
 import jsPDF from 'jspdf';
 import "jspdf-autotable";
-function Invoice({addingMedicine}) {
+function Invoice({ addingMedicine, retrieveFile, handleUpload}) {
     const [addMedicine, setAddMedicine] = useState([]);
     const [distributorData, setDistributorData] = useState({});
     const [showUploadDiv, setShowUploadDiv] = useState(false);
@@ -38,9 +38,10 @@ function Invoice({addingMedicine}) {
             //     discount:'',
             //     total:''
             // }
-        addingMedicine(addMedicine[0].medicineName, parseInt(addMedicine[0].Price), parseInt(addMedicine[0].quantity), addMedicine[0].batchId, addMedicine[0].ExpDate, "billhash")
-        generatePDF(addMedicine,distributorData);
         setShowUploadDiv(true);
+        addingMedicine(addMedicine[0].medicineName, parseInt(addMedicine[0].Price), parseInt(addMedicine[0].MRP), parseInt(addMedicine[0].quantity), addMedicine[0].batchId, addMedicine[0].ManDate, addMedicine[0].ExpDate)
+        generatePDF(addMedicine,distributorData);
+        //setShowUploadDiv(true);
 
     };
     const generatePDF = (medicines,invoiceData) => {
@@ -92,7 +93,7 @@ function Invoice({addingMedicine}) {
                 <div class="col-sm-10">
                     <TitleInvoice text={'Invoice'}></TitleInvoice>
                     <Card className='invoice-card ' style={{borderRadius:"10px"}}>
-                    {!showUploadDiv ?
+                    {showUploadDiv ?
                     (<div>
                     <div class="row">
                         <div class="col-sm-5">
@@ -118,12 +119,12 @@ function Invoice({addingMedicine}) {
                                  Upload the PDF file Downloaded in your browser
                             </div>
                             <div className='invoice-upload-btn'>
-                                <input type='file' id='file' name='file' onChange={(e) => {setPdf(e.target.value)}} style={{
+                                        <input type='file' id='file' name='file' onChange={retrieveFile} style={{
                                     width: '100%',
                                     height: '200px',
                                 }}/>
                             </div>
-                            <button className='invoice-submit-btn' onClick={() => setShowUploadDiv(false)}>Submit</button>
+                                    <button className='invoice-submit-btn' onClick={handleUpload}>Submit</button>
                         </div>
                     )
                     }

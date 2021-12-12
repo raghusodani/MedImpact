@@ -55,13 +55,13 @@ contract MedImpact {
     
     // map to store medical stores of a particular user
     // owneraddress => MedicalStore
-    mapping(address => MedicalStore) myMedicalStores;
+    mapping(address => MedicalStore) public myMedicalStores;
 
     // map owneraddress => bill count => bills
-    mapping(address => mapping(uint256 => string)) myBills;
+    mapping(address => mapping(uint256 => string)) public myBills;
 
     // map owneraddress => bill count
-    mapping(address => uint256) myBillsCount;
+    mapping(address => uint256) public myBillsCount;
 
 
     // store the number of medical stores
