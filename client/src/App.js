@@ -171,14 +171,14 @@ function App() {
     // setMedicines([]);
     // for (let i = 1; i <= medicineCount; i++) {
     //   console.log("i", i)
-    //   //const batchId = await contract?.methods?.batchIdOfMedicine(account, i).call();
+      const batchId = await contract?.methods?.batchIdOfMedicine(account, 1).call();
     //   //console.log("in for batchId", batchId)
       
     //   //setMedicines([...medicines, medicine])
     //   setMedicines((prevState) => [...prevState, medicine])
     //   console.log("in for medicine", medicine)      
     // }
-    const medicine = await contract?.methods?.myMedicines(account, 1).call();
+    const medicine = await contract?.methods?.medicines(account, batchId).call();
     return medicine;
   }
 
