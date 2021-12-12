@@ -93,7 +93,7 @@ function App() {
       const deployedNetwork = MedImpact.networks[networkId];
       const contract = new web3.eth.Contract(
         MedImpact.abi,
-        "0x0FC72f1b810A6fE6ff2a585c1c250f640C1c7ACA",
+        "0xb223017b3789d064a61bdbA72fF34C99eB551DD8",
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
