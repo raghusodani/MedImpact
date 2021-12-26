@@ -1,6 +1,5 @@
 {
   "name": "client",
-  "homepage": "http://raghusodani.github.io/MedImpact",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
